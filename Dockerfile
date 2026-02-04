@@ -5,5 +5,5 @@ FROM texlive/texlive:latest
 
 WORKDIR /workspace
 
-# Default command: compile a .tex file passed as argument
-ENTRYPOINT ["latexmk", "-pdf", "-interaction=nonstopmode", "-file-line-error"]
+# No fixed entrypoint - allows running any TeX tool (latexmk, latexindent, chktex, etc.)
+# LaTeX Workshop will specify the command directly

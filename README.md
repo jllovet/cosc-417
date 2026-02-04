@@ -30,14 +30,24 @@ make build-image
 3. Press `Ctrl+Alt+V` (Mac: `Cmd+Opt+V`) to open PDF preview
 4. Double-click in the PDF to jump to the corresponding source line
 
+**Formatting:** `Shift+Alt+F` (Mac: `Shift+Opt+F`) to format the current file
+
+**Linting:** Warnings appear automatically in the Problems panel
+
 #### Command Line
 
 ```bash
 # Compile a .tex file
-make build FILE=assignment-0/main.tex
+make build FILE=assignment-0/assignment-0.tex
 
 # Watch for changes and auto-rebuild
-make watch FILE=assignment-0/main.tex
+make watch FILE=assignment-0/assignment-0.tex
+
+# Format a .tex file
+make format FILE=assignment-0/assignment-0.tex
+
+# Lint a .tex file
+make lint FILE=assignment-0/assignment-0.tex
 
 # Clean auxiliary files
 make clean
@@ -46,20 +56,26 @@ make clean
 #### Direct Docker
 
 ```bash
-docker compose run --rm latex path/to/file.tex
+docker compose run --rm latex latexmk -pdf -interaction=nonstopmode path/to/file.tex
 ```
 
 ### Project Structure
 
 ```
 .
-├── assignment-0/          # Assignment submissions
+├── assignment-X/          # Assignment submissions
 ├── resources/
 │   └── assignment-template.tex  # LaTeX template with examples
+├── .latexindent.yaml      # Formatter configuration
 ├── Dockerfile             # TeX Live 2025 image
 ├── docker-compose.yml     # Container orchestration
 └── Makefile               # Build helpers
 ```
+
+### Linting & Formatting
+
+- **ChkTeX**: Linter that catches common LaTeX errors (runs automatically in VSCode)
+- **latexindent**: Formatter for consistent code style (2-space indentation)
 
 ### Template Features
 

@@ -25,8 +25,13 @@
 *.synctex.gz
 *.synctex(busy)
 
-# LaTeX build output (optional - remove if you want to commit PDFs)
-# *.pdf
+# latexindent backup files
+*.bak*
+indent.log
+
+# LaTeX build output - ignore PDFs except in resources/
+*.pdf
+!resources/**/*.pdf
 
 # OS files
 .DS_Store
