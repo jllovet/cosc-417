@@ -1,3 +1,4 @@
+# Private files
 **private**
 
 # LaTeX auxiliary files
@@ -47,6 +48,7 @@ id_rsa*
 # Credentials
 **/credentials.json
 **/secrets.json
+**/.envrc
 
 # Editor files
 *.swp
