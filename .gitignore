@@ -1,0 +1,54 @@
+**private**
+
+# LaTeX auxiliary files
+*.aux
+*.bbl
+*.blg
+*.idx
+*.ind
+*.lof
+*.lot
+*.out
+*.toc
+*.acn
+*.acr
+*.alg
+*.glg
+*.glo
+*.gls
+*.fls
+*.log
+*.fdb_latexmk
+*.snm
+*.nav
+*.synctex.gz
+*.synctex(busy)
+
+# LaTeX build output (optional - remove if you want to commit PDFs)
+# *.pdf
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Environment and secrets
+.env
+.env.*
+.envrc.local
+
+# Private keys and certificates
+*.pem
+*.key
+id_rsa*
+
+# Claude Code local settings (machine-specific)
+.claude/settings.local.json
+
+# Credentials
+**/credentials.json
+**/secrets.json
+
+# Editor files
+*.swp
+*.swo
+*~

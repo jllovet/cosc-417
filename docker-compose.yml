@@ -1,0 +1,7 @@
+services:
+  latex:
+    build: .
+    image: cosc-417-latex
+    volumes:
+      - .:/workspace
+    working_dir: /workspace
