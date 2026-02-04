@@ -63,22 +63,18 @@ Of course, there is also a proof by induction, but it is less fun.
 
 \textbf{Example 2:} The following is a directed graph with 3 vertices and 3 edges:
 
-\begin{tikzpicture}
-  %% vertices
-  \draw[fill=black] (0,0) circle (3pt); % a
-  \draw[fill=black] (4,0) circle (3pt); % b
-  \draw[fill=black] (9,0) circle (3pt); % d
-  \draw[fill=black] (2,2) circle (3pt); % c
-  %% vertex labels
-  \node at (0,0.3) {a};
-  \node at (4,0.3) {b};
-  \node at (9,0.3) {d};
-  \node at (2.6,2) {c};
-  %%% edges
-  \draw[thick] (0,0) -- (2,2); % a - c
-  \draw[thick] (0,0) -- (4,0); % a - b
-  \draw[thick] (2,2) -- (4,0); % c - b
-  \draw[thick] (4,0) -- (9,0); % b - d
+\begin{tikzpicture}[
+  vertex/.style={circle, fill=black, inner sep=2.5pt}
+]
+  %% Vertices
+  \node[vertex, label={[label distance=-3pt]above:{a}}] (a) at (0,0) {};
+  \node[vertex, label={[label distance=-4pt]above:{b}}] (b) at (4,0) {};
+  \node[vertex, label={[label distance=4pt]right:{c}}] (c) at (2,2) {};
+  \node[vertex, label={[label distance=-4pt]above:{d}}] (d) at (9,0) {};
+
+  %% Edges
+  \draw[thick] (a) -- (b) -- (d);
+  \draw[thick] (a) -- (c) -- (b);
 \end{tikzpicture}
 
 \bigskip
