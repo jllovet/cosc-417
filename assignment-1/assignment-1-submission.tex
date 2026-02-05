@@ -1,0 +1,132 @@
+\documentclass[12pt,letterpaper,final]{report}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\renewcommand\qedsymbol{$\blacksquare$}
+\usepackage{enumerate}
+\usepackage{hyperref}
+\usepackage{pdfpages}
+\usepackage{graphics}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{tikz-qtree}
+\usetikzlibrary{automata,arrows}
+
+\author{Marius Zimand}
+\author{Jonathan Llovet}
+
+\begin{document}
+
+\fbox{
+  \vbox{
+    \begin{flushleft}
+      Jonathan Llovet \\  % authors' names
+      COSC 417 \\  %class
+      2026-02-12, 11:59 PM (EST) \\  % date
+    \end{flushleft}
+    \center{\Large{\textbf{Assignment 1}}}
+    %\end{mdframed}
+  } % end vbox
+} % end fbox
+\vline
+
+{\bf Problem 1.} Let $A = \{x,y\}$ and $B= \{x,y,z\}$.
+\begin{enumerate}
+  \item  Is $A$ a subset of $B$?
+
+        Yes
+
+  \item  Is $B$ a subset of $A$?
+
+        No
+
+  \item What is $A \cup B$?
+
+        $\{x,y,z\}$
+
+  \item  What is $A \cap B$?
+
+        $\{x,y\}$
+
+  \item  What is $A \times B$?
+
+        $\{(x,x), (x,y), (x,z), (y,x), (y,y), (y,z)\}$
+
+  \item  What is ${\cal P}(B)$? (${\cal P}(B)$ is the powerset of $B$).
+
+        $\{
+          \emptyset,
+          \{x\},
+          \{y\},
+          \{z\},
+          \{x,y\},
+          \{x,z\},
+          \{y,z\},
+          \{x,y,z\}
+          \}$
+
+  \item What is ${\cal P}({\cal P}(A))$?
+
+        Recall that
+        \[
+          \begin{array}{lll}
+            A           & = \{x,y\}                              \\
+            {\cal P}(A) & = \{\emptyset, \{x\}, \{y\}, \{x,y\}\} \\                                                                                                                                     \\ % quadruple
+          \end{array}
+        \]
+
+        Arranging the elements by their cardinality, ${\cal P}({\cal P}(A))$ is as follows:
+        \[
+          \begin{array}{lll}
+             & \Bigg\{ \emptyset                                                                                                                                                                \\\\ % empty set
+             & \{\emptyset\}, \{x\}, \{y\}, \{x, y\},                                                                                                                                           \\\\ % singletons
+             & \Big\{\emptyset, \{x\}\Big\}, \Big\{\emptyset, \{y\}\Big\}, \Big\{\emptyset, \{x, y\}\Big\}, \Big\{\{x\}, \{y\}\Big\}, \Big\{\{x\}, \{x, y\}\Big\}, \Big\{\{y\}, \{x, y\}\Big\}, \\\\ % pairs
+             & \Big\{\emptyset, \{x\}, \{y\}\Big\}, \Big\{\emptyset, \{x\}, \{x, y\}\Big\}, \Big\{\emptyset, \{y\}, \{x, y\}\Big\}, \Big\{\{x\}, \{y\}, \{x, y\}\Big\},                         \\\\ % triples
+             & \Big\{\emptyset, \{x\}, \{y\}, \{x, y\}\Big\} \Bigg\}
+          \end{array}
+        \]
+
+  \item What is the size of ${\cal P}(A) \times {\cal P}(B)$?
+
+
+        The cardinality of a power set $X$ is $2^{\vert X \vert}$.
+
+        $A = \{x,y\}$ and $B= \{x,y,z\}$. Their cardinalities are $\vert A \vert = 2$, $\vert B \vert = 3$.
+
+        Hence, the size of ${\cal P}(A)$ is $2^2 = 4$, and the size of ${\cal P}(B)$ is $2^3 = 8$.
+
+        Therefore the size of ${\cal P}(A) \times {\cal P}(B)$ is $2^{\vert A \vert} \times 2^{\vert B \vert}$, or
+
+        $2^{2} \times 2^{3} = 4 \times 8 = 32$
+
+
+
+
+\end{enumerate}
+\medskip
+
+{\bf Problem 2.}	Show that the set $A =\{-1, 0\} \cup \mathbb{N}$ is a countable infinite set by giving an explicit bijective function $f : {\mathbb N} \rightarrow A$.  Prove that your function $f$ is a bijection, by showing that it is 1-to-1 (no two natural numbers map to the same element) and onto (every element in $A$ is the image of some natural number).
+\medskip
+
+{\bf Problem 3.} For each of the following languages, give the state diagram of a DFA with the specified number of states that recognizes the language. The alphabet is $\Sigma = \{0,1\}$.
+
+\begin{enumerate}
+
+  \item $\{w \colon \mbox{ $w$ contains at least one $0$ and one $1$}\}$, with $4$ states.
+
+  \item $\{w \colon \mbox{ $w$ has $0$ in every odd position}\}$, with $3$ states.
+
+
+\end{enumerate}
+\medskip
+
+{\bf Problem 4.}  Recall that an infinite  set $A$ is countable if there is a \emph{bijective}  function $f: {\mathbb N} \rightarrow A$.  Show that if there is an \emph{onto} function
+$g: {\mathbb N} \rightarrow A$, then $A$ is countable. In other words, you need to show how you can modify $g$ to obtain a bijective function $f$ that enumerates $A$.
+
+\medskip
+{\bf Problem 5. }
+Let $A$ and $B$  be two infinite countable sets.  Show that  $A \cup  B$ is  also an infinite countable sets. You need to show how to obtain an enumeration of $A \cup B$ if you have an enumeration $A = \{f(1), f(2), \ldots \}$ and an enumeration of $B = \{g(1), g(2), \ldots \}$ (in other words you need to explain how you can list one-by-one all the elements  in $A \cup B$.)
+
+\end{document}
