@@ -1,0 +1,73 @@
+\documentclass[11pt]{article}
+\usepackage{amssymb}
+\usepackage{hyperref}
+\setlength{\oddsidemargin}{-0.5in}
+
+\setlength{\evensidemargin}{\oddsidemargin}
+\setlength{\textwidth}{7.0in}
+\setlength{\textheight}{8.3in}
+\setlength{\topmargin}{-0.7in}
+
+\begin{document}
+
+{\Large COSC 417 \hspace{2cm} Assignment 1}
+\vspace{0.5cm}
+
+\emph{Instructions:}
+
+(a) Due time and date: as indicated on Blackboard.
+
+(b) 
+%Work in teams of 3-4  students. 
+Submit on Blackboard. 
+This assignment will not be graded, but you still need to submit it.
+
+ (c) Use Latex to write your assignment. For the state diagram , see the example in the template, or draw it by hand and insert a photo of it
+	    
+		   (d) If a problem has more questions, write down your answers in the same order as the order of questions. In principle, this should help you.
+		   \vspace{0.5cm}
+
+{\bf Problem 1.} Let $A = \{x,y\}$ and $B= \{x,y, z\}$.
+\begin{enumerate}
+\item  Is $A$ a subset of $B$?
+
+\item  Is $B$ a subset of $A$?
+
+\item What is $A \cup B$?
+
+\item  What is $A \cap B$?
+
+\item  What is $A \times B$?
+
+\item  What is ${\cal P}(B)$? (${\cal P}(B)$ is the powerset of $B$).
+
+\item What is ${\cal P}({\cal P}(A))$? (Be careful with the parenthesis syntax).
+
+\item What is the size of   ${\cal P}(A) \times {\cal P}(B)$?
+\end{enumerate}
+\medskip
+
+{\bf Problem 2.}	Show that the set $A =\{-1, 0\} \cup \mathbb{N}$ is a countable infinite set by giving an explicit bijective function $f : {\mathbb N} \rightarrow A$.  Prove that your function $f$ is a bijection, by showing that it is 1-to-1 (no two natural numbers map to the same element) and onto (every element in $A$ is the image of some natural number).
+\medskip
+
+{\bf Problem 3.} For each of the following languages, give the state diagram of a DFA with the specified number of states that recognizes the language. The alphabet is $\Sigma = \{0,1\}$.
+
+\begin{enumerate}
+ 
+\item $\{w \colon \mbox{ $w$ contains at least one $0$ and one $1$}\}$, with $4$ states.
+
+\item $\{w \colon \mbox{ $w$ has $0$ in every odd position}\}$, with $3$ states.
+
+
+\end{enumerate}
+\medskip
+
+{\bf Problem 4.}  Recall that an infinite  set $A$ is countable if there is a \emph{bijective}  function $f: {\mathbb N} \rightarrow A$.  Show that if there is an \emph{onto} function 
+$g: {\mathbb N} \rightarrow A$, then $A$ is countable. In other words, you need to show how you can modify $g$ to obtain a bijective function $f$ that enumerates $A$.
+
+\medskip
+{\bf Problem 5. }
+Let $A$ and $B$  be two infinite countable sets.  Show that  $A \cup  B$ is  also an infinite countable sets. You need to show how to obtain an enumeration of $A \cup B$ if you have an enumeration $A = \{f(1), f(2), \ldots \}$ and an enumeration of $B = \{g(1), g(2), \ldots \}$ (in other words you need to explain how you can list one-by-one all the elements  in $A \cup B$.)
+
+\end{document}
+ 
