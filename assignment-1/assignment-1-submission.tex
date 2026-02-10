@@ -111,6 +111,58 @@
 {\bf Problem 2.}	Show that the set $A =\{-1, 0\} \cup \mathbb{N}$ is a countable infinite set by giving an explicit bijective function $f : {\mathbb N} \rightarrow A$.  Prove that your function $f$ is a bijection, by showing that it is 1-to-1 (no two natural numbers map to the same element) and onto (every element in $A$ is the image of some natural number).
 \medskip
 
+Let $f(n) = n - 2$.
+First, we will write $A =\{-1, 0\} \cup \mathbb{N}$ as one set:
+
+\[
+  \begin{aligned}
+    \mathbb{N} & = \{1,2,3,4,5,\ldots\}  \\
+    A          & = \{-1,0,1,2,3,\ldots\}
+  \end{aligned}
+\]
+
+By applying $f$ to each of the elements of $\mathbb{N}$ in turn, we will obtain:
+
+\[
+  \begin{aligned}
+    f(\mathbb{N}) & = \{f(1), f(2), f(3), f(4), f(5), \ldots\} \\
+                  & = \{-1,0,1,2,3,\ldots\}                    \\
+                  & = A
+  \end{aligned}
+\]
+We will prove that $f(n)$ is a bijection in two parts.
+In the first part, we will show by contraposition that $f$ is injective, and in the second part we will show by induction that $f$ is surjective.
+
+  {\bf Part 1: Injective (1-1)}: No two natural numbers map to the same element.
+
+We wish to show that $f: \mathbb{N} \to A$ is injective, i.e. $\forall a, b \in \mathbb{N}, a \ne b \implies f(a) \ne f(b)$.
+We will prove this by contraposition. The contrapositive of the preceding statement is $\forall a, b \in \mathbb{N}, f(a) = f(b) \implies a = b$.
+
+Let
+\[
+  \begin{aligned}
+    a & = c \\
+    b & = d
+  \end{aligned}
+  \quad \text{where } c, d \in \mathbb{N}.
+\]
+
+Then
+\[
+  \begin{aligned}
+     &            & f(c)  & = f(d)  &  & \text{using particular values for a, b} \\
+     &            & c - 2 & = d - 2 &  & \text{by substitution for $f(n)$}       \\
+     & \therefore & c     & = d     &  & \text{by adding 2 to both sides}
+  \end{aligned}
+\]
+
+Therefore, because contrapositives are logically equivalent, we conclude that $\forall a, b \in \mathbb{N}, a \ne b \implies f(a) \ne f(b)$, and that the function $f$ is injective.
+
+  {\bf Part 2: Surjective (Onto)}: Every element in A is the image of some natural number
+
+TODO: Transcribe
+
+\pagebreak
 {\bf Problem 3.} For each of the following languages, give the state diagram of a DFA with the specified number of states that recognizes the language. The alphabet is $\Sigma = \{0,1\}$.
 
 \begin{enumerate}
