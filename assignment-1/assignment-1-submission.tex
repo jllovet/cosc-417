@@ -132,10 +132,17 @@ In the first part, we will show by contraposition that $f$ is injective, and in 
 
   {\bf Part 1: Injective (1-1)}: No two natural numbers map to the same element.
 
-We wish to show that $f: \mathbb{N} \to A$ is injective, i.e. $\forall a, b \in \mathbb{N}, a \ne b \implies f(a) \ne f(b)$.
-We will prove this by contraposition. The contrapositive of the preceding statement is $\forall a, b \in \mathbb{N}, f(a) = f(b) \implies a = b$.
+We wish to show that $f: \mathbb{N} \to A$ is injective, i.e.
+\begin{equation}
+  \forall a, b \in \mathbb{N}, a \ne b \implies f(a) \ne f(b) \label{eq:1}
+\end{equation}
 
-Let
+We will prove this by contraposition. The contrapositive of the preceding statement is 
+\begin{equation}
+  \forall a, b \in \mathbb{N}, f(a) = f(b) \implies a = b \label{eq:2}
+\end{equation}
+
+This is what we will tackle to prove the original. Let
 \[
   \begin{aligned}
     a & = c \\
@@ -153,11 +160,11 @@ Then
   \end{aligned}
 \]
 
-Therefore, because contrapositives are logically equivalent, we conclude that $\forall a, b \in \mathbb{N}, a \ne b \implies f(a) \ne f(b)$, and that the function $f$ is injective.
+From preceding, we conclude \eqref{eq:2}. But therefore, because contrapositives are logically equivalent, we conclude that \eqref{eq:1} is true, viz. $\forall a, b \in \mathbb{N}, a \ne b \implies f(a) \ne f(b)$, and that the function $f$ is injective.
 
   {\bf Part 2: Surjective (Onto)}: Every element in A is the image of some natural number
 
-TODO: Transcribe
+We wish to show that $f: \mathbb{N} \to A$ is surjective, i.e. $\forall a \in A, \exists n \in \mathbb{N}, a = f(n)$
 
 \pagebreak
 {\bf Problem 3.} For each of the following languages, give the state diagram of a DFA with the specified number of states that recognizes the language. The alphabet is $\Sigma = \{0,1\}$.
