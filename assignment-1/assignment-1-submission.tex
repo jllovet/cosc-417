@@ -213,10 +213,10 @@ Or, more usefully, substituting for $f(k)$,
 We wish to show that $P(a,k) \implies P(a+1, k+1)$. Consider:
 
 \begin{align*}
-  a + 1     & = f(k+1)    &  & \text{By definition of $P(a+1, k+1)$}            \\
-  a + 1     & = k + 1 - 2 &  & \text{By definition of $f(k+1)$}                 \\
+  a + 1     & = f(k+1)    &  & \text{By definition of $P(a+1, k+1)$}              \\
+  a + 1     & = k + 1 - 2 &  & \text{By definition of $f(k+1)$}                   \\
   k - 2 + 1 & = k + 1 - 2 &  & \text{By substitution for $a$ from $\eqref{eq:5}$} \\
-  k         & = k         &  & \text{By simplification}                         \\
+  k         & = k         &  & \text{By simplification}                           \\
 \end{align*}
 
 But therefore, $P(a,k) \implies P(a+1, k+1)$ holds. Hence, we conclude by the principle of mathematical induction that \eqref{eq:3} holds. That is, we conclude that $\forall a \in A, \exists n \in \mathbb{N}: a = f(n)$, or to put it simply, that the function $f$ is surjective.
@@ -237,6 +237,29 @@ Therefore, having shown that the function $f(n)$ is injective and surjective, we
 \begin{enumerate}
 
   \item $\{w \colon \mbox{ $w$ contains at least one $0$ and one $1$}\}$, with $4$ states.
+
+        \medskip
+
+        \begin{tikzpicture}[>=stealth',shorten >=1pt,auto,node distance=3cm]
+
+          \node[initial, state] (0) {$q_{0}$};
+          \node[state] (1) [right of=0] {$q_{1}$};
+          \node[state] (2) [below of=0] {$q_{2}$};
+          \node[state, accepting] (3) [below of=1] {$q_{3}$};
+
+          \path[->]
+          (0) edge node[above] {$0$} (1)
+          (0) edge node[left] {$1$} (2)
+
+          (1) edge node[right] {$1$} (3)
+          (1) edge [loop right] node {$0$} (1)
+
+          (2) edge [loop left] node {$1$} (2)
+          (2) edge node[below] {$0$} (3)
+
+          (3) edge [loop right] node {$0,1$} (3)
+          ;
+        \end{tikzpicture}
 
   \item $\{w \colon \mbox{ $w$ has $0$ in every odd position}\}$, with $3$ states.
 
