@@ -872,6 +872,98 @@ Include an image:
 
 
 % ============================================================
+\section{Citations and Bibliography}
+
+To cite sources, create a \verb|.bib| file (e.g., \verb|references.bib|) with entries like:
+
+\begin{verbatim}
+@book{sipser2013,
+  author    = {Michael Sipser},
+  title     = {Introduction to the Theory of Computation},
+  edition   = {3},
+  publisher = {Cengage Learning},
+  year      = {2013},
+  isbn      = {978-1-133-18779-0}
+}
+
+@book{hopcroft2007,
+  author    = {John E. Hopcroft and Rajeev Motwani
+               and Jeffrey D. Ullman},
+  title     = {Introduction to Automata Theory, Languages,
+               and Computation},
+  edition   = {3},
+  publisher = {Pearson},
+  year      = {2007},
+  isbn      = {978-0-321-45536-9}
+}
+\end{verbatim}
+
+Then add to your preamble:
+\begin{verbatim}
+\usepackage[
+  backend=biber,
+  style=verbose,
+  sorting=nyt          % sort by name, year, title
+]{biblatex}
+\addbibresource{references.bib}
+\end{verbatim}
+
+Citation commands:
+
+\begin{center}
+  \begin{tabular}{ll}
+    Command & Output \\
+    \hline
+    \verb|\cite{sipser2013}|      & Sipser, 2013 (bare) \\
+    \verb|\parencite{sipser2013}| & (Sipser, 2013) \\
+    \verb|\textcite{sipser2013}|  & Sipser (2013) \\
+    \verb|\parencite[Theorem~1.70]{sipser2013}| & (Sipser, 2013, Theorem 1.70) \\
+    \verb|\parencite[pp.~207--209]{sipser2013}| & (Sipser, 2013, pp.~207--209) \\
+  \end{tabular}
+\end{center}
+
+Usage in text:
+\begin{verbatim}
+By the Pumping Lemma \parencite[Theorem~1.70]{sipser2013}, ...
+As \textcite{sipser2013} shows, $A_{TM}$ is undecidable.
+See also \parencite{hopcroft2007}.
+\end{verbatim}
+
+\verb|\parencite| gives parenthetical citations, \verb|\textcite| is for when the author is part of the sentence.
+
+\medskip
+
+Print the bibliography at the end of your document:
+\begin{verbatim}
+\printbibliography
+\end{verbatim}
+
+Build with: \verb|pdflatex main.tex && biber main && pdflatex main.tex|
+
+\medskip
+
+\textbf{Alternative (simpler, no biber):} Use \verb|\thebibliography| directly---no \verb|.bib| file needed:
+
+\begin{verbatim}
+\begin{thebibliography}{9}
+  \bibitem{sipser2013}
+    Michael Sipser,
+    \textit{Introduction to the Theory of Computation},
+    3rd ed., Cengage Learning, 2013.
+
+  \bibitem{hopcroft2007}
+    John E. Hopcroft, Rajeev Motwani, Jeffrey D. Ullman,
+    \textit{Introduction to Automata Theory, Languages,
+    and Computation},
+    3rd ed., Pearson, 2007.
+\end{thebibliography}
+\end{verbatim}
+
+Then cite with \verb|\cite{sipser2013}| or \verb|\cite[Theorem~1.70]{sipser2013}|.
+This approach works with a single \verb|pdflatex| pass.
+
+
+% ============================================================
 \section{Useful Symbols Quick Reference}
 
 \begin{center}
