@@ -13,6 +13,12 @@
 \usepackage{tikz}
 \usepackage{tikz-qtree}
 \usetikzlibrary{automata,arrows}
+\usepackage[
+  backend=biber,
+  style=authoryear,
+  sorting=nyt          % sort by name, year, title
+]{biblatex}
+\addbibresource{references.bib}
 
 \author{Marius Zimand}
 \author{Jonathan Llovet}
@@ -290,6 +296,49 @@ $g: {\mathbb N} \rightarrow A$, then $A$ is countable. In other words, you need 
 
 \pagebreak
 {\bf Problem 5. }
-Let $A$ and $B$  be two infinite countable sets.  Show that  $A \cup  B$ is also an infinite countable set. You need to show how to obtain an enumeration of $A \cup B$ if you have an enumeration $A = \{f(1), f(2), \ldots \}$ and an enumeration of $B = \{g(1), g(2), \ldots \}$ (in other words you need to explain how you can list one-by-one all the elements  in $A \cup B$.)
+Let $A$ and $B$  be two infinite countable sets.  Show that  $A \cup  B$ is also an infinite countable set. You need to show how to obtain an enumeration of $A \cup B$ if you have an enumeration $A = \{f(1), f(2), \ldots \}$ and an enumeration of $B = \{g(1), g(2), \ldots \}$ (in other words you need to explain how you can list one-by-one all the elements in $A \cup B$.)
+
+To demonstrate how we can construct an enumeration, first it is helpful to consider the approach taken by \textcite[p.204]{sipser2013} when demonstrating that there is a bijection $f: \mathbb{N} \to \mathbb{Q}$ that enumerates the rationals.
+
+\includegraphics[width=0.8\linewidth]{sipser-rationals-table.png}
+
+There he builds an enumeration by weaving through arrangements of the natural numbers, such that the numerator is determined by the row, the denominator is determined by the column. We proceed in the diagonalized pattern that is shown in the diagram, skipping any of the numbers that reduce to a value we have already seen. To make an enumeration of $A \cup B$, we can proceed as follows:
+
+\[
+  \{f(1),g(1),g(2),f(2),f(3),g(3),g(4),f(4),\ldots\}
+\]
+
+\begin{center}
+  \begin{tikzpicture}[>=stealth', node distance=1.8cm]
+    % top row: f
+    \node               (f1) {$f(1)$};
+    \node [right of=f1] (f2) {$f(2)$};
+    \node [right of=f2] (f3) {$f(3)$};
+    \node [right of=f3] (f4) {$f(4)$};
+    \node [right of=f4]      {$\cdots$};
+
+    % bottom row: g
+    \node [below of=f1] (g1) {$g(1)$};
+    \node [right of=g1] (g2) {$g(2)$};
+    \node [right of=g2] (g3) {$g(3)$};
+    \node [right of=g3] (g4) {$g(4)$};
+    \node [right of=g4]      {$\cdots$};
+
+    % zigzag arrows
+    \draw[->] (f1) -- (g1);
+    \draw[->] (g1) -- (g2);
+    \draw[->] (g2) -- (f2);
+    \draw[->] (f2) -- (f3);
+    \draw[->] (f3) -- (g3);
+    \draw[->] (g3) -- (g4);
+    \draw[->] (g4) -- (f4);
+  \end{tikzpicture}
+\end{center}
+
+To ground this in an intuition, consider the following diagram, in which we perform a similar operation, weaving back and forth between the two sets in a structured way to ensure all of the elements are included in the enumeration.
+
+TODO: Add explicit function.
+
+\printbibliography
 
 \end{document}
