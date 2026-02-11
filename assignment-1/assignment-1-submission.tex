@@ -263,6 +263,24 @@ Therefore, having shown that the function $f(n)$ is injective and surjective, we
 
   \item $\{w \colon \mbox{ $w$ has $0$ in every odd position}\}$, with $3$ states.
 
+        \medskip
+
+        \begin{tikzpicture}[>=stealth',shorten >=1pt,auto,node distance=2.8cm]
+
+          \node[initial, state, accepting] (0) {$q_{0}$};
+          \node[state, accepting] (1) [below of=0] {$q_{1}$};
+          \node[state] (2) [right of=0] {$q_{2}$};
+
+          \path[->]
+          (0) edge [bend right] node[left] {$0$} (1)
+          (0) edge node[above] {$1$} (2)
+
+          (1) edge [bend right] node[right] {$0,1$} (0)
+          (1) edge [loop below] node {$0$} (1)
+
+          (2) edge [loop right] node {$0,1$} (2)
+          ;
+        \end{tikzpicture}
 
 \end{enumerate}
 
