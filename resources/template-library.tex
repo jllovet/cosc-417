@@ -448,6 +448,55 @@ Convention: $\to$ marks the start state, $*$ marks accepting states.
 
 
 % ============================================================
+\section{Diagonalization Table}
+
+Used in Cantor's proof that the set of infinite binary sequences is uncountable.
+Suppose for contradiction that $f: \mathbb{N} \to \{0,1\}^\omega$ is a bijection.
+List the supposed enumeration:
+
+\begin{center}
+  \begin{tabular}{c|cccccc}
+           & $b_1$              & $b_2$              & $b_3$              & $b_4$              & $b_5$              & $\cdots$ \\
+    \hline
+    $f(1)$ & $\mathbf{\bar{d}}$ & 0                  & 1                  & 0                  & 1                  & $\cdots$ \\
+    $f(2)$ & 1                  & $\mathbf{\bar{d}}$ & 0                  & 1                  & 1                  & $\cdots$ \\
+    $f(3)$ & 0                  & 1                  & $\mathbf{\bar{d}}$ & 0                  & 0                  & $\cdots$ \\
+    $f(4)$ & 1                  & 1                  & 0                  & $\mathbf{\bar{d}}$ & 1                  & $\cdots$ \\
+    $f(5)$ & 0                  & 0                  & 1                  & 1                  & $\mathbf{\bar{d}}$ & $\cdots$ \\
+    $\vdots$ & $\vdots$ & $\vdots$ & $\vdots$ & $\vdots$ & $\vdots$ & $\ddots$
+  \end{tabular}
+\end{center}
+
+Construct $d = d_1 d_2 d_3 \ldots$ where $d_i \ne f(i)_i$ (i.e., flip the $i$-th bit of the $i$-th sequence).
+The diagonal entries $\bar{d}$ are the bits we flip. Then $d$ differs from every $f(n)$ in position $n$,
+so $d \notin \{f(1), f(2), \ldots\}$, contradicting surjectivity.
+
+\bigskip
+
+The same structure applies to proving $A_{TM}$ is undecidable.
+Suppose $H$ decides $A_{TM}$. Build a table of TMs vs.\ their own descriptions:
+
+\begin{center}
+  \begin{tabular}{c|ccccc}
+                              & $\langle M_1 \rangle$   & $\langle M_2 \rangle$   & $\langle M_3 \rangle$   & $\langle M_4 \rangle$   & $\cdots$ \\
+    \hline
+    $M_1$                     & \textbf{accept}         & reject                  & accept                  & reject                  & $\cdots$ \\
+    $M_2$                     & accept                  & \textbf{accept}         & accept                  & accept                  & $\cdots$ \\
+    $M_3$                     & reject                  & reject                  & \textbf{reject}         & accept                  & $\cdots$ \\
+    $M_4$                     & accept                  & accept                  & reject                  & \textbf{reject}         & $\cdots$ \\
+    $\vdots$                  & $\vdots$                & $\vdots$                & $\vdots$                & $\vdots$                & $\ddots$ \\
+    \hline
+    $D$                       & \textbf{reject}         & \textbf{reject}         & \textbf{accept}         & \textbf{accept}         & $\cdots$
+  \end{tabular}
+\end{center}
+
+Entry $(M_i, \langle M_j \rangle)$ shows whether $M_i$ accepts $\langle M_j \rangle$.
+The diagonal is $H(M_i, \langle M_i \rangle)$---does $M_i$ accept its own description?
+The machine $D$ flips the diagonal: $D(\langle M_i \rangle)$ does the opposite of $M_i$ on $\langle M_i \rangle$.
+Then $D(\langle D \rangle)$ must both accept and reject---contradiction.
+
+
+% ============================================================
 %  PART V: AUTOMATA DIAGRAMS (TikZ)
 % ============================================================
 
