@@ -131,14 +131,14 @@ We will prove that $f(n)$ is a bijection in two parts.
 In the first part, we will show by contraposition that $f$ is injective, and in the second part we will show by induction that $f$ is surjective.
 
 \medskip
-  {\bf Part 1: Injective (1-1)}: No two natural numbers map to the same element.
+{\bf Part 1: Injective (1-1)}: No two natural numbers map to the same element.
 
 We wish to show that $f: \mathbb{N} \to A$ is injective, i.e.
 \begin{equation}
   \forall a, b \in \mathbb{N}, a \ne b \implies f(a) \ne f(b) \label{eq:1}
 \end{equation}
 
-We will prove this by contraposition. The contrapositive of the preceding statement is 
+We will prove this by contraposition. The contrapositive of the preceding statement is
 \begin{equation}
   \forall a, b \in \mathbb{N}, f(a) = f(b) \implies a = b \label{eq:2}
 \end{equation}
@@ -164,9 +164,72 @@ Then
 From preceding, we conclude \eqref{eq:2}. But therefore, because contrapositives are logically equivalent, we conclude that \eqref{eq:1} is true, viz. $\forall a, b \in \mathbb{N}, a \ne b \implies f(a) \ne f(b)$, and that the function $f$ is injective.
 
 \medskip
-  {\bf Part 2: Surjective (Onto)}: Every element in A is the image of some natural number
+{\bf Part 2: Surjective (Onto)}: Every element in A is the image of some natural number.
 
-We wish to show that $f: \mathbb{N} \to A$ is surjective, i.e. $\forall a \in A, \exists n \in \mathbb{N}, a = f(n)$
+We wish to show that $f: \mathbb{N} \to A$ is surjective, i.e.
+\begin{equation}
+  \forall a \in A, \exists n \in \mathbb{N}: a = f(n) \label{eq:3}
+\end{equation}
+
+We will prove this by induction.
+
+\medskip
+{\bf Basis step: $P(A_0)$}
+\medskip
+
+We wish to show:
+\begin{equation}
+  \exists n \in \mathbb{N} : f(n) = A_0  \label{eq:4}
+\end{equation}
+
+Note that $A_0 = - 1$. Examining this and solving for $n$:
+
+\[
+  \begin{aligned}
+    f(n)  & = -1 &  &                                \\
+    n - 2 & = -1 &  & \text{by definition of $f(n)$} \\
+    n     & = 1  &  & \text{by algebra}              \\
+  \end{aligned}
+\]
+
+But $1 \in \mathbb{N}$. Therefore, \eqref{eq:4} holds.
+
+\medskip
+{\bf Induction step: $P(a,k) \implies P(a+1, k+1)$}
+\medskip
+
+Assume for some $a \in A$, some $k \in \mathbb{N}$ where $k \ge 1$ that
+\[
+  P(a,k): a = f(k)
+\]
+
+Or, more usefully, substituting for $f(k)$,
+
+\begin{equation}
+  P(a,k): a = k - 2 \tag{Inductive Hypothesis} \label{eq:5}
+\end{equation}
+\medskip
+
+We wish to show that $P(a,k) \implies P(a+1, k+1)$. Consider:
+
+\begin{align*}
+  a + 1     & = f(k+1)    &  & \text{By definition of $P(a+1, k+1)$}            \\
+  a + 1     & = k + 1 - 2 &  & \text{By definition of $f(k+1)$}                 \\
+  k - 2 + 1 & = k + 1 - 2 &  & \text{By substitution for $a$ from $\eqref{eq:5}$} \\
+  k         & = k         &  & \text{By simplification}                         \\
+\end{align*}
+
+But therefore, $P(a,k) \implies P(a+1, k+1)$ holds. Hence, we conclude by the principle of mathematical induction that \eqref{eq:3} holds. That is, we conclude that $\forall a \in A, \exists n \in \mathbb{N}: a = f(n)$, or to put it simply, that the function $f$ is surjective.
+
+\medskip
+{\bf Conclusion: $f$ is bijective, $A$ is countably infinite}
+\medskip
+
+Therefore, having shown that the function $f(n)$ is injective and surjective, we conclude that it is bijective. But therefore, by definition of a countable infinite set, we conclude further that $A =\{-1, 0\} \cup \mathbb{N}$ is a countably infinite set, since we have found a bijective function $f: \mathbb{N} \to A$.
+
+\qed
+
+
 
 \pagebreak
 {\bf Problem 3.} For each of the following languages, give the state diagram of a DFA with the specified number of states that recognizes the language. The alphabet is $\Sigma = \{0,1\}$.
