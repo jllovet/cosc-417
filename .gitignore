@@ -24,6 +24,8 @@
 *.nav
 *.synctex.gz
 *.synctex(busy)
+*.run.xml
+*.bcf
 
 # latexindent backup files
 *.bak*
