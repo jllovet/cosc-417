@@ -370,8 +370,11 @@ Consider the following diagram.
   \end{tikzpicture}
 \end{center}
 
+Here there are two cases to consider:
 
-This can be expressed explicitly as the following function, which is a bijection $h: \mathbb{N} \to A \cup B$
+Case 1: $A$ and $B$ are disjoint
+
+Assuming that the sets $A$ and $B$ are disjoint, this can be expressed explicitly as the following function, which is a bijection $h: \mathbb{N} \to A \cup B$
 
 \[
   h(n) =
@@ -380,6 +383,10 @@ This can be expressed explicitly as the following function, which is a bijection
     g(\lceil \frac{n}{2} \rceil) & \text{if } (n \bmod 4) \in \{2, 3\}
   \end{cases}
 \]
+
+Case 2: $A$ and $B$ are not disjoint
+
+If the sets $A$ and $B$ are not disjoint, then we can create an enumeration that handles repetitions by using the same procedure as above in Problem 4.
 
 By creating such a function, we have created an enumeration of the set $A \cup B$. Having done so, we have demonstrated that the union of two infinite countable sets is also an infinite countable set.
 
