@@ -313,13 +313,17 @@ We are going to take a similar approach to \textcite[p.204]{sipser2013} when he 
 
 Take for example $2/2$, the fifth number to appear in the sequence. When it is reduced to simplest form, $2/2 = 1/1$, which has already appeared in the sequence. In order to satisfy the requirement of a \emph{one-to-one} function and produce the set of rationals, he skips the elements in the sequence such as this one that have already appeared earlier on in the sequence.
 
-Generalizing from Sipser's approach here, we can say that for a function $f: \mathbb{N} \to A$, where A is an infinite set, if $f$ is \emph{onto}, we can modify the function in the following way to make it \emph{one-to-one} as well. If the enumeration produces a collision, skip the element that produces the collision and have $f(n)$ be mapped to the next element of the sequence that does not produce a collision. Let $A_{seq}$ represent the intermediate sequence of elements that is used in a construction of the enumeration of set $A$ (analogous to the sequence created by the procedure used by Sipser in the matrix copied above on the way to enumerating $\mathbb{Q}$). If $A_{seq}$ is a sequence of elements, then $n \in \mathbb{N}, f(n) \in A_{seq}$. If $f(n)$ appears in any of the previously mapped elements, then skip elements of $A_{seq}$ until $f(n)$ is a new unique element.
+Generalizing from Sipser's approach here, we can say that for a function $g: \mathbb{N} \to A$, where A is an infinite set, if $g$ is \emph{onto}, we can modify the function in the following way to make it \emph{one-to-one} as well. If the enumeration produces a collision, skip the element that produces the collision and have $g(n)$ be mapped to the next element of the sequence that does not produce a collision. Let $A_{seq}$ represent the intermediate sequence of elements that is used in a construction of the enumeration of set $A$ (analogous to the sequence created by the procedure used by Sipser in the matrix copied above on the way to enumerating $\mathbb{Q}$). If $A_{seq}$ is a sequence of elements, then $n \in \mathbb{N}, g(n) \in A_{seq}$. If $g(n)$ appears in any of the previously mapped elements, then skip elements of $A_{seq}$ until $g(n)$ is a new unique element.
 
 Put a bit more formally, let:
 \[
-  A_{1 \to n} = \{f(1), f(2), f(3), \ldots, f(n)\}
+\begin{aligned}
+  f(1) &= g(1) \\
+  A_{1 \to n} &= \{f(1), f(2), f(3), \ldots, f(n)\} \\
+  f(n+1) &= g(m), \text{ where $m$ is the least $\in \mathbb{N}$ s.t. } m \not\in A_{1 \to n}
+\end{aligned}
 \]
-Then $A_{1 \to n} \subseteq A$ is a subset of $A_{seq}$, and $A_{1 \to n}$ consists of a partial enumeration of $A$. For the element $f(n+1)$, if $f(n+1) \in A_{1 \to n}$, then let $f(n+1)$ be mapped to the least subsequent element $a \in A_{seq}$ such that $a \not\in A_{1 \to n}$.
+Then $A_{1 \to n} \subseteq A$ is a subset of $A_{seq}$, and $A_{1 \to n}$ consists of a partial enumeration of $A$. For the element $f(n+1)$, if $f(n+1) \in A_{1 \to n}$, and $f(n+1)$ skips to the least subsequent element $a \in A_{seq}$ such that $a \not\in A_{1 \to n}$.
 By performing this modification, we will filter out the collisions, resulting in the function $f: \mathbb{N} \to A$ being \emph{one-to-one} and consequently bijective.
 
 \qed
