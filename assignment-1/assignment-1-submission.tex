@@ -333,11 +333,15 @@ To demonstrate how we can construct an enumeration, first it is helpful to consi
 
 \includegraphics[width=0.8\linewidth]{sipser-rationals-table.png}
 
-There he builds an enumeration by weaving through arrangements of the natural numbers, such that the numerator is determined by the row, the denominator is determined by the column. We proceed in the diagonalized pattern that is shown in the diagram, skipping any of the numbers that reduce to a value we have already seen. To make an enumeration of $A \cup B$, we can proceed as follows:
+There he builds an enumeration by weaving through arrangements of the natural numbers, such that the numerator is determined by the row, the denominator is determined by the column. We proceed in the diagonalized pattern that is shown in the diagram, skipping any of the numbers that reduce to a value we have already seen. Notably, we do not try to run through all of the elements of the first row before moving on to the second row, since we would never finish the first row by this method.
+
+Similarly, we do not want to try to run through all of the elements of $A$ in our enumeration before introducing elements of $B$. Rather, we should interleave the sets as follows to enumerate the elements of $A \cup B$:
 
 \[
   \{f(1),g(1),g(2),f(2),f(3),g(3),g(4),f(4),\ldots\}
 \]
+
+Consider the following diagram.
 
 \begin{center}
   \begin{tikzpicture}[>=stealth', node distance=1.8cm]
@@ -366,10 +370,21 @@ There he builds an enumeration by weaving through arrangements of the natural nu
   \end{tikzpicture}
 \end{center}
 
-To ground this in an intuition, consider the preceding diagram, in which we perform a similar operation to Sipser, weaving back and forth between the two sets in a structured way to ensure all of the elements are included in the enumeration.
 
-TODO: Add explicit function.
+This can be expressed explicitly as the following function, which is a bijection $h: \mathbb{N} \to A \cup B$
 
-% \printbibliography
+\[
+  h(n) =
+  \begin{cases}
+    f(\lceil \frac{n}{2} \rceil) & \text{if } (n \bmod 4) \in \{0, 1\} \\
+    g(\lceil \frac{n}{2} \rceil) & \text{if } (n \bmod 4) \in \{2, 3\}
+  \end{cases}
+\]
+
+By creating such a function, we have created an enumeration of the set $A \cup B$. Having done so, we have demonstrated that the union of two infinite countable sets is also an infinite countable set.
+
+\qed
+
+\printbibliography
 
 \end{document}
