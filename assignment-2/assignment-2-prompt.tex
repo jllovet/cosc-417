@@ -1,0 +1,84 @@
+\documentclass[11pt]{article}
+\usepackage{hyperref}
+\setlength{\oddsidemargin}{-0.5in}
+\setlength{\evensidemargin}{\oddsidemargin}
+\setlength{\textwidth}{7.0in}
+\setlength{\textheight}{8.3in}
+\setlength{\topmargin}{-0.7in}
+%\input{macros.tex}
+\begin{document}
+
+{\Large COSC 417 \hspace{2cm} Assignment 2}
+\bigskip
+
+\emph{Instructions:}
+
+(a) Due date and time: as indicated on Blackboard.
+
+
+b) %Work in teams of 3-4  students  and 
+Submit on Blackboard. The assignment will not be graded (see the policy in the syllabus).
+
+ (c) For editing your homework. I recommend that you use Latex via Overleaf, see the template posted on Blackboard. 
+ 
+           
+	  
+The template has an  example showing how to do the state diagram  of a finite automaton. If you have trouble, you can draw the state diagram and insert a digital photo in the .tex file (see the template how to do this).
+  
+		   (d) If a problem has more questions, write down your answers in the same order as the order of questions. In principle, this should help you.
+		   \vspace{0.5cm}
+
+
+  Do (or at least sketch the solutions) without turning in anything the following exercises from the textbook: 1.4 (a-d), 1.5 (a-d), 1.6(a-d), 1.7(a-d).  (Some of them have solutions in the book; still try to do them before checking the solution. Some of this exercises may show up in quizzes).
+\medskip
+
+{\bf Problem 1.}  The formal description of a DFA $M$ is $(\{q_1, q_2, q_3, q_4, q_5\}, \{u,d\}, \delta , q_3, \{q_3\})$, where  $\delta$ is given by the following table. Draw the state diagram (i.e.\,  the graph representation) of this machine.
+\smallskip
+
+\begin{tabular}{|l|ll|}
+\hline
+	&  $u$  &        $d$ \\
+	\hline
+$q_1$	& $q_1$ &     $q_2$\\
+$q_2 $	& $q_1$ &      $q_3$ \\
+$q_3$	& $q_2 $    &  $q_4$ \\
+$q_4$ &	$q_3$  &        $q_5$ \\
+$q_5$ &	$q_4$  &      $q_5$ \\
+\hline
+\end{tabular}
+\smallskip
+
+Show the computation done by this machine on input $uddu$ (i.e., the sequence of states it enters; see Example 1.17 in the textbook).
+
+
+\medskip
+
+{\bf Problem 2.}	 	Give the state diagram of DFAs with the specified number of states (or less) for each of the following languages over the alphabet $\{0,1\}$.
+\begin{enumerate}
+\item[a.]	$\{w \mid w \mbox{ begins with a $1$ and ends with a $0$}\}$, DFA with $4$ states.  Show the computation (i.e., the sequence of states it enters; see Example 1.17 in the textbook) made by your DFA on input 10010 and on input 110011.
+
+\item[b.]	$\{w \mid w \mbox{ starts with $0$ and has odd length, or starts with $1$ and has even length}\}$, DFA with $3$ states. Show the computation (i.e., the sequence of states ) made by your DFA on input 100101 and on input 11001.
+
+\item[c.]	$\{w \mid w \mbox{ does not contain the string 110}\}$, DFA  with $4$ states. Show the computation (i.e., the sequence of states) made by your DFA on input 1001101 and on input 1001.
+
+For each of the three DFA briefly and convincingly explain (give a ``common sense" explanation, I don't require a formal proof) why they accept the specified language.
+\end{enumerate}
+\medskip
+
+{\bf Problem 3.}	 Give NFAs (in the form of state diagrams) with the specified number of states recognizing each the following languages. The alphabet is $\Sigma =\{0,1\}$.
+\begin{enumerate}
+\item[a.]	$\{w \mid w \mbox{ ends with 00}\}$ with 3 states. Pick one input string that is in the language and one input string that is not in the language and show the two trees of computation possibilities made by your NFA on the two strings (as we did in class, see also Figure 1.29 in the textbook).
+
+\item[b.]	$\{w \mid w \mbox{ contains the substring 0101}\}$ with 5 states. Pick one input string that is in the language and one input string that is not in the language and show the two trees of computation possibilities made by your NFA on the two strings.
+\end{enumerate}
+
+As above, explain why your NFAs accept the corresponding language.
+\bigskip
+
+
+
+{\bf Problem 4.}	 For any string $w_1 w_2 \ldots w_n$, the reverse $w^R$  is the string $w$ in reverse order $w_n  \ldots w_2 w_1$.   For a language $A$, let $A^R = \{ w^R \mid w \mbox{ is in }A\}$ (in other words, $A^R$ consists of all the reverses of the strings in $A$).  Prove that if $A$ is regular, then $A^R$  is also regular. In your proof you have to  show how to convert a finite automaton for $A$ into a finite automaton for $A^R$.  Other arguments are possible, but will not give you the extra credit. (Note: Take care, an FA, whether deterministic or nondeterministic, has a single starting state).
+
+
+\end{document}
+ 
