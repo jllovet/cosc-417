@@ -301,6 +301,28 @@ Therefore, having shown that the function $f(n)$ is injective and surjective, we
 {\bf Problem 4.}  Recall that an infinite  set $A$ is countable if there is a \emph{bijective}  function $f: {\mathbb N} \rightarrow A$.  Show that if there is an \emph{onto} function
 $g: {\mathbb N} \rightarrow A$, then $A$ is countable. In other words, you need to show how you can modify $g$ to obtain a bijective function $f$ that enumerates $A$.
 
+There are two cases to consider here: 1. when the \emph{onto} function is already \emph{one-to-one} and 2. when the \emph{onto} function is not already \emph{one-to-one}.
+
+In case 1, because the function is both \emph{onto} (surjective) and \emph{one-to-one} (injective), the function is already bijective by definition of bijective, and there is nothing we need to do to the function.
+
+In case 2, the function $f$ is \emph{onto} (surjective), but it is not \emph{one-to-one} (injective). This means that $f: \mathbb{N} \to A$ covers every element of A, but there are collisions where for $a, b \in \mathbb{N}, f(a) = f(b) \wedge a \ne b$.
+
+We are going to take a similar approach to \textcite[p.204]{sipser2013} when he is showing an enumeration of the rational numbers. There, he defines a procedure for iterating through pairs of natural numbers in a matrix to produce an enumeration that is both surjective and injective. In the case of the enumeration of the rationals $f: \mathbb{N} \to \mathbb{Q}$, his procedure generates an intermediate sequence of numbers that are a multiset of the rationals, with some numbers appearing multiple times, because they are generated mechanically according to the procedure but are actually equivalent to numbers that have already appeared in the sequence.
+
+\includegraphics[width=0.8\linewidth]{sipser-rationals-table.png}
+
+Take for example $2/2$, the fifth number to appear in the sequence. When it is reduced to simplest form, $2/2 = 1/1$, which has already appeared in the sequence. In order to satisfy the requirement of a \emph{one-to-one} function and produce the set of rationals, he skips the elements in the sequence such as this one that have already appeared earlier on in the sequence.
+
+Generalizing from Sipser's approach here, we can say that for a function $f: \mathbb{N} \to A$, where A is an infinite set, if $f$ is \emph{onto}, we can modify the function in the following way to make it \emph{one-to-one} as well. If the enumeration produces a collision, skip the element that produces the collision and have $f(n)$ be mapped to the next element of the sequence that does not produce a collision. Let $A_{seq}$ represent the intermediate sequence of elements that is used in a construction of the enumeration of set $A$ (analogous to the sequence created by the procedure used by Sipser in the matrix copied above on the way to enumerating $\mathbb{Q}$). If $A_{seq}$ is a sequence of elements, then $n \in \mathbb{N}, f(n) \in A_{seq}$. If $f(n)$ appears in any of the previously mapped elements, then skip elements of $A_{seq}$ until $f(n)$ is a new unique element.
+
+Put a bit more formally, let:
+\[
+  A_{1 \to n} = \{f(1), f(2), f(3), \ldots, f(n)\}
+\]
+Then $A_{1 \to n} \subseteq A$ is a subset of $A_{seq}$, and $A_{1 \to n}$ consists of a partial enumeration of $A$. For the element $f(n+1)$, if $f(n+1) \in A_{1 \to n}$, then let $f(n+1)$ be mapped to the least subsequent element $a \in A_{seq}$ such that $a \not\in A_{1 \to n}$.
+By performing this modification, we will filter out the collisions, resulting in the function $f: \mathbb{N} \to \mathbb{A}$ being \emph{one-to-one} and consequently bijective.
+
+
 \pagebreak
 {\bf Problem 5. }
 Let $A$ and $B$  be two infinite countable sets.  Show that  $A \cup  B$ is also an infinite countable set. You need to show how to obtain an enumeration of $A \cup B$ if you have an enumeration $A = \{f(1), f(2), \ldots \}$ and an enumeration of $B = \{g(1), g(2), \ldots \}$ (in other words you need to explain how you can list one-by-one all the elements in $A \cup B$.)
@@ -346,6 +368,6 @@ To ground this in an intuition, consider the preceding diagram, in which we perf
 
 TODO: Add explicit function.
 
-\printbibliography
+% \printbibliography
 
 \end{document}
