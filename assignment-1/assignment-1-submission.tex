@@ -93,11 +93,11 @@
 
         \[
           \begin{array}{lll}
-             & A_0 = \emptyset                                                                                                                                                                       \\\\ % empty set
-             & A_1 = \Big\{\emptyset \Big\}, \Big\{\{x\}\Big\}, \Big\{\{y\}\Big\}, \Big\{\{x, y\}\Big\}                                                                                              \\\\ % singletons
-             & A_2 = \Big\{\emptyset, \{x\}\Big\}, \Big\{\emptyset, \{y\}\Big\}, \Big\{\emptyset, \{x, y\}\Big\}, \Big\{\{x\}, \{y\}\Big\}, \Big\{\{x\}, \{x, y\}\Big\}, \Big\{\{y\}, \{x, y\}\Big\} \\\\ % pairs
-             & A_3 = \Big\{\emptyset, \{x\}, \{y\}\Big\}, \Big\{\emptyset, \{x\}, \{x, y\}\Big\}, \Big\{\emptyset, \{y\}, \{x, y\}\Big\}, \Big\{\{x\}, \{y\}, \{x, y\}\Big\}                         \\\\ % triples
-             & A_4 = {\cal P}(A) = \Big\{\emptyset, \{x\}, \{y\}, \{x, y\}\Big\}
+             & A_0 = \{\emptyset\}                                                                                                                                                                                 \\\\ % empty set
+             & A_1 = \Bigg\{\Big\{\emptyset \Big\}, \Big\{\{x\}\Big\}, \Big\{\{y\}\Big\}, \Big\{\{x, y\}\Big\}\Bigg\}                                                                                              \\\\ % singletons
+             & A_2 = \Bigg\{\Big\{\emptyset, \{x\}\Big\}, \Big\{\emptyset, \{y\}\Big\}, \Big\{\emptyset, \{x, y\}\Big\}, \Big\{\{x\}, \{y\}\Big\}, \Big\{\{x\}, \{x, y\}\Big\}, \Big\{\{y\}, \{x, y\}\Big\}\Bigg\} \\\\ % pairs
+             & A_3 = \Bigg\{\Big\{\emptyset, \{x\}, \{y\}\Big\}, \Big\{\emptyset, \{x\}, \{x, y\}\Big\}, \Big\{\emptyset, \{y\}, \{x, y\}\Big\}, \Big\{\{x\}, \{y\}, \{x, y\}\Big\}\Bigg\}                         \\\\ % triples
+             & A_4 = {\cal P}(A) = \Bigg\{\Big\{\emptyset, \{x\}, \{y\}, \{x, y\}\Big\}\Bigg\}
           \end{array}
         \]
 
@@ -317,11 +317,11 @@ Generalizing from Sipser's approach here, we can say that for a function $g: \ma
 
 Put a bit more formally, let:
 \[
-\begin{aligned}
-  f(1) &= g(1) \\
-  A_{1 \to n} &= \{f(1), f(2), f(3), \ldots, f(n)\} \\
-  f(n+1) &= g(m), \text{ where $m$ is the least $\in \mathbb{N}$ s.t. } m \not\in A_{1 \to n}
-\end{aligned}
+  \begin{aligned}
+    f(1)        & = g(1)                                                                              \\
+    A_{1 \to n} & = \{f(1), f(2), f(3), \ldots, f(n)\}                                                \\
+    f(n+1)      & = g(m), \text{ where $m$ is the least $\in \mathbb{N}$ s.t. } m \not\in A_{1 \to n}
+  \end{aligned}
 \]
 Then $A_{1 \to n} \subseteq A$ is a subset of $A_{seq}$, and $A_{1 \to n}$ consists of a partial enumeration of $A$. For the element $f(n+1)$, if $f(n+1) \in A_{1 \to n}$, and $f(n+1)$ skips to the least subsequent element $a \in A_{seq}$ such that $a \not\in A_{1 \to n}$.
 By performing this modification, we will filter out the collisions, resulting in the function $f: \mathbb{N} \to A$ being \emph{one-to-one} and consequently bijective.
