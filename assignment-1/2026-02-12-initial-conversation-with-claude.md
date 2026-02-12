@@ -82,3 +82,51 @@ The formula actually checks out for the sequence shown. However, there's a deepe
 | **Low** | Remove stray `\\` in array | Line 82 |
 
 Would you like me to fix any or all of these issues?
+
+---
+
+Note: Here I manually performed revisions
+
+# Second Prompt
+
+Please review the paper again, since I have made corrections.
+
+# Second Response
+
+Good improvements. Here's the updated review:
+
+---
+
+## What's Fixed
+
+- **Problem 2 surjectivity proof (lines 229-231):** Now correctly starts from the inductive hypothesis and derives the conclusion. The logic flows properly.
+- **Problem 3b (lines 282-296):** Self-loop removed, conflicting transitions eliminated. The note about $\epsilon$ and the descriptive state labels are nice additions.
+- **Problem 4 (line 308):** Notation fixed to consistently use $g$ for the given surjection.
+- **Problem 4 (line 323):** `$\mathbb{A}$` fixed to `$A$`.
+- **Problem 5 (lines 373-389):** The disjoint/non-disjoint cases are now addressed, with a clean back-reference to Problem 4.
+
+---
+
+## Remaining Issues
+
+### Correctness
+
+**Problem 4 (line 316):** The notation is still a bit tangled. You introduce $f$ as the constructed bijection, but then the paragraph says "for a function $f: \mathbb{N} \to A$... if $f$ is onto" — here you mean $g$, not $f$. Then later "have $f(n)$ be mapped to..." conflates the original surjection $g$ with the bijection $f$ you're constructing. Lines 318-322 similarly use $f$ where the construction is conceptually: define $f(1) = g(1)$, and $f(n+1) = g(m)$ where $m$ is the least natural number such that $g(m) \notin \{f(1),\ldots,f(n)\}$.
+
+**Problem 1g (line 96):** $A_0 = \emptyset$ is still incorrect. The subsets of $\mathcal{P}(A)$ with cardinality 0 is the set *containing* the empty set: $A_0 = \{\emptyset\}$. Currently $A_0 = \emptyset$ says there are *no* subsets of size 0, but the empty set itself is such a subset. (Note: this also affects the union formula on line 89 — $\emptyset \cup X = X$, so $A_0$ as written contributes nothing.)
+
+### Formatting
+
+| Issue | Line |
+|-------|------|
+| `\author{Marius Zimand}` still present (overwritten by next `\author`, but shouldn't be there) | 23 |
+| `\vline` produces a vertical bar character; likely want `\vspace{1em}` or blank space | 39 |
+| Stray `\\` creating extra blank row in the array | 82 |
+
+---
+
+These are minor at this point. The substantive fix is the $A_0$ issue in Problem 1g, and cleaning up the $f$/$g$ notation in Problem 4. Would you like me to make these edits?
+
+# Manual Edits
+
+I have made a number of edits incorporating the results of this review. I have left the power set of the power set problem as it was, however.
