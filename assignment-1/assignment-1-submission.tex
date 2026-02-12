@@ -226,13 +226,12 @@ Or, more usefully, substituting for $f(k)$,
 We wish to show that $P(a,k) \implies P(a+1, k+1)$. Consider:
 
 \begin{align*}
-  a + 1     & = f(k+1)    &  & \text{By definition of $P(a+1, k+1)$}              \\
-  a + 1     & = k + 1 - 2 &  & \text{By definition of $f(k+1)$}                   \\
-  k - 2 + 1 & = k + 1 - 2 &  & \text{By substitution for $a$ from $\eqref{eq:5}$} \\
-  k         & = k         &  & \text{By simplification}                           \\
+  a     & = k - 2     &  & \text{By $\eqref{eq:5}$}           \\
+  a + 1 & = k + 1 - 2 &  & \text{By adding $1$ to both sides} \\
+  a + 1 & = f(k+1)    &  & \text{By definition of $f(k+1)$}
 \end{align*}
 
-But therefore, $P(a,k) \implies P(a+1, k+1)$ holds. Hence, we conclude by the principle of mathematical induction that \eqref{eq:3} holds. That is, we conclude that $\forall a \in A, \exists n \in \mathbb{N}: a = f(n)$, or to put it simply, that the function $f$ is surjective.
+This is what we wished to derive, since $P(a+1, k+1): a + 1 = f(k+1)$. But therefore, $P(a,k) \implies P(a+1, k+1)$ holds. Hence, we conclude by the principle of mathematical induction that \eqref{eq:3} holds. That is, we conclude that $\forall a \in A, \exists n \in \mathbb{N}: a = f(n)$, or to put it simply, that the function $f$ is surjective.
 
 \medskip
 {\bf Conclusion: $f$ is bijective, $A$ is countably infinite}
