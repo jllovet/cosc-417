@@ -305,7 +305,7 @@ There are two cases to consider here: 1. when the \emph{onto} function is alread
 
 In case 1, because the function is both \emph{onto} (surjective) and \emph{one-to-one} (injective), the function is already bijective by definition of bijective, and there is nothing we need to do to the function.
 
-In case 2, the function $f$ is \emph{onto} (surjective), but it is not \emph{one-to-one} (injective). This means that $f: \mathbb{N} \to A$ covers every element of A, but there are collisions where for $a, b \in \mathbb{N}, f(a) = f(b) \wedge a \ne b$.
+In case 2, the function $g$ is \emph{onto} (surjective), but it is not \emph{one-to-one} (injective). This means that $g: \mathbb{N} \to A$ covers every element of A, but there are collisions where for $a, b \in \mathbb{N}, g(a) = g(b) \wedge a \ne b$.
 
 We are going to take a similar approach to \textcite[p.204]{sipser2013} when he is showing an enumeration of the rational numbers. There, he defines a procedure for iterating through pairs of natural numbers in a matrix to produce an enumeration that is both surjective and injective. In the case of the enumeration of the rationals $f: \mathbb{N} \to \mathbb{Q}$, his procedure generates an intermediate sequence of numbers that are a multiset of the rationals, with some numbers appearing multiple times, because they are generated mechanically according to the procedure but are actually equivalent to numbers that have already appeared in the sequence.
 
