@@ -1,0 +1,111 @@
+\documentclass[border=10pt]{standalone}
+\usepackage{tikz}
+\usepackage{tikz-qtree}
+\usetikzlibrary{arrows.meta}
+
+% ============================================================================
+% NFA Computation Tree — tikz-qtree version
+%
+% Much less boilerplate than manual coordinate placement.
+% The tree structure is expressed in a bracketed notation:
+%   [.{parent} [.{child1} ] [.{child2} ] ]
+%
+% Dead branches (no valid transition) simply have no children.
+%
+% USAGE:
+%   - Wrap state names in \st{name} for normal states
+%   - Wrap in \ac{name} for accept (double-circle) states
+%   - Use \edge[draw=none]; \node[draw=none]{}; for invisible phantom
+%     nodes if you need spacing/alignment adjustments
+%   - Compile with: pdflatex nfa_tree_qtree.tex
+% ============================================================================
+
+% --- Convenience macros for state nodes ---
+\newcommand{\st}[1]{%
+    \tikz[baseline=(n.base)]\node[state](n){$#1$};%
+}
+\newcommand{\ac}[1]{%
+    \tikz[baseline=(n.base)]\node[accept state](n){$#1$};%
+}
+
+\begin{document}
+
+\tikzset{
+    % Node styles
+    state/.style={
+        circle, draw, minimum size=8mm, inner sep=0pt,
+        font=\normalsize,
+    },
+    accept state/.style={
+        state, double, double distance=1.5pt,
+    },
+    % Edge/arrow style — applied globally to the tree
+    edge from parent/.style={
+        draw, thick, ->, >=Stealth,
+    },
+    % Increase level distance (vertical spacing between levels)
+    level distance=55pt,
+    % Increase sibling distance (horizontal spacing)
+    sibling distance=30pt,
+}
+
+\begin{tikzpicture}
+
+% --- The tree itself ---
+\Tree
+[.\st{q_1}
+    [.\st{q_1}
+        [.\st{q_1}
+            [.\st{q_1}
+                [.\st{q_1}
+                    [.\st{q_1}
+                        \st{q_1}
+                    ]
+                    [.\st{q_2}
+                        \st{q_3}
+                    ]
+                    [.\st{q_3} ]
+                ]
+                [.\st{q_2} ]
+                [.\st{q_3}
+                    [.\st{q_4}
+                        [.\st{q_4}
+                            \ac{q_4}
+                        ]
+                    ]
+                ]
+            ]
+        ]
+        [.\st{q_2}
+            [.\st{q_3}
+                [.\st{q_4}
+                    [.\st{q_4}
+                        \ac{q_4}
+                    ]
+                ]
+            ]
+        ]
+        [.\st{q_3} ]
+    ]
+]
+
+% --- Symbol labels on the left side ---
+% We position these relative to the tree's bounding box.
+% Adjust x-coordinates as needed for your tree width.
+\begin{scope}[symbol label/.style={font=\large, anchor=east}]
+    % Grab the root's y-coordinate as reference; levels are spaced by 55pt
+    \path (current bounding box.north west) +(-0.5, 0) coordinate (labelanchor);
+
+    \foreach \sym/\i in {0/1, 1/2, 0/3, 1/4, 1/5, 0/6} {
+        \node[symbol label] at ([yshift={-(\i-0.5)*55pt}] labelanchor) {\sym};
+    }
+\end{scope}
+
+% --- Caption ---
+\node[font=\large\bfseries, anchor=north] at
+    ([yshift=-15pt] current bounding box.south)
+    {\textsc{Figure 1.29} \quad
+     \normalfont The computation of $N_1$ on input 010110};
+
+\end{tikzpicture}
+\end{document}
