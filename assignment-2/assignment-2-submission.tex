@@ -12,7 +12,7 @@
 \usepackage{graphicx}
 \usepackage{tikz}
 \usepackage{tikz-qtree}
-\usetikzlibrary{automata,arrows}
+\usetikzlibrary{automata,arrows, arrows.meta, positioning}
 \usepackage[
   backend=biber,
   style=authoryear,
@@ -26,15 +26,15 @@
 \begin{document}
 
 \fbox{
-  \vbox{
-    \begin{flushleft}
-      Jonathan Llovet \\  % authors' names
-      COSC 417 \\  %class
-      2026-02-19, 11:59 PM (EST) \\  % date
-    \end{flushleft}
-    \center{\Large{\textbf{Assignment 2}}}
-    %\end{mdframed}
-  } % end vbox
+	\vbox{
+		\begin{flushleft}
+			Jonathan Llovet \\  % authors' names
+			COSC 417 \\  %class
+			2026-02-19, 11:59 PM (EST) \\  % date
+		\end{flushleft}
+		\center{\Large{\textbf{Assignment 2}}}
+		%\end{mdframed}
+	} % end vbox
 } % end fbox
 \vline
 
@@ -46,44 +46,45 @@ Do (or at least sketch the solutions) without turning in anything the following 
 \smallskip
 
 \begin{tabular}{|l|ll|}
-  \hline
-         & $u$    & $d$   \\
-  \hline
-  $q_1$  & $q_1$  & $q_2$ \\
-  $q_2 $ & $q_1$  & $q_3$ \\
-  $q_3$  & $q_2 $ & $q_4$ \\
-  $q_4$  & $q_3$  & $q_5$ \\
-  $q_5$  & $q_4$  & $q_5$ \\
-  \hline
+	\hline
+	       & $u$    & $d$   \\
+	\hline
+	$q_1$  & $q_1$  & $q_2$ \\
+	$q_2 $ & $q_1$  & $q_3$ \\
+	$q_3$  & $q_2 $ & $q_4$ \\
+	$q_4$  & $q_3$  & $q_5$ \\
+	$q_5$  & $q_4$  & $q_5$ \\
+	\hline
 \end{tabular}
 \smallskip
 
+\begin{center}
+	\begin{tikzpicture}[>=stealth',shorten >=1pt,auto,node distance=2.5cm]
 
-\begin{tikzpicture}[>=stealth',shorten >=1pt,auto,node distance=2.5cm]
+		\node[initial, state, accepting] (3) {$q_{3}$};
+		\node[state] (2) [above of=3] {$q_{2}$};
+		\node[state] (1) [right of=2] {$q_{1}$};
+		\node[state] (4) [below of=3] {$q_{4}$};
+		\node[state] (5) [right of=4] {$q_{5}$};
 
-  \node[initial, state, accepting] (3) {$q_{3}$};
-  \node[state] (2) [above of=3] {$q_{2}$};
-  \node[state] (1) [right of=2] {$q_{1}$};
-  \node[state] (4) [below of=3] {$q_{4}$};
-  \node[state] (5) [right of=4] {$q_{5}$};
+		\path[->]
+		(1) edge [loop right] node {$u$} (1)
+		(1) edge [bend left] node[below] {$d$} (2)
 
-  \path[->]
-  (1) edge [loop right] node {$u$} (1)
-  (1) edge [bend left] node[below] {$d$} (2)
+		(2) edge [bend left] node[above] {$u$} (1)
+		(2) edge [bend right] node[left] {$d$} (3)
 
-  (2) edge [bend left] node[above] {$u$} (1)
-  (2) edge [bend right] node[left] {$d$} (3)
+		(3) edge [bend right] node[right] {$u$} (2)
+		(3) edge [bend right] node[left] {$d$} (4)
 
-  (3) edge [bend right] node[right] {$u$} (2)
-  (3) edge [bend right] node[left] {$d$} (4)
+		(4) edge [bend right] node[right] {$u$} (3)
+		(4) edge [bend right] node[below] {$d$} (5)
 
-  (4) edge [bend right] node[right] {$u$} (3)
-  (4) edge [bend right] node[below] {$d$} (5)
-
-  (5) edge [bend right] node[above] {$u$} (4)
-  (5) edge [loop right] node {$d$} (5)
-  ;
-\end{tikzpicture}
+		(5) edge [bend right] node[above] {$u$} (4)
+		(5) edge [loop right] node {$d$} (5)
+		;
+	\end{tikzpicture}
+\end{center}
 
 \medskip
 
@@ -98,100 +99,269 @@ $q_3, q_2, q_3, q_4, q_3$
 
 \begin{enumerate}
 
-  \item[a.]	$\{w \mid w \mbox{ begins with a $1$ and ends with a $0$}\}$, DFA with $4$ states.  Show the computation (i.e., the sequence of states it enters; see Example 1.17 in the textbook) made by your DFA on input 10010 and on input 110011.
+	\item[a.]	$\{w \mid w \mbox{ begins with a $1$ and ends with a $0$}\}$, DFA with $4$ states.  Show the computation (i.e., the sequence of states it enters; see Example 1.17 in the textbook) made by your DFA on input 10010 and on input 110011.
 
-        \begin{tikzpicture}[>=stealth',shorten >=1pt,auto,node distance=2.5cm]
+	      \begin{center}
+		      \begin{tikzpicture}[>=stealth',shorten >=1pt,auto,node distance=2.5cm]
 
-          \node[initial, state] (e) {$q_{\epsilon}$};
-          \node[state] (1) [right of=e] {$q_{1}$};
-          \node[state, accepting] (10) [right of=1] {$q_{10}$};
-          \node[state] (0) [below of=1] {$q_{0}$};
+			      \node[initial, state] (e) {$q_{\epsilon}$};
+			      \node[state] (1) [right of=e] {$q_{1}$};
+			      \node[state, accepting] (10) [right of=1] {$q_{10}$};
+			      \node[state] (0) [below of=1] {$q_{0}$};
 
-          \path[->]
-          (e) edge [bend right] node[below] {$0$} (0)
-          (e) edge node[above] {$1$} (1)
-          (1) edge [loop above] node[above] {$1$} (1)
-          (1) edge [bend left] node[above] {$0$} (10)
+			      \path[->]
+			      (e) edge [bend right] node[below] {$0$} (0)
+			      (e) edge node[above] {$1$} (1)
+			      (1) edge [loop above] node[above] {$1$} (1)
+			      (1) edge [bend left] node[above] {$0$} (10)
 
-          (10) edge [loop right] node[above] {$0$} (10)
-          (10) edge [bend left] node[below] {$1$} (1)
+			      (10) edge [loop right] node[above] {$0$} (10)
+			      (10) edge [bend left] node[below] {$1$} (1)
 
-          (0) edge [loop below] node[below] {$0,1$} (0)
-          ;
-        \end{tikzpicture}
+			      (0) edge [loop below] node[below] {$0,1$} (0)
+			      ;
+		      \end{tikzpicture}
+	      \end{center}
 
-        {\bf Input:} $10010$, {\bf States:} $q_{\epsilon}, q_{1}, q_{10}, q_{10}, q_{1}, q_{10}$
+	      {\bf Input:} $10010$, {\bf States:} $q_{\epsilon}, q_{1}, q_{10}, q_{10}, q_{1}, q_{10}$
 
-        {\bf Input:} $110011$, {\bf States:} $q_{\epsilon}, q_{1}, q_{1}, q_{10}, q_{10}, q_{1}, q_{1}$
+	      {\bf Input:} $110011$, {\bf States:} $q_{\epsilon}, q_{1}, q_{1}, q_{10}, q_{10}, q_{1}, q_{1}$
 
-        {\bf How it works:} This DFA has two branches to go down. The strings starting with $0$ will fall into the sink on the bottom branch going to $q_0$, while strings starting with $1$ will be routed along the top path to $q_1$ and potentially to the accepting state $q_{10}$. If the string has a sequence of one or more $0$'s at the end, it will go to the far right. If a $1$ comes up, then it will go back to $q_1$ until another $0$ is encountered.
+	      {\bf How it works:} This DFA has two branches to go down. The strings starting with $0$ will fall into the sink on the bottom branch going to $q_0$, while strings starting with $1$ will be routed along the top path to $q_1$ and potentially to the accepting state $q_{10}$. If the string has a sequence of one or more $0$'s at the end, it will go to the far right. If a $1$ comes up, then it will go back to $q_1$ until another $0$ is encountered.
 
-        \pagebreak
-  \item[b.]	$\{w \mid w \mbox{ starts with $0$ and has odd length, or starts with $1$ and has even length}\}$, DFA with $3$ states. Show the computation (i.e., the sequence of states) made by your DFA on input 100101 and on input 11001.
+	      \pagebreak
+	\item[b.]	$\{w \mid w \mbox{ starts with $0$ and has odd length, or starts with $1$ and has even length}\}$, DFA with $3$ states. Show the computation (i.e., the sequence of states) made by your DFA on input 100101 and on input 11001.
 
-        \begin{tikzpicture}[>=stealth',shorten >=1pt,auto,node distance=2.5cm]
 
-          \node[initial, state] (0) {$q_{0}$};
-          \node[state, accepting] (1) [right of=0] {$q_{1}$};
-          \node[state] (2) [below of=1] {$q_{2}$};
+	      \begin{center}
+		      \begin{tikzpicture}[>=stealth',shorten >=1pt,auto,node distance=2.5cm]
 
-          \path[->]
-          (0) edge [bend left] node[above] {$0$} (1)
-          (0) edge [bend right] node[below] {$1$} (2)
+			      \node[initial, state] (0) {$q_{0}$};
+			      \node[state, accepting] (1) [right of=0] {$q_{1}$};
+			      \node[state] (2) [below of=1] {$q_{2}$};
 
-          (1) edge [bend left] node[right] {$0,1$} (2)
+			      \path[->]
+			      (0) edge [bend left] node[above] {$0$} (1)
+			      (0) edge [bend right] node[below] {$1$} (2)
 
-          (2) edge [bend left] node[left] {$0,1$} (1)
-          ;
-        \end{tikzpicture}
+			      (1) edge [bend left] node[right] {$0,1$} (2)
 
-        {\bf Input:} $100101$, {\bf States:} $q_0, q_2, q_1, q_2, q_1, q_2, q_1, q_2$
+			      (2) edge [bend left] node[left] {$0,1$} (1)
+			      ;
+		      \end{tikzpicture}
+	      \end{center}
 
-        {\bf Input:} $11001$, {\bf States:} $q_0, q_2, q_1, q_2, q_1, q_2$
+	      {\bf Input:} $100101$, {\bf States:} $q_0, q_2, q_1, q_2, q_1, q_2, q_1, q_2$
 
-        {\bf How it works:} If a string starts with $0$, at first it will be in an accepting state because the string has one letter and is hence of odd length. If there are more letters, then it will cycle back and forth between $q_1$ and $q_2$, where $q_2$ will represent that the string is of even length. However, if a string starts with $1$, then $q_2$ represents the scenario where the string is of odd length (and hence not accepting). Then, if the string starting with 1 has subsequent letters, the state will alternate similarly between $q_2$ (accepting) to $q_1$.
+	      {\bf Input:} $11001$, {\bf States:} $q_0, q_2, q_1, q_2, q_1, q_2$
 
-        It's notable that there is an inversion of the parity represented by states $q_1$ and $q_2$ depending on what the starting value of the string is, which makes this a little subtle to interpret.
+	      {\bf How it works:} If a string starts with $0$, at first it will be in an accepting state because the string has one letter and is hence of odd length. If there are more letters, then it will cycle back and forth between $q_1$ and $q_2$, where $q_2$ will represent that the string is of even length. However, if a string starts with $1$, then $q_2$ represents the scenario where the string is of odd length (and hence not accepting). Then, if the string starting with 1 has subsequent letters, the state will alternate similarly between $q_2$ (accepting) to $q_1$.
 
-        \pagebreak
+	      It's notable that there is an inversion of the parity represented by states $q_1$ and $q_2$ depending on what the starting value of the string is, which makes this a little subtle to interpret.
 
-  \item[c.]	$\{w \mid w \mbox{ does not contain the string 110}\}$, DFA  with $4$ states. Show the computation (i.e., the sequence of states) made by your DFA on input 1001101 and on input 1001.
+	      \pagebreak
 
-        \begin{tikzpicture}[>=stealth',shorten >=1pt,auto,node distance=2.5cm]
+	\item[c.]	$\{w \mid w \mbox{ does not contain the string 110}\}$, DFA  with $4$ states. Show the computation (i.e., the sequence of states) made by your DFA on input 1001101 and on input 1001.
 
-          \node[initial, state, accepting] (0) {$q_{0}$};
-          \node[state, accepting] (1) [right of=0] {$q_{1}$};
-          \node[state, accepting] (11) [right of=1] {$q_{11}$};
-          \node[state] (110) [right of=11] {$q_{110}$};
+	      \begin{center}
+		      \begin{tikzpicture}[>=stealth',shorten >=1pt,auto,node distance=2.5cm]
 
-          \path[->]
-          (0) edge [loop above] node[above] {$0$} (0)
-          (0) edge [bend left] node[above] {$1$} (1)
-          
-          (1) edge [bend left] node[below] {$0$} (0)
-          (1) edge [bend left] node[above] {$1$} (11)
-          
-          (11) edge [loop above] node[above] {$1$} (11)
-          (11) edge [bend left] node[above] {$0$} (110)
-          
-          (110) edge [loop right] node[right] {$0,1$} (110)
-          ;
-        \end{tikzpicture}
+			      \node[initial, state, accepting] (0) {$q_{0}$};
+			      \node[state, accepting] (1) [right of=0] {$q_{1}$};
+			      \node[state, accepting] (11) [right of=1] {$q_{11}$};
+			      \node[state] (110) [right of=11] {$q_{110}$};
 
-        {\bf Input:} $1001101$, {\bf States:} $q_0, q_1, q_0, q_0, q_1, q_{11}, q_{110}, q_{110}$
+			      \path[->]
+			      (0) edge [loop above] node[above] {$0$} (0)
+			      (0) edge [bend left] node[above] {$1$} (1)
 
-        {\bf Input:} $1001$, {\bf States:} $q_0, q_1, q_0, q_0, q_1$
+			      (1) edge [bend left] node[below] {$0$} (0)
+			      (1) edge [bend left] node[above] {$1$} (11)
 
-        {\bf How it works:} This DFA starts in an accepting state and allows the input to go through more restrictive states as it gets closer and closer to the unaccepting state - that is, until it reaches the point of no return, after which it falls into a sink and will not be accepted. If there are only $0$'s, the DFA will loop on $q_0$. If there are $1$'s and $0$'s alternating, then the state will alternate between $q_0$ and $q_1$. Once there are two consecutive $1$'s though, we are in a bit of a trap. From then on, the string can only be accepted if all of the subsequent values are $1$, since any subsequent $0$ would allow the illegal substring $110$. So, once there are mulitple $1$'s, all the remaining letters will have to be $1$'s for the DFA to accept the string, otherwise it will reject it.
+			      (11) edge [loop above] node[above] {$1$} (11)
+			      (11) edge [bend left] node[above] {$0$} (110)
+
+			      (110) edge [loop right] node[right] {$0,1$} (110)
+			      ;
+		      \end{tikzpicture}
+	      \end{center}
+
+	      {\bf Input:} $1001101$, {\bf States:} $q_0, q_1, q_0, q_0, q_1, q_{11}, q_{110}, q_{110}$
+
+	      {\bf Input:} $1001$, {\bf States:} $q_0, q_1, q_0, q_0, q_1$
+
+	      {\bf How it works:} This DFA starts in an accepting state and allows the input to go through more restrictive states as it gets closer and closer to the unaccepting state - that is, until it reaches the point of no return, after which it falls into a sink and will not be accepted. If there are only $0$'s, the DFA will loop on $q_0$. If there are $1$'s and $0$'s alternating, then the state will alternate between $q_0$ and $q_1$. Once there are two consecutive $1$'s though, we are in a bit of a trap. From then on, the string can only be accepted if all of the subsequent values are $1$, since any subsequent $0$ would allow the illegal substring $110$. So, once there are mulitple $1$'s, all the remaining letters will have to be $1$'s for the DFA to accept the string, otherwise it will reject it.
 
 \end{enumerate}
-\medskip
+
+\pagebreak
 
 {\bf Problem 3.}	 Give NFAs (in the form of state diagrams) with the specified number of states recognizing each the following languages. The alphabet is $\Sigma =\{0,1\}$.
 \begin{enumerate}
-  \item[a.]	$\{w \mid w \mbox{ ends with 00}\}$ with 3 states. Pick one input string that is in the language and one input string that is not in the language and show the two trees of computation possibilities made by your NFA on the two strings (as we did in class, see also Figure 1.29 in the textbook).
+	\item[a.]	$\{w \mid w \mbox{ ends with 00}\}$ with 3 states. Pick one input string that is in the language and one input string that is not in the language and show the two trees of computation possibilities made by your NFA on the two strings (as we did in class, see also Figure 1.29 in the textbook).
 
-  \item[b.]	$\{w \mid w \mbox{ contains the substring 0101}\}$ with 5 states. Pick one input string that is in the language and one input string that is not in the language and show the two trees of computation possibilities made by your NFA on the two strings.
+	      \begin{center}
+		      \begin{tikzpicture}[>=stealth',shorten >=1pt,auto,node distance=2.5cm]
+
+			      \node[initial, state] (q) {$q$};
+			      \node[state] (0) [right of=q] {$q_{0}$};
+			      \node[state, accepting] (00) [right of=0] {$q_{00}$};
+
+			      \path[->]
+			      (q) edge [loop above] node[above] {$1$} (q)
+			      (q) edge [bend right] node[above] {$0$} (0)
+
+			      (0) edge [loop above] node[above] {$0$} (0)
+			      (0) edge [bend right] node[above] {$1$} (q)
+			      (0) edge [bend right] node[above] {$0$} (00)
+
+			      (00) edge [loop right] node[right] {$0$} (0)
+			      (00) edge [bend right=70] node[above] {$1$} (q)
+			      ;
+		      \end{tikzpicture}
+	      \end{center}
+
+	      \begin{center}
+
+		      \begin{tikzpicture}[
+				      % Node styles
+				      state/.style={
+						      circle, draw, minimum size=8mm, inner sep=0pt,
+						      font=\normalsize,
+					      },
+				      accept state/.style={
+						      state, double, double distance=1.5pt,
+					      },
+				      % Edge/arrow style — applied globally to the tree
+				      edge from parent/.style={
+						      draw, thick, ->, >=Stealth,
+					      },
+				      % Increase level distance (vertical spacing between levels)
+				      level distance=45pt,
+				      % Increase sibling distance (horizontal spacing)
+				      sibling distance=20pt,
+			      ]
+			      % \begin{noindent}
+            \Tree
+            [.\node[state](root1){$q$};
+              [.\node[state]{$q$};
+                [.\node[state]{$q_0$};
+                  [.\node[state]{$q_0$};
+                    [.\node[state]{$q$};
+                      [.\node[state]{$q_0$};
+                        [.\node[state]{$q_0$};]
+                        [.\node[accept state]{$q_{00}$};]
+                      ]
+                    ]
+                  ]
+                  [.\node[state]{$q_{00}$};
+                    [.\node[state]{$q$};
+                      [.\node[state]{$q_0$};
+                        [.\node[state]{$q_0$};]
+                        [.\node[accept state]{$q_{00}$};]
+                      ]
+                    ]
+                  ]
+                ]
+              ]
+            ]
+            \node[right=5pt of root1] {Start};
+            % \end{noindent}
+
+			      % --- Symbol labels on the left side ---
+			      % We position these relative to the tree's bounding box.
+			      % Adjust x-coordinates as needed for your tree width.
+			      \begin{scope}[symbol label/.style={font=\large, anchor=east}]
+				      % Grab the root's y-coordinate as reference; levels are spaced by 55pt
+				      \path (current bounding box.north west) +(-0.5, 0) coordinate (labelanchor);
+
+				      \foreach \sym/\i in {1/1, 0/2, 0/3, 1/4, 0/5, 0/6} {
+						      \node[symbol label] at ([yshift={-(\i-0.25)*45pt}] labelanchor) {\sym};
+					      }
+			      \end{scope}
+
+			      % --- Caption ---
+			      \node[font=\bfseries, anchor=north] at
+			      ([yshift=-15pt] current bounding box.south)
+			      {The computation of $3.a$ on input $100100 \in L \subseteq \Sigma^*$};
+
+		      \end{tikzpicture}
+	      \end{center}
+
+	      % {\bf Input:} $100100 \in L \subseteq \Sigma^*$
+	      % {\bf States:} $q$
+
+	      \begin{center}
+
+		      \begin{tikzpicture}[
+				      % Node styles
+				      state/.style={
+						      circle, draw, minimum size=8mm, inner sep=0pt,
+						      font=\normalsize,
+					      },
+				      accept state/.style={
+						      state, double, double distance=1.5pt,
+					      },
+				      % Edge/arrow style — applied globally to the tree
+				      edge from parent/.style={
+						      draw, thick, ->, >=Stealth,
+					      },
+				      % Increase level distance (vertical spacing between levels)
+				      level distance=45pt,
+				      % Increase sibling distance (horizontal spacing)
+				      sibling distance=20pt,
+			      ]
+			      % \begin{noindent}
+            \Tree
+            [.\node[state](root2){$q$};
+              [.\node[state]{$q$};
+                [.\node[state]{$q_0$};
+                  [.\node[state]{$q_0$};
+                    [.\node[state]{$q$};
+                      [.\node[state]{$q$};
+                        [.\node[state]{$q_0$};]
+                      ]
+                    ]
+                  ]
+                  [.\node[state]{$q_{00}$};
+                    [.\node[state]{$q$};
+                      [.\node[state]{$q$};
+                        [.\node[state]{$q_0$};]
+                      ]
+                    ]
+                  ]
+                ]
+              ]
+            ]
+            \node[right=5pt of root2] {Start};
+            % \end{noindent}
+
+			      % --- Symbol labels on the left side ---
+			      % We position these relative to the tree's bounding box.
+			      % Adjust x-coordinates as needed for your tree width.
+			      \begin{scope}[symbol label/.style={font=\large, anchor=east}]
+				      % Grab the root's y-coordinate as reference; levels are spaced by 55pt
+				      \path (current bounding box.north west) +(-0.5, 0) coordinate (labelanchor);
+
+				      \foreach \sym/\i in {1/1, 0/2, 0/3, 1/4, 1/5, 0/6} {
+						      \node[symbol label] at ([yshift={-(\i-0.25)*45pt}] labelanchor) {\sym};
+					      }
+			      \end{scope}
+
+			      % --- Caption ---
+			      \node[font=\bfseries, anchor=north] at
+			      ([yshift=-15pt] current bounding box.south)
+			      {The computation of $3.b$ on input $100110 \not\in L \subseteq \Sigma^*$};
+
+		      \end{tikzpicture}
+	      \end{center}
+
+	      {\bf How it works:}
+
+        TODO - Add explanation
+
+	      \pagebreak
+	\item[b.]	$\{w \mid w \mbox{ contains the substring 0101}\}$ with 5 states. Pick one input string that is in the language and one input string that is not in the language and show the two trees of computation possibilities made by your NFA on the two strings.
 \end{enumerate}
 
 As above, explain why your NFAs accept the corresponding language.
