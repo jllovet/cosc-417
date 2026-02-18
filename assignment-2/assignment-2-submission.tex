@@ -79,7 +79,7 @@ Do (or at least sketch the solutions) without turning in anything the following 
 
   (4) edge [bend right] node[right] {$u$} (3)
   (4) edge [bend right] node[below] {$d$} (5)
-  
+
   (5) edge [bend right] node[above] {$u$} (4)
   (5) edge [loop right] node {$d$} (5)
   ;
@@ -94,16 +94,96 @@ $q_3, q_2, q_3, q_4, q_3$
 
 \medskip
 
-{\bf Problem 2.}	 	Give the state diagram of DFAs with the specified number of states (or less) for each of the following languages over the alphabet $\{0,1\}$.
+{\bf Problem 2.}	 	Give the state diagram of DFAs with the specified number of states (or less) for each of the following languages over the alphabet $\{0,1\}$. For each of the three DFA briefly and convincingly explain (give a ``common sense" explanation, I don't require a formal proof) why they accept the specified language.
+
 \begin{enumerate}
 
   \item[a.]	$\{w \mid w \mbox{ begins with a $1$ and ends with a $0$}\}$, DFA with $4$ states.  Show the computation (i.e., the sequence of states it enters; see Example 1.17 in the textbook) made by your DFA on input 10010 and on input 110011.
 
+        \begin{tikzpicture}[>=stealth',shorten >=1pt,auto,node distance=2.5cm]
+
+          \node[initial, state] (e) {$q_{\epsilon}$};
+          \node[state] (1) [right of=e] {$q_{1}$};
+          \node[state, accepting] (10) [right of=1] {$q_{10}$};
+          \node[state] (0) [below of=1] {$q_{0}$};
+
+          \path[->]
+          (e) edge [bend right] node[below] {$0$} (0)
+          (e) edge node[above] {$1$} (1)
+          (1) edge [loop above] node[above] {$1$} (1)
+          (1) edge [bend left] node[above] {$0$} (10)
+
+          (10) edge [loop right] node[above] {$0$} (10)
+          (10) edge [bend left] node[below] {$1$} (1)
+
+          (0) edge [loop below] node[below] {$0,1$} (0)
+          ;
+        \end{tikzpicture}
+
+        {\bf Input:} $10010$, {\bf States:} $q_{\epsilon}, q_{1}, q_{10}, q_{10}, q_{1}, q_{10}$
+
+        {\bf Input:} $110011$, {\bf States:} $q_{\epsilon}, q_{1}, q_{1}, q_{10}, q_{10}, q_{1}, q_{1}$
+
+        {\bf How it works:} This DFA has two branches to go down. The strings starting with $0$ will fall into the sink on the bottom branch going to $q_0$, while strings starting with $1$ will be routed along the top path to $q_1$ and potentially to the accepting state $q_{10}$. If the string has a sequence of one or more $0$'s at the end, it will go to the far right. If a $1$ comes up, then it will go back to $q_1$ until another $0$ is encountered.
+
+        \pagebreak
   \item[b.]	$\{w \mid w \mbox{ starts with $0$ and has odd length, or starts with $1$ and has even length}\}$, DFA with $3$ states. Show the computation (i.e., the sequence of states) made by your DFA on input 100101 and on input 11001.
+
+        \begin{tikzpicture}[>=stealth',shorten >=1pt,auto,node distance=2.5cm]
+
+          \node[initial, state] (0) {$q_{0}$};
+          \node[state, accepting] (1) [right of=0] {$q_{1}$};
+          \node[state] (2) [below of=1] {$q_{2}$};
+
+          \path[->]
+          (0) edge [bend left] node[above] {$0$} (1)
+          (0) edge [bend right] node[below] {$1$} (2)
+
+          (1) edge [bend left] node[right] {$0,1$} (2)
+
+          (2) edge [bend left] node[left] {$0,1$} (1)
+          ;
+        \end{tikzpicture}
+
+        {\bf Input:} $100101$, {\bf States:} $q_0, q_2, q_1, q_2, q_1, q_2, q_1, q_2$
+
+        {\bf Input:} $11001$, {\bf States:} $q_0, q_2, q_1, q_2, q_1, q_2$
+
+        {\bf How it works:} If a string starts with $0$, at first it will be in an accepting state because the string has one letter and is hence of odd length. If there are more letters, then it will cycle back and forth between $q_1$ and $q_2$, where $q_2$ will represent that the string is of even length. However, if a string starts with $1$, then $q_2$ represents the scenario where the string is of odd length (and hence not accepting). Then, if the string starting with 1 has subsequent letters, the state will alternate similarly between $q_2$ (accepting) to $q_1$.
+
+        It's notable that there is an inversion of the parity represented by states $q_1$ and $q_2$ depending on what the starting value of the string is, which makes this a little subtle to interpret.
+
+        \pagebreak
 
   \item[c.]	$\{w \mid w \mbox{ does not contain the string 110}\}$, DFA  with $4$ states. Show the computation (i.e., the sequence of states) made by your DFA on input 1001101 and on input 1001.
 
-        For each of the three DFA briefly and convincingly explain (give a ``common sense" explanation, I don't require a formal proof) why they accept the specified language.
+        \begin{tikzpicture}[>=stealth',shorten >=1pt,auto,node distance=2.5cm]
+
+          \node[initial, state, accepting] (0) {$q_{0}$};
+          \node[state, accepting] (1) [right of=0] {$q_{1}$};
+          \node[state, accepting] (11) [right of=1] {$q_{11}$};
+          \node[state] (110) [right of=11] {$q_{110}$};
+
+          \path[->]
+          (0) edge [loop above] node[above] {$0$} (0)
+          (0) edge [bend left] node[above] {$1$} (1)
+          
+          (1) edge [bend left] node[below] {$0$} (0)
+          (1) edge [bend left] node[above] {$1$} (11)
+          
+          (11) edge [loop above] node[above] {$1$} (11)
+          (11) edge [bend left] node[above] {$0$} (110)
+          
+          (110) edge [loop right] node[right] {$0,1$} (110)
+          ;
+        \end{tikzpicture}
+
+        {\bf Input:} $1001101$, {\bf States:} $q_0, q_1, q_0, q_0, q_1, q_{11}, q_{110}, q_{110}$
+
+        {\bf Input:} $1001$, {\bf States:} $q_0, q_1, q_0, q_0, q_1$
+
+        {\bf How it works:} This DFA starts in an accepting state and allows the input to go through more restrictive states as it gets closer and closer to the unaccepting state - that is, until it reaches the point of no return, after which it falls into a sink and will not be accepted. If there are only $0$'s, the DFA will loop on $q_0$. If there are $1$'s and $0$'s alternating, then the state will alternate between $q_0$ and $q_1$. Once there are two consecutive $1$'s though, we are in a bit of a trap. From then on, the string can only be accepted if all of the subsequent values are $1$, since any subsequent $0$ would allow the illegal substring $110$. So, once there are mulitple $1$'s, all the remaining letters will have to be $1$'s for the DFA to accept the string, otherwise it will reject it.
+
 \end{enumerate}
 \medskip
 
