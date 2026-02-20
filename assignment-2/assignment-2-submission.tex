@@ -196,7 +196,7 @@ $q_3, q_2, q_3, q_4, q_3$
 
 \pagebreak
 
-{\bf Problem 3.}	 Give NFAs (in the form of state diagrams) with the specified number of states recognizing each the following languages. The alphabet is $\Sigma =\{0,1\}$.
+{\bf Problem 3.}	 Give NFAs (in the form of state diagrams) with the specified number of states recognizing each the following languages. The alphabet is $\Sigma =\{0,1\}$. As above, explain why your NFAs accept the corresponding language.
 \begin{enumerate}
 	\item[a.]	$\{w \mid w \mbox{ ends with 00}\}$ with 3 states. Pick one input string that is in the language and one input string that is not in the language and show the two trees of computation possibilities made by your NFA on the two strings (as we did in class, see also Figure 1.29 in the textbook).
 
@@ -357,9 +357,151 @@ $q_3, q_2, q_3, q_4, q_3$
 
 	      \pagebreak
 	\item[b.]	$\{w \mid w \mbox{ contains the substring 0101}\}$ with 5 states. Pick one input string that is in the language and one input string that is not in the language and show the two trees of computation possibilities made by your NFA on the two strings.
+        \begin{center}
+		      \begin{tikzpicture}[>=stealth',shorten >=1pt,auto,node distance=2.5cm]
+
+			      \node[initial, state] (e) {$\epsilon$};
+			      \node[state] (0) [right of=e] {$q_{0}$};
+			      \node[state] (01) [right of=0] {$q_{01}$};
+			      \node[state] (010) [right of=01] {$q_{010}$};
+			      \node[state, accepting] (0101) [right of=010] {$q_{0101}$};
+
+			      \path[->]
+
+			      (e) edge [loop above] node[above] {$1$} (e)
+			      (e) edge node[below] {$0$} (0)
+			      
+            (0) edge [loop above] node[above] {$0$} (0)
+            (0) edge node[below] {$1$} (01)
+			      % (q) edge [bend right] node[above] {$0$} (0)
+            (01) edge node[below] {$0$} (010)
+            (01) edge [bend left] node[below] {$1$} (e)
+            
+            (010) edge node[below] {$1$} (0101)
+            (010) edge [bend right] node[above] {$0$} (0)
+            
+			      (0101) edge [loop above] node[above] {$0,1$} (0101)
+			      % (00) edge [bend right=70] node[above] {$1$} (q)
+			      ;
+		      \end{tikzpicture}
+	      \end{center}
+
+	      \begin{center}
+
+		      \begin{tikzpicture}[
+				      % Node styles
+				      state/.style={
+						      circle, draw, minimum size=8mm, inner sep=0pt,
+						      font=\normalsize,
+					      },
+				      accept state/.style={
+						      state, double, double distance=1.5pt,
+					      },
+				      % Edge/arrow style — applied globally to the tree
+				      edge from parent/.style={
+						      draw, thick, ->, >=Stealth,
+					      },
+				      % Increase level distance (vertical spacing between levels)
+				      level distance=45pt,
+				      % Increase sibling distance (horizontal spacing)
+				      sibling distance=20pt,
+			      ]
+			      % \begin{noindent}
+            \Tree
+            [.\node[state](root1){$\epsilon$};
+              [.\node[state]{$\epsilon$};
+                [.\node[state]{$q_0$};
+                  [.\node[state]{$q_0$};
+                    [.\node[state]{$q_{01}$};
+                      [.\node[state]{$q_{010}$};
+                        [.\node[accept state]{$q_{0101}$};]
+                      ]
+                    ]
+                  ]
+                ]
+              ]
+            ]
+            \node[right=5pt of root1] {Start};
+            % \end{noindent}
+
+			      % --- Symbol labels on the left side ---
+			      % We position these relative to the tree's bounding box.
+			      % Adjust x-coordinates as needed for your tree width.
+			      \begin{scope}[symbol label/.style={font=\large, anchor=east}]
+				      % Grab the root's y-coordinate as reference; levels are spaced by 55pt
+				      \path (current bounding box.north west) +(-0.5, 0) coordinate (labelanchor);
+
+				      \foreach \sym/\i in {1/1, 0/2, 0/3, 1/4, 0/5, 1/6} {
+						      \node[symbol label] at ([yshift={-(\i-0.25)*45pt}] labelanchor) {\sym};
+					      }
+			      \end{scope}
+
+			      % --- Caption ---
+			      \node[font=\bfseries, anchor=north] at
+			      ([yshift=-15pt] current bounding box.south)
+			      {The computation of $3.b$ on input $100101 \in L$};
+
+		      \end{tikzpicture}
+	      \end{center}
+
+	      \begin{center}
+
+		      \begin{tikzpicture}[
+				      % Node styles
+				      state/.style={
+						      circle, draw, minimum size=8mm, inner sep=0pt,
+						      font=\normalsize,
+					      },
+				      accept state/.style={
+						      state, double, double distance=1.5pt,
+					      },
+				      % Edge/arrow style — applied globally to the tree
+				      edge from parent/.style={
+						      draw, thick, ->, >=Stealth,
+					      },
+				      % Increase level distance (vertical spacing between levels)
+				      level distance=45pt,
+				      % Increase sibling distance (horizontal spacing)
+				      sibling distance=20pt,
+			      ]
+			      % \begin{noindent}
+            \Tree
+            [.\node[state](root1){$\epsilon$};
+              [.\node[state]{$q_0$};
+                [.\node[state]{$q_{01}$};
+                  [.\node[state]{$q_{010}$};
+                    [.\node[state]{$q_{0}$};]
+                  ]
+                ]
+              ]
+            ]
+            \node[right=5pt of root1] {Start};
+            % \end{noindent}
+
+			      % --- Symbol labels on the left side ---
+			      % We position these relative to the tree's bounding box.
+			      % Adjust x-coordinates as needed for your tree width.
+			      \begin{scope}[symbol label/.style={font=\large, anchor=east}]
+				      % Grab the root's y-coordinate as reference; levels are spaced by 55pt
+				      \path (current bounding box.north west) +(-0.5, 0) coordinate (labelanchor);
+
+				      \foreach \sym/\i in {0/1, 1/2, 0/3, 0/4} {
+						      \node[symbol label] at ([yshift={-(\i-0.25)*45pt}] labelanchor) {\sym};
+					      }
+			      \end{scope}
+
+			      % --- Caption ---
+			      \node[font=\bfseries, anchor=north] at
+			      ([yshift=-15pt] current bounding box.south)
+			      {The computation of $3.b$ on input $0100 \not \in L$};
+
+		      \end{tikzpicture}
+	      \end{center}
+
+	      {\bf How it works:} This NFA is actually also a DFA. The computation is straightforward in both cases, where the input is in the language and when it is not. The strategy as in several of the other cases is to accumulate letters of the substring, with transitions to go back to earlier states in cases where the opposite letter than is required is provided (viz. in states $q_{01}$ and $q_{010}$, the state gets knocked back to an earlier one if anything other than the next required letter to build up the substring). This is precisely what occurs with the input $0100$. It is at the penultimate state and then is knocked back to $q_0$, without sufficient input to accumulate the required substring again before the end of the input.
+
 \end{enumerate}
 
-As above, explain why your NFAs accept the corresponding language.
 \bigskip
 
 {\bf Problem 4.}	 For any string $w_1 w_2 \ldots w_n$, the reverse $w^R$  is the string $w$ in reverse order $w_n  \ldots w_2 w_1$.   For a language $A$, let $A^R = \{ w^R \mid w \mbox{ is in }A\}$ (in other words, $A^R$ consists of all the reverses of the strings in $A$).  Prove that if $A$ is regular, then $A^R$  is also regular. In your proof you have to  show how to convert a finite automaton for $A$ into a finite automaton for $A^R$.  Other arguments are possible, but will not give you the extra credit. (Note: Take care, an FA, whether deterministic or nondeterministic, has a single starting state).
