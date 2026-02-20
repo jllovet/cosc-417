@@ -518,7 +518,8 @@ or
 \]
 where $\delta$ is a transition function that maps states from $Q$ to each other according to the current input letter $w_k \in \Sigma$ from a string ${w_1}{w_2}{w_k}\ldots{w_m}$ provided to the state:
 \[
-  \delta(q_i, w_k) \to q_j \text{, where } i, j \in \mathbb{N} \text{, and } 0 \le i \le j \le n.
+  \delta(q_i, w_k) \to q_j \text{, where } i, j \in {0,
+  \ldots, n}.
 \]
 Proceeding from the starting state $q_0$, each string $w \in A$ will induce a path from the starting state $q_0$ to some accepting state $q_f \in F$. To produce the reverse of a given path, we must begin on that formerly accepting state $q_f$, and then we must proceed backwards along each transition that was traversed until we exhaust the reversed input string and are back on the former starting state $q_0$. For a single path this is non-problematic and straightforward. However, in order to handle every string in the language A, we will have an obstacle. Namely, as mentioned above, every automaton has only one starting state. So, we cannot construct the automaton $M_{A^R}$ merely by replacing $q_0$ with $q_f$, since that would not recognize all strings in $A^R$. Rather, we will have to take advantage of the equivalence of NFA's and DFA's.
 
@@ -538,7 +539,8 @@ where $\delta_{A^R}$ is the following, modified from $\delta_{A}$,
 \begin{array}{lll}
   \forall q_f \in F_A, \delta(q_{\epsilon}, \epsilon) &\to q_f \\
   \cup \\
-  \delta(q_j, w_k) &\to q_i \text{, where } i, j \in \mathbb{N} \text{, and } 0 \le i \le j \le n.
+  \delta(q_j, w_k) &\to q_i \text{, where } i, j \in {0,
+  \ldots, n}.
 \end{array}
 \]
 
