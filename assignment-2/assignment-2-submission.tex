@@ -155,7 +155,7 @@ $q_3, q_2, q_3, q_4, q_3$
 
 	      {\bf Input:} $11001$, {\bf States:} $q_0, q_2, q_1, q_2, q_1, q_2$
 
-	      {\bf How it works:} If a string starts with $0$, at first it will be in an accepting state because the string has one letter and is hence of odd length. If there are more letters, then it will cycle back and forth between $q_1$ and $q_2$, where $q_2$ will represent that the string is of even length. However, if a string starts with $1$, then $q_2$ represents the scenario where the string is of odd length (and hence not accepting). Then, if the string starting with 1 has subsequent letters, the state will alternate similarly between $q_2$ (accepting) to $q_1$.
+	      {\bf How it works:} If a string starts with $0$, at first it will be in an accepting state because the string has one letter and is hence of odd length. If there are more letters, then it will cycle back and forth between $q_1$ and $q_2$, where $q_2$ will represent that the string is of even length. However, if a string starts with $1$, then $q_2$ represents the scenario where the string is of odd length (and hence not accepting). Then, if the string starting with 1 has subsequent letters, the state will alternate similarly between $q_2$ to $q_1$, and when the string is of even length, the state will be the accepting state $q_1$.
 
 	      It's notable that there is an inversion of the parity represented by states $q_1$ and $q_2$ depending on what the starting value of the string is, which makes this a little subtle to interpret.
 
