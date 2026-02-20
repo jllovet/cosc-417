@@ -502,9 +502,50 @@ $q_3, q_2, q_3, q_4, q_3$
 
 \end{enumerate}
 
-\bigskip
+\pagebreak
 
 {\bf Problem 4.}	 For any string $w_1 w_2 \ldots w_n$, the reverse $w^R$  is the string $w$ in reverse order $w_n  \ldots w_2 w_1$.   For a language $A$, let $A^R = \{ w^R \mid w \mbox{ is in }A\}$ (in other words, $A^R$ consists of all the reverses of the strings in $A$).  Prove that if $A$ is regular, then $A^R$  is also regular. In your proof you have to  show how to convert a finite automaton for $A$ into a finite automaton for $A^R$.  Other arguments are possible, but will not give you the extra credit. (Note: Take care, an FA, whether deterministic or nondeterministic, has a single starting state).
 
+{\bf Proof:} Assume that a language $A$ is regular. Because $A$ is regular, there is a finite automaton that recognizes $A$. Let it be called $M_A$. We will prove that the language $A^R$, which is composed of the reverse of each of the strings in $A$, is a regular language by transforming the finite automaton $M_A$ into a finite automaton $M_{A^R}$, since if there is a finite automaton $M_{A^R}$ that recognizes $A^R$, then $A^R$ is regular. Assume that in the following the alphabet $\Sigma$ is \{0, 1\}.
+
+Because $M_A$ is a finite automaton, it is defined as a tuple
+\[
+  \big(Q, \Sigma, \delta, q_0, F \big)
+\]
+or
+\[
+  \big( \{q_0, q_1, \ldots, q_n\}, \{0, 1\}, \delta, q_0, \{q_{f0}, q_{f1},\ldots, q_{fn}\} \big)
+\]
+where $\delta$ is a transition function that maps states from $Q$ to each other according to the current input letter $w_k \in \Sigma$ from a string ${w_1}{w_2}{w_k}\ldots{w_m}$ provided to the state:
+\[
+  \delta(q_i, w_k) \to q_j \text{, where } i, j \in \mathbb{N} \text{, and } 0 \le i \le j \le n.
+\]
+Proceeding from the starting state $q_0$, each string $w \in A$ will induce a path from the starting state $q_0$ to some accepting state $q_f \in F$. To produce the reverse of a given path, we must begin on that formerly accepting state $q_f$, and then we must proceed backwards along each transition that was traversed until we exhaust the reversed input string and are back on the former starting state $q_0$. For a single path this is non-problematic and straightforward. However, in order to handle every string in the language A, we will have an obstacle. Namely, as mentioned above, every automaton has only one starting state. So, we cannot construct the automaton $M_{A^R}$ merely by replacing $q_0$ with $q_f$, since that would not recognize all strings in $A^R$. Rather, we will have to take advantage of the equivalence of NFA's and DFA's.
+
+Let us construct an NFA whose states are $Q_A \cup q_{\epsilon}$, where $q_{\epsilon}$ will serve as the new starting state. From $q_{\epsilon}$, let there be an $\epsilon$ transition (empty string transition) to every state that was formerly a starting state. Then, for each mapping in the transition function $\delta$, let the states be switched, so that we will proceed backwards and nondeterministically from $q_{\epsilon}$ to each state $q_f \in F$, through the intermediate states and ultimately back to the original $q_0$ from $A$.
+
+Adapting the definition of $A$ from above, $A^R$ is defined as:
+
+\[
+  \big(Q \cup q_{\epsilon}, \Sigma, \delta_{A^R}, q_{0}, F \big)
+\]
+or
+\[
+  \big( \{q_0, q_1, \ldots, q_n\} \cup q_{\epsilon}, \{0, 1\}, \delta_{A^R}, q_{\epsilon}, \{q_0\} \big)
+\]
+where $\delta_{A^R}$ is the following, modified from $\delta_{A}$,
+\[
+\begin{array}{lll}
+  \forall q_f \in F_A, \delta(q_{\epsilon}, \epsilon) &\to q_f \\
+  \cup \\
+  \delta(q_j, w_k) &\to q_i \text{, where } i, j \in \mathbb{N} \text{, and } 0 \le i \le j \le n.
+\end{array}
+\]
+
+That is, the from our new dummy starting state $q_{\epsilon}$, there is an epsilon transition to each of the accepting states from $A$. Then, the source and target states are reversed for each mapping in the original transition function $\delta_A$.
+
+Because this NFA proceeds nondeterministically from each of the accepting states of $A$ back through each of the paths corresponding to the reversed strings $w^R \in A^R$, this NFA $M_{A^R}$ recognizes $A^R$. Because of the equivalence of NFA's and DFA's, it is possible to transform this NFA into a DFA. Critically, though, because we have shown how to construct a finite automaton $M_{A^R}$ that recognizes $A^R$, we have demonstrated that $A^R$ is a regular language. Therefore, $A$ is regular $\implies$ $A^R$ is regular.
+
+\qed
 
 \end{document}
