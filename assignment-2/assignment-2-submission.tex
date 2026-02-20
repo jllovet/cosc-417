@@ -528,11 +528,11 @@ Let us construct an NFA whose states are $Q_A \cup q_{\epsilon}$, where $q_{\eps
 Adapting the definition of $A$ from above, $A^R$ is defined as:
 
 \[
-  \big(Q \cup q_{\epsilon}, \Sigma, \delta_{A^R}, q_{\epsilon}, F_{A^R} \big)
+  \big(Q \cup \{q_{\epsilon}\}, \Sigma, \delta_{A^R}, q_{\epsilon}, F_{A^R} \big)
 \]
 that is,
 \[
-  \big( \{q_0, q_1, \ldots, q_n\} \cup q_{\epsilon}, \{0, 1\}, \delta_{A^R}, q_{\epsilon}, \{q_0\} \big)
+  \big( \{q_0, q_1, \ldots, q_n\} \cup \{q_{\epsilon}\}, \{0, 1\}, \delta_{A^R}, q_{\epsilon}, \{q_0\} \big)
 \]
 where $\delta_{A^R}$ is the following, modified from $\delta_{A}$,
 \[
