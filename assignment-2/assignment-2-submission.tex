@@ -506,7 +506,7 @@ $q_3, q_2, q_3, q_4, q_3$
 
 {\bf Problem 4.}	 For any string $w_1 w_2 \ldots w_n$, the reverse $w^R$  is the string $w$ in reverse order $w_n  \ldots w_2 w_1$.   For a language $A$, let $A^R = \{ w^R \mid w \mbox{ is in }A\}$ (in other words, $A^R$ consists of all the reverses of the strings in $A$).  Prove that if $A$ is regular, then $A^R$  is also regular. In your proof you have to  show how to convert a finite automaton for $A$ into a finite automaton for $A^R$.  Other arguments are possible, but will not give you the extra credit. (Note: Take care, an FA, whether deterministic or nondeterministic, has a single starting state).
 
-{\bf Proof:} Assume that a language $A$ is regular. Because $A$ is regular, there is a finite automaton that recognizes $A$. Let it be called $M_A$. We will prove that the language $A^R$, which is composed of the reverse of each of the strings in $A$, is a regular language by transforming the finite automaton $M_A$ into a finite automaton $M_{A^R}$, since if there is a finite automaton $M_{A^R}$ that recognizes $A^R$, then $A^R$ is regular. Assume that in the following the alphabet $\Sigma$ is \{0, 1\}.
+{\bf Proof:} Assume that a language $A$ is regular. Because $A$ is regular, there is a finite automaton that recognizes $A$. Let it be called $M_A$. We will prove that the language $A^R$, which is composed of the reverse of each of the strings in $A$, is a regular language by transforming the finite automaton $M_A$ into a finite automaton $M_{A^R}$, since if there is a finite automaton $M_{A^R}$ that recognizes $A^R$, then $A^R$ is regular.
 
 Because $M_A$ is a finite automaton, it is defined as a tuple
 \[
