@@ -353,9 +353,7 @@ $q_3, q_2, q_3, q_4, q_3$
 		      \end{tikzpicture}
 	      \end{center}
 
-	      {\bf How it works:}
-
-        TODO - Add explanation
+	      {\bf How it works:} This NFA works by accumulating 0s moving from state $q$ to state $q_0$ to state $q_{00}$. If we have encountered two $0$ values in a row, that will be sufficient for the state $q_{00}$ to be reached. Because the last two values need to be $0$'s, if at any point the automaton encounters a $1$, the state transitions back to the starting state. There is a redundant transition looping from $q_0$ to itself, which allows the nondeterministic character of the NFA to appear more clearly. A simplified DFA could be built to perform the same computation where the states and transitions would be the same, with the omission of the loop on $q_0$.
 
 	      \pagebreak
 	\item[b.]	$\{w \mid w \mbox{ contains the substring 0101}\}$ with 5 states. Pick one input string that is in the language and one input string that is not in the language and show the two trees of computation possibilities made by your NFA on the two strings.
