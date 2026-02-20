@@ -190,7 +190,7 @@ $q_3, q_2, q_3, q_4, q_3$
 
 	      {\bf Input:} $1001$, {\bf States:} $q_0, q_1, q_0, q_0, q_1$
 
-	      {\bf How it works:} This DFA starts in an accepting state and allows the input to go through more restrictive states as it gets closer and closer to the unaccepting state - that is, until it reaches the point of no return, after which it falls into a sink and will not be accepted. If there are only $0$'s, the DFA will loop on $q_0$. If there are $1$'s and $0$'s alternating, then the state will alternate between $q_0$ and $q_1$. Once there are two consecutive $1$'s though, we are in a bit of a trap. From then on, the string can only be accepted if all of the subsequent values are $1$, since any subsequent $0$ would allow the illegal substring $110$. So, once there are mulitple $1$'s, all the remaining letters will have to be $1$'s for the DFA to accept the string, otherwise it will reject it.
+	      {\bf How it works:} This DFA starts in an accepting state and allows the input to go through more restrictive states as it gets closer and closer to the unaccepting state - that is, until it reaches the point of no return, after which it falls into a sink and will not be accepted. If there are only $0$'s, the DFA will loop on $q_0$. If there are $1$'s and $0$'s alternating, then the state will alternate between $q_0$ and $q_1$. Once there are two consecutive $1$'s though, we are in a bit of a trap. From then on, the string can only be accepted if all of the subsequent values are $1$, since any subsequent $0$ would allow the illegal substring $110$. So, once there are multiple $1$'s, all the remaining letters will have to be $1$'s for the DFA to accept the string, otherwise it will reject it.
 
 \end{enumerate}
 
@@ -544,7 +544,7 @@ where $\delta_{A^R}$ is the following, modified from $\delta_{A}$,
 \end{array}
 \]
 
-That is, the from our new dummy starting state $q_{\epsilon}$, there is an epsilon transition to each of the accepting states from $A$. Then, the source and target states are reversed for each mapping in the original transition function $\delta_A$.
+That is, from our new dummy starting state $q_{\epsilon}$, there is an epsilon transition to each of the accepting states from $A$. Then, the source and target states are reversed for each mapping in the original transition function $\delta_A$.
 
 Because this NFA proceeds nondeterministically from each of the accepting states of $A$ back through each of the paths corresponding to the reversed strings $w^R \in A^R$, this NFA $M_{A^R}$ recognizes $A^R$. Because of the equivalence of NFA's and DFA's, it is possible to transform this NFA into a DFA. Critically, though, because we have shown how to construct a finite automaton $M_{A^R}$ that recognizes $A^R$, we have demonstrated that $A^R$ is a regular language. Therefore, $A$ is regular $\implies$ $A^R$ is regular.
 
