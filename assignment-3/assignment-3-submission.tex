@@ -97,6 +97,18 @@ This consequence is because with $i=2$, there will be more than $2p$ $0$'s, but 
 4. 	$A = \{0^{n!} \mid n >= 0 \}$ (Reminder: $n! = 1  \cdot 2 \cdot  \ldots \cdot  n$)
 \medskip
 
+By the pumping game, based on the contrapositive of the pumping lemma:
+\[
+  \begin{array}{llll}
+    \text{I (Us):}& \text{Let } s = 0^{p!} && \text{satisfying } \vert s \vert \ge p\\
+    \text{II (Adv):}& \text{Let }s =  xyz && \text{such that: } y \not = \epsilon, \vert xy \vert \le p \\
+    \text{III (Us):}& \text{Take } i = 0. \text{ Let $x = \epsilon, z = \epsilon$.} &&\text{Then } xy^0z \not \in A.\\
+  \end{array}
+\]
+
+This works by pumping down. $xy^0z \not \in A$ because $n! \ge 1$, but $\vert xy^0z\vert = 0$, which means $xy^0z$ does not satisfy the condition for inclusion in $A$.
+
+\medskip
 
 5. 	$C = \{0^m1^n  \mid  m \not= n \}$ (Note: This is an example where the pumping lemma is difficult to use.   It is much easier to use the closure properties of regular languages.)
 \medskip
