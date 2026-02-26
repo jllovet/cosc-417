@@ -79,10 +79,20 @@ In the following $3$ exercises, use the Pumping Lemma or the closure properties 
 \medskip
 
 3. 	$B=\{w  \in \{0, 1\}^* \mid \mbox{ the number of 0s in $w$ is two times the number of 1s in $w$}\}$.
+\smallskip
+
+By the pumping game, based on the contrapositive of the pumping lemma:
+\[
+  \begin{array}{llll}
+    \text{I (Us):}& \text{Let } s = 0^{2p}1^p && \text{satisfying } \vert s \vert \ge p\\
+    \text{II (Adv):}& \text{Let }s =  xyz && \text{such that: } y \not = \epsilon, \vert xy \vert \le p \\
+    \text{III (Us):}& \text{Take } i = 2. \text{ Then } xy^2z \not \in B\\
+  \end{array}
+\]
+
+This consequence is because with $i=2$, there will be more than $2p$ $0$'s, but only $p$ $1$'s, which does not satisfy the condition for inclusion in $B$.
+
 \medskip
-
-
-
 
 4. 	$A = \{0^{n!} \mid n >= 0 \}$ (Reminder: $n! = 1  \cdot 2 \cdot  \ldots \cdot  n$)
 \medskip
