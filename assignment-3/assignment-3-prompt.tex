@@ -1,0 +1,121 @@
+\documentclass[11pt]{article}
+\usepackage{hyperref}
+\usepackage{ulem}
+
+\setlength{\oddsidemargin}{-0.5in}
+\setlength{\evensidemargin}{\oddsidemargin}
+\setlength{\textwidth}{7.0in}
+\setlength{\textheight}{8.3in}
+\setlength{\topmargin}{-0.7in}
+
+%\input{macros.tex}
+\begin{document}
+
+{\Large COSC 417 \hspace{2cm} Assignment 3}
+\vspace{0.5cm}
+
+\emph{Instructions:}
+
+(a) Due {As indicated on Blackboard.} 
+
+
+(b) Submit on Blackboard.  This homework will not be graded, I will post solutions (see the syllabus for the policy regarding assignments).
+
+
+
+
+		
+
+
+ (c) For editing your homework. I recommend that you use Latex, see the template posted on Blackboard. 
+ 
+         The template has an  example showing how to do the state diagram  of a finite automaton. If you have trouble with making figures in Latex, you can draw the state diagram and insert a digital photo in the .tex file (see the template how to do this).
+  
+	    
+		   (d) If a problem has more questions, write down your answers in the same order as the order of questions. In principle, this should help you.
+		   \vspace{0.5cm}
+\bigskip
+
+
+
+
+  Do without turning in anything the following exercises regarding regular expressions from the textbook: 1.19, 1.20, 1.21  (Some of them have solutions in the book; still try to do them before checking the solution. Some of this exercises will show up in quizzes).
+
+
+  Read Examples 1.73 - 1.77  from the textbook, which use the Pumping lemma to show that certain languages are not regular. (Some of these exercises will show up in quizzes and exams).
+\bigskip
+
+Do and turn in the following exercises.
+
+1.  Exercise 1.16  - page 86. Use the method shown in class and which is also in the textbook in Example 1.41, page 56.
+
+
+\medskip
+
+2.	Give regular expressions for each of the following languages over the alphabet $\{0,1\}$:
+
+(a)	$\{w \in  \{0, 1\}^* \mid \mbox{ $w$ begins with a $1$ and ends with a $1$}\}$
+
+(b)	$\{w  \in \{0, 1\}^*  \mid \mbox{ $w$ has length at least $3$ and its 2nd symbol is a $0$}\}$
+
+(c)	$\{w  \in \{0, 1\}^*  \mid \mbox{ $w$ does not contain $01$} \}$.
+\medskip
+
+
+In the following $3$ exercises, use the Pumping Lemma or the closure properties of regular languages to prove that the  corresponding languages are not regular.
+\medskip
+
+3. 	$B=\{w  \in \{0, 1\}^* \mid \mbox{ the number of 0s in $w$ is two times the number of 1s in $w$}\}$.
+\medskip
+
+
+
+
+4. 	$A = \{0^{n!} \mid n >= 0 \}$ (Reminder: $n! = 1  \cdot 2 \cdot  \ldots \cdot  n$)
+\medskip
+
+
+5. 	$C = \{0^m1^n  \mid  m \not= n \}$ (Note: This is an example where the pumping lemma is difficult to use.   It is much easier to use the closure properties of regular languages.)
+\medskip
+
+{\small
+(Some hints for exercises 3-5: If you use the Pumping Lemma, present how Player 1 can win the game in 3 moves. Remember that in the first move, Player 1 must choose a string that has length at least p, and p is an arbitrary number. In step 3 you must show that Player 1 has a winning move, for \emph{any} move of Player 2 in the second move. 
+
+Exercise 3 is similar to Example 1.73 in the textbook (which we also did in class), Exercise 4 is similar to Example 1.76 in the textbook.
+
+If you use the closure properties for Exercise 5, you need to transform (using the operations of union, intersection, complementation, concatenation, and star) the language $C$ into $L_1$, and then $L_1$ into $L_2$, and so on till you reach a language that you know already is not regular.
+This implies that the initial language $C$ is also not regular.)
+}
+\medskip
+
+6. Show that if $A$ is a regular language, then $A_{even} = \{x \in A \mid |x| \textrm{ is even} \}$ is also regular. \emph{Hint:} $A_{even}$ is the subset of $A$ containing all strings in $A$ with even length. You can use a closure property.
+\bigskip
+
+
+%The next problem is \textbf{Extra Credit}.  It is optional. If you choose to do this part, you need to do it alone (without a partner) and turn it separately in class. Write on top of it: "Assignment 3 -Extra Credit" and your name.
+%\medskip
+
+7.  Find the mistake in the following ``proof" that shows that the language $L = a^* b^*$ (formally, $L$ is the language denoted by the regular expression $a^* b^*$) is not regular (which obviously is false).
+\medskip
+
+\emph{``Proof" that $L$ is not regular}. 
+
+Suppose $L$ is regular, and let $p$ be the pumping length for $L$. We play the Pumping Game for $L$.
+\medskip
+
+I. We choose $s = a^{p/2} b^{p/2}$ if $p$ is even. If $p$ is odd, we take $s = a^{(p+1)/2} b^{(p+1)/2}$ .
+\smallskip
+
+II. The adversary breaks $s = xyz$ so that $y=ab$.
+\smallskip
+
+
+III. We take $i=2$. We have won the game: $xyyz$ is not in $L$ because it has as a subword $abab$ which is not allowed for strings in $L$.
+ \medskip
+
+Since we have won the Pumping Game, it follows that $L$ is not regular.
+
+\emph{End of ``Proof''}
+ 
+\end{document}
+ 
