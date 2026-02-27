@@ -51,6 +51,39 @@ Do and turn in the following exercises.
 
 1.  Exercise 1.16  - page 86. Use the method shown in class and which is also in the textbook in Example 1.41, page 56.
 
+  {\bf Part A:}
+
+\begin{center}
+  \begin{tikzpicture}[>=stealth',shorten >=1pt,auto,node distance=2.5cm]
+
+    \node[initial, state, accepting] (1) {$1$};
+    \node[state] (2) [below of=1] {$2$};
+
+    \path[->]
+    (1) edge [loop right] node[right] {$a$} (1)
+    (1) edge [bend left] node[right] {$a,b$} (2)
+    (2) edge [bend left] node[left] {$b$} (1)
+    ;
+  \end{tikzpicture}
+\end{center}
+
+The DFA that corresponds to the NFA above is defined as follows:
+
+$A = \Big(Q=\{\emptyset, \{1\}, \{2\}, \{1,2\}\}, \Sigma=\{a,b\}, \delta, q_0=\{1\}, F=\{1,\{1,2\}\}\Big)$
+
+\begin{center}
+  \begin{tabular}{|c|c|c|}
+    \hline
+    $\delta$    & $a$         & $b$         \\
+    \hline
+    $\emptyset$ & $\emptyset$ & $\emptyset$ \\
+    $\{1\}$     & $\{1,2\}$   & $\{2\}$     \\
+    $\{2\}$     & $\emptyset$ & $\{1\}$     \\
+    $\{1,2\}$   & $\{1,2\}$   & $\{1,2\}$   \\
+    \hline
+  \end{tabular}
+\end{center}
+
 
 \medskip
 
