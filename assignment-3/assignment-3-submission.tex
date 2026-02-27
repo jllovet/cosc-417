@@ -41,7 +41,7 @@
 Do without turning in anything the following exercises regarding regular expressions from the textbook: 1.19, 1.20, 1.21  (Some of them have solutions in the book; still try to do them before checking the solution. Some of this exercises will show up in quizzes).
 
 
-  Read Examples 1.73 - 1.77  from the textbook, which use the Pumping lemma to show that certain languages are not regular. (Some of these exercises will show up in quizzes and exams).
+Read Examples 1.73 - 1.77  from the textbook, which use the Pumping lemma to show that certain languages are not regular. (Some of these exercises will show up in quizzes and exams).
 
 Do (or at least sketch the solutions) without turning in anything the following exercises from the textbook: 1.4 (a-d), 1.5 (a-d), 1.6(a-d), 1.7(a-d).
 
@@ -59,17 +59,17 @@ Do and turn in the following exercises.
 
 (a)	$\{w \in  \{0, 1\}^* \mid \mbox{ $w$ begins with a $1$ and ends with a $1$}\}$
 \[
-1(1 \cup 0)^*1 \cup 1
+  1(1 \cup 0)^*1 \cup 1
 \]
 
 (b)	$\{w  \in \{0, 1\}^*  \mid \mbox{ $w$ has length at least $3$ and its 2nd symbol is a $0$}\}$
 \[
-(1 \cup 0)0(1 \cup 0)^+
+  (1 \cup 0)0(1 \cup 0)^+
 \]
 
 (c)	$\{w  \in \{0, 1\}^*  \mid \mbox{ $w$ does not contain $01$} \}$.
 \[
-1^*0^*
+  1^*0^*
 \]
 
 \medskip
@@ -84,9 +84,9 @@ In the following $3$ exercises, use the Pumping Lemma or the closure properties 
 By the pumping game, based on the contrapositive of the pumping lemma:
 \[
   \begin{array}{llll}
-    \text{I (Us):}& \text{Let } s = 0^{2p}1^p && \text{satisfying } \vert s \vert \ge p\\
-    \text{II (Adv):}& \text{Let }s =  xyz && \text{such that: } y \not = \epsilon, \vert xy \vert \le p \\
-    \text{III (Us):}& \text{Take } i = 2 &&\text{then } xy^2z \not \in B\\
+    \text{I (Us):}   & \text{Let } s = 0^{2p}1^p &  & \text{satisfying } \vert s \vert \ge p                     \\
+    \text{II (Adv):} & \text{Let }s =  xyz       &  & \text{such that: } y \not = \epsilon, \vert xy \vert \le p \\
+    \text{III (Us):} & \text{Take } i = 2        &  & \text{then } xy^2z \not \in B                              \\
   \end{array}
 \]
 
@@ -100,9 +100,9 @@ This consequence is because with $i=2$, there will be more than $2p$ $0$'s, but 
 By the pumping game, based on the contrapositive of the pumping lemma:
 \[
   \begin{array}{llll}
-    \text{I (Us):}& \text{Let } s = 0^{p!} && \text{satisfying } \vert s \vert \ge p\\
-    \text{II (Adv):}& \text{Let }s =  xyz && \text{such that: } y \not = \epsilon, \vert xy \vert \le p \\
-    \text{III (Us):}& \text{Take } i = 0. \text{ Let $x = \epsilon, z = \epsilon$.} &&\text{then } xy^0z \not \in A\\
+    \text{I (Us):}   & \text{Let } s = 0^{p!}                                        &  & \text{satisfying } \vert s \vert \ge p                     \\
+    \text{II (Adv):} & \text{Let }s =  xyz                                           &  & \text{such that: } y \not = \epsilon, \vert xy \vert \le p \\
+    \text{III (Us):} & \text{Take } i = 0. \text{ Let $x = \epsilon, z = \epsilon$.} &  & \text{then } xy^0z \not \in A                              \\
   \end{array}
 \]
 
