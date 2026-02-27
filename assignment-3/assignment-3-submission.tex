@@ -94,7 +94,54 @@ The DFA that corresponds to the NFA above is defined as follows:
 \end{center}
 
 
-\medskip
+\pagebreak
+
+{\bf Part B:}
+
+\begin{center}
+  \begin{tikzpicture}[>=stealth',shorten >=1pt,auto,node distance=2.5cm]
+
+    \node[initial, state] (1) {$1$};
+    \node[state, accepting] (2) [right of=1] {$2$};
+    \node[state] (3) [below of=2] {$3$};
+
+    \path[->]
+    (1) edge [bend left] node[above] {$\epsilon$} (2)
+    (1) edge [bend right] node[left] {$a$} (3)
+    (2) edge [bend left] node[below] {$a$} (1)
+    (3) edge [loop right] node[right] {$b$} (3)
+    (3) edge [bend right] node[right] {$a, b$} (2)
+    ;
+  \end{tikzpicture}
+\end{center}
+
+The DFA that corresponds to the NFA above is defined as follows:
+
+\begin{align*}
+  B = \Big( & Q = \{\emptyset, \{1\}, \{2\}, \{3\}, \{1,2\}, \{1,3\}, \{2,3\}, \{1,2,3\}\}, \\
+            & \Sigma = \{a,b\},                                                             \\
+            & \delta \text{ (as defined in the table below)},                               \\
+            & q_0 = \{1,2\},                                                                \\
+            & F = \{\{2\}, \{1,2\}, \{2,3\}, \{1,2,3\}\} \Big)
+\end{align*}
+
+\begin{center}
+  $\delta =$
+  \begin{tabular}{|c|c|c|}
+    \hline
+    state       & $a$         & $b$         \\
+    \hline
+    $\emptyset$ & $\emptyset$ & $\emptyset$ \\
+    $\{1\}$     & $\{3\}$     & $\emptyset$ \\
+    $\{2\}$     & $\{1,2\}$   & $\emptyset$ \\
+    $\{3\}$     & $\{2\}$     & $\{2,3\}$   \\
+    $\{1,2\}$   & $\{1,2,3\}$ & $\emptyset$ \\
+    $\{1,3\}$   & $\{2,3\}$   & $\{2,3\}$   \\
+    $\{2,3\}$   & $\{1,2\}$   & $\{2,3\}$   \\
+    $\{1,2,3\}$ & $\{1,2,3\}$ & $\{2,3\}$   \\
+    \hline
+  \end{tabular}
+\end{center}
 
 2.	Give regular expressions for each of the following languages over the alphabet $\{0,1\}$:
 \medskip
