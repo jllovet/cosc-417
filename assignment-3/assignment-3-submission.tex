@@ -250,14 +250,15 @@ Since $B$ is represented by a DFA, it is regular. The language $B$ can also be e
 Suppose $L$ is regular, and let $p$ be the pumping length for $L$. We play the Pumping Game for $L$.
 \medskip
 
-I. We choose $s = a^{p/2} b^{p/2}$ if $p$ is even. If $p$ is odd, we take $s = a^{(p+1)/2} b^{(p+1)/2}$ .
-\smallskip
+\begin{enumerate}[I.]
+  \item We choose $s = a^{p/2} b^{p/2}$ if $p$ is even.
 
-II. The adversary breaks $s = xyz$ so that $y=ab$.
-\smallskip
+        If $p$ is odd, we take $s = a^{(p+1)/2} b^{(p+1)/2}$.
+  \item The adversary breaks $s = xyz$ so that $y = ab$.
+  \item We take $i = 2$. We have won the game: $xyyz$ is not in $L$ because
+        it contains the subword $abab$, which is not allowed for strings in $L$.
+\end{enumerate}
 
-
-III. We take $i=2$. We have won the game: $xyyz$ is not in $L$ because it has as a subword $abab$ which is not allowed for strings in $L$.
 \medskip
 
 Since we have won the Pumping Game, it follows that $L$ is not regular.
