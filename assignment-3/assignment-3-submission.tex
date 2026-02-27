@@ -72,17 +72,18 @@ Do and turn in the following exercises.
 The DFA that corresponds to the NFA above is defined as follows:
 
 \begin{align*}
-A = \Big( & Q = \{\emptyset, \{1\}, \{2\}, \{1,2\}\}, \\
-          & \Sigma = \{a,b\}, \\
-          & \delta \text{ (as defined in the table below)}, \\
-          & q_0 = \{1\}, \\
-          & F = \{\{1\}, \{1,2\}\} \Big)
+  A = \Big( & Q = \{\emptyset, \{1\}, \{2\}, \{1,2\}\},       \\
+            & \Sigma = \{a,b\},                               \\
+            & \delta \text{ (as defined in the table below)}, \\
+            & q_0 = \{1\},                                    \\
+            & F = \{\{1\}, \{1,2\}\} \Big)
 \end{align*}
 
 \begin{center}
+  $\delta =$
   \begin{tabular}{|c|c|c|}
     \hline
-    $\delta$    & $a$         & $b$         \\
+    state       & $a$         & $b$         \\
     \hline
     $\emptyset$ & $\emptyset$ & $\emptyset$ \\
     $\{1\}$     & $\{1,2\}$   & $\{2\}$     \\
@@ -93,7 +94,7 @@ A = \Big( & Q = \{\emptyset, \{1\}, \{2\}, \{1,2\}\}, \\
 \end{center}
 
 
-\medskip
+
 
 2.	Give regular expressions for each of the following languages over the alphabet $\{0,1\}$:
 \medskip
