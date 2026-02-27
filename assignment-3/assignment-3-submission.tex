@@ -259,10 +259,30 @@ Suppose $L$ is regular, and let $p$ be the pumping length for $L$. We play the P
         it contains the subword $abab$, which is not allowed for strings in $L$.
 \end{enumerate}
 
-\medskip
 
 Since we have won the Pumping Game, it follows that $L$ is not regular.
 
 \emph{End of ``Proof''}
+
+\medskip
+
+The Pumping Lemma says that for every regular language $A$, there is a number $p$ such that for every string $s \in A$ where $\vert s \vert \ge p$, the string $s$ can be broken up into parts so that $s = xyz$, with the following conditions:
+\begin{enumerate}[I.]
+  \item for every $i \ge 0$, $xy^iz \in A$
+  \item $\vert y \vert > 0$
+  \item $\vert xy \vert \le p$
+\end{enumerate}
+
+A problem with this putative proof is that the adversary's selection does not satisfy the conditions of the Pumping Lemma for the case where $p = 0$, which is a special case when $p$ is even. In that case, it is not possible for condition II, which says $\vert y \vert > 0$, to be satisfied, because $a^{p/2}b^{p/2} = a^0b^0 = \epsilon$. Hence the cutting of $s = xyz$ so that $y = ab$ is impossible. The value of $y$ in such a case would be $\epsilon$, which has a length $0$, failing the condition of the lemma.
+
+There is a similar issue when $p = 1$. In that case,
+\begin{align*}
+  s & = a^{(p+1)/2} b^{(p+1)/2} \\
+    & = a^{(1+1)/2} b^{(1+1)/2} \\
+    & = a^{1} b^{1} \\
+    & = ab
+\end{align*}
+
+In this case, condition III is not satisfied. Even if $x = \epsilon$, it is still the case that $\vert xy \vert = \vert ab \vert = 2 > p = 1$. Hence in both cases, when $p$ is even and when it is odd, the Pumping Lemma's requirements cannot be satisfied, which invalidates the putative proof.
 
 \end{document}
