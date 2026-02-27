@@ -126,6 +126,24 @@ This works by pumping down. $xy^0z \not \in A$ because $n! \ge 1$, but $\vert xy
 \medskip
 
 6. Show that if $A$ is a regular language, then $A_{even} = \{x \in A \mid |x| \textrm{ is even} \}$ is also regular. \emph{Hint:} $A_{even}$ is the subset of $A$ containing all strings in $A$ with even length. You can use a closure property.
+
+Consider the language $B$ that is represented by the DFA below:
+
+\begin{center}
+  \begin{tikzpicture}[>=stealth',shorten >=1pt,auto,node distance=2.5cm]
+
+    \node[initial, state, accepting] (0) {$q_{\text{even}}$};
+    \node[state] (1) [right of=0] {$q_{\text{odd}}$};
+
+    \path[->]
+    (0) edge [bend left] node[above] {$0,1$} (1)
+    (1) edge [bend left] node[below] {$0,1$} (0)
+    ;
+  \end{tikzpicture}
+\end{center}
+
+Since $B$ is represented by a DFA, it is regular. The language $B$ can also be expressed: $\{x \in {\{0,1\}}^* \mid \vert x \vert \text{ is even}\}$. For any alphabet used for $A$, an analogous DFA can be constructed for $B$ by adding edges for the corresponding characters in the alphabet. Furthermore, the language $A_1 = A \cap B$ is regular, because of the closure of regular languages over intersection. But $A_1 = \{x \in A \mid |x| \text{ is even} \}$. This, however, is the same as $A_{even}$. Therefore, since $A_1$ is regular by the closure over intersection of regular languages and $A_1 = A_{even}$, $A_{even}$ is also regular.
+
 \bigskip
 
 
