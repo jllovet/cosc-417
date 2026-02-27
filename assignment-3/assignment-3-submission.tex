@@ -111,6 +111,8 @@ This works by pumping down. $xy^0z \not \in A$ because $n! \ge 1$, but $\vert xy
 \medskip
 
 5. 	$C = \{0^m1^n  \mid  m \not= n \}$ (Note: This is an example where the pumping lemma is difficult to use.   It is much easier to use the closure properties of regular languages.)
+
+{\bf Proof by contradiction:} We wish to prove that $C$ is not regular. Assume to the contrary that $C$ is regular. Because regular languages are closed under complement, $C_1 = C^c$ is regular. This includes all strings that are not in $C$ over the alphabet $\{0,1\}$. Additionally, let $C_2 = \{0^m1^n \mid m, n \ge 0\}$. These are all the strings that are in form of some number of $0$'s followed by some number of $1$'s. Then let $C_3 = C_1 \cap C_2$. Because regular languages are closed under intersection, therefore $C_3$ is also regular. This is the language of strings that have some $0$'s followed by some $1$'s that are not in $C$. That is, $C_3 = \{0^m1^n  \mid  m = n \}$. But this language we know to be irregular. Because the complement and intersection operations on a language preserve its regularity, this means that if $C$ were regular, then $C_3$ would also be regular. However, we found that $C_3$ is not regular, which contradicts our assumption. Therefore $C$ is not regular.
 \medskip
 
 % {\small
