@@ -1,0 +1,88 @@
+\documentclass[11pt]{article}
+\usepackage{hyperref}
+\setlength{\oddsidemargin}{-0.5in}
+\setlength{\evensidemargin}{\oddsidemargin}
+\setlength{\textwidth}{7.0in}
+\setlength{\textheight}{8.3in}
+\setlength{\topmargin}{-0.7in}
+%\input{macros.tex}
+\begin{document}
+
+{\Large COSC 417 \hspace{2cm} Assignment: Programming Task 1 }
+\vspace{0.5cm}
+
+\emph{Instructions:}
+
+(a) Due date and time: as announced on Blackboard.
+
+(b) This assignment will be graded.
+
+(c) Work in teams, as we have discussed at the beginning of the class.
+
+\vspace{0.5cm}
+
+\textbf{Programming project.}
+\medskip
+
+The goal of the project is to write a Java program that takes as input a DFA $M$ and an input string $w$,  simulates $M$ on $w$, and outputs ACCEPT if $M$ accepts $w$, and REJECT if $M$ does not accept $w$.
+
+
+You will assume that the alphabet is $\Sigma = \{0,1\}$ and that the DFA has at most $20$ states. The states are labeled $1,2, \ldots, 20$.  The starting state is $1$.
+
+The DFA is read from a file that has the following structure:
+
+\begin{itemize}
+  \item The first line has a single number $n$ which is the number of states.
+  \item  The second line contains a list of numbers that indicate the accepting states. For example, it may be something like: 3 11 17 , meaning that the set of accepting states is $\{3, 11, 17\}$.
+  \item The next lines indicate the transitions, with one transition per line. Each transition is the 3-tuple of numbers indicating (old state, symbol, new state).
+        For example, it can be something like
+
+        1  0 11
+
+        1 1  7
+
+        2 0 4
+
+        2 1 6
+
+        ...
+
+
+        The 3-tuplet  1 0 11 says that from the state 1 with symbol 0 the machine moves to state 11,  the 3-tuplet  1 1 7 says that from the state 1 with symbol 1 the machine moves to state 7, and so on.
+
+\end{itemize}
+
+The program will ask the user to enter the input string $w$.
+
+Test your program with the DFA  from Example 1.11, page 38 and the DFA from Example 1.68 (a), page 76, but  change the alphabet from $\{a,b\}$ to $\{0,1\}$.  Run  each  DFA on 3 strings that are accepted and 3 strings that are not accepted.
+\bigskip
+
+There should be a single submission per team, so each team should designate a submitter.
+
+Submit on Blackboard 2 files, the first being the main one, and the second file being auxiliary.  \begin{enumerate}
+
+  \item The 1st file (main component of your submission) is a pdf file that contains:
+        \begin{itemize}
+          \item The names of the people in the team.
+          \item A short description of your program (1/2 page to 1 page should be enough), including a presentation of the data structures that you have used to represent the DFA and the input string w (probably some types of arrays or linked lists).
+          \item The Java code of your program (should be well documented). The code also appears in the 2-nd  file  (see below) but I need it in the pdf format as well, so that I can make comments and observations.
+          \item The  2  DFAs, that is the contents of the files read by your program.
+
+          \item 2- 3 printouts with the screens when you run the program.
+        \end{itemize}
+  \item The 2-nd  file (auxilairy part of your submission)  is the JAVA file so that I can run your program.
+\end{enumerate}
+\medskip
+
+
+\if01
+  Submit on Blackboard:
+  \begin{itemize}
+    \item The Java code of your program (should be well documented). Also insert the Java code in the .pdf file, so that I can make comments and observations.
+    \item The files that give the two DFAs.
+    \item A short description of your program (1/2-1 page should be enough), including a presentation of the data structures that you have used to represent the DFA and the input string w (probably some types of arrays or linked lists).
+    \item 2- 3 printouts with the screens when you run the program.
+  \end{itemize}
+\fi
+
+\end{document}
