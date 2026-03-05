@@ -1,0 +1,246 @@
+\documentclass[12pt,letterpaper,final]{report}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\renewcommand\qedsymbol{$\blacksquare$}
+\usepackage{enumerate}
+\usepackage{hyperref}
+\usepackage{pdfpages}
+\usepackage{graphics}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{tikz-qtree}
+\usetikzlibrary{automata,arrows, arrows.meta, positioning}
+\usepackage[
+  backend=biber,
+  style=authoryear,
+  sorting=nyt          % sort by name, year, title
+]{biblatex}
+\addbibresource{references.bib}
+
+\author{Jonathan Llovet}
+
+\begin{document}
+
+\fbox{
+  \vbox{
+    \begin{flushleft}
+      Jonathan Llovet \\  % authors' names
+      COSC 417 \\  %class
+      2026-03-05, 11:59 PM (EST) \\  % date
+    \end{flushleft}
+    \center{\Large{\textbf{Assignment 4}}}
+    %\end{mdframed}
+  } % end vbox
+} % end fbox
+
+\vspace{0.5cm}
+
+
+\emph{Practice Examples and Exercises.}  Read Examples 2.3, 2.4, 2.14, 2.16 from the textbook. Do without turning in exercises 2.3, 2.4 (a, d), 2.6 (a,c) (these exercises have solutions in the textbook. Attempt to solve the exercises before reading the solutions).  Some of these exercises may  show up in quizzes and exams.
+\bigskip
+
+\textbf{Problem 1.}  Exercise 2.1, textbook Chapter 2. Note: you must present derivations (see bottom of page 102 in the textbook) and also parse trees (see  Fig. 2.1, in the textbook).
+\bigskip
+
+(a) Derivation $E \Rightarrow^* a$
+
+\begin{align*}
+  E & \to E + T\ \vert\ T      \\
+  T & \to T \times F\ \vert\ F \\
+  F & \to (E)\ \vert\ a
+\end{align*}
+
+\begin{align*}
+  E & \Rightarrow T \\
+    & \Rightarrow F \\
+    & \Rightarrow a \\
+\end{align*}
+
+\begin{center}
+  \begin{tikzpicture}
+    \Tree
+    [.E
+        [.T
+            [.F
+                [.a ]
+            ]
+        ]
+    ]
+  \end{tikzpicture}
+\end{center}
+
+(b) Derivation $E \Rightarrow^* a + a$
+
+\begin{align*}
+  E & \to E + T\ \vert\ T      \\
+  T & \to T \times F\ \vert\ F \\
+  F & \to (E)\ \vert\ a
+\end{align*}
+
+\begin{align*}
+  E & \Rightarrow E + T \\
+    & \Rightarrow T + T \\
+    & \Rightarrow F + T \\
+    & \Rightarrow F + F \\
+    & \Rightarrow a + F \\
+    & \Rightarrow a + a \\
+\end{align*}
+
+
+\begin{center}
+  \begin{tikzpicture}
+    \Tree
+    [.E
+        [.E
+            [.T
+                [.F
+                    [.a ]
+                ]
+            ]
+        ]
+        [[[[.{$+$} ]]]]
+        [.T
+            [.F
+                [[.a ]]
+            ]
+        ]
+    ]
+  \end{tikzpicture}
+\end{center}
+
+\pagebreak
+(c) Derivation $E \Rightarrow^* a + a + a$
+
+\begin{align*}
+  E & \to E + T\ \vert\ T      \\
+  T & \to T \times F\ \vert\ F \\
+  F & \to (E)\ \vert\ a
+\end{align*}
+
+\begin{align*}
+  E & \Rightarrow E + T     \\
+    & \Rightarrow E + T + T \\
+    & \Rightarrow T + T + T \\
+    & \Rightarrow F + T + T \\
+    & \Rightarrow F + F + T \\
+    & \Rightarrow F + F + F \\
+    & \Rightarrow a + F + F \\
+    & \Rightarrow a + a + F \\
+    & \Rightarrow a + a + a \\
+\end{align*}
+
+
+\begin{center}
+  \begin{tikzpicture}
+    \Tree
+    [.E
+        [.E
+            [.E
+                [.T
+                    [.F
+                        [.a ]
+                    ]
+                ]
+            ]
+            [[[[.{$+$} ]]]]
+            [.T
+                [.F
+                    [[.a ]]
+                ]
+            ]
+        ]
+        [[[[[.{$+$} ]]]]]
+        [.T
+            [.F
+                [[[.a ]]]
+            ]
+        ]
+    ]
+  \end{tikzpicture}
+\end{center}
+
+
+\pagebreak
+(d) Derivation $E \Rightarrow^* ((a))$
+
+\begin{align*}
+  E & \to E + T\ \vert\ T      \\
+  T & \to T \times F\ \vert\ F \\
+  F & \to (E)\ \vert\ a
+\end{align*}
+
+\begin{align*}
+  E & \Rightarrow T     \\
+    & \Rightarrow F     \\
+    & \Rightarrow (E)   \\
+    & \Rightarrow (T)   \\
+    & \Rightarrow (F)   \\
+    & \Rightarrow ((E)) \\
+    & \Rightarrow ((T)) \\
+    & \Rightarrow ((F)) \\
+    & \Rightarrow ((a)) \\
+\end{align*}
+
+
+\begin{center}
+  \begin{tikzpicture}
+    \Tree
+    [.E
+        [.T
+            [.F
+                [[[[[[[.{(} ]]]]]]]
+                [.E
+                    [.T
+                        [.F
+                            [[[[.{(} ]]]]
+                            [.E
+                                [.T
+                                    [.F
+                                        [.a ]
+                                    ]
+                                ]
+                            ]
+                            [[[[.{)} ]]]]
+                        ]
+                    ]
+                ]
+                [[[[[[[.{)} ]]]]]]]
+            ]
+        ]
+    ]
+  \end{tikzpicture}
+\end{center}
+
+
+\textbf{Problem 2.}  (a)  Give a context-free grammar $G_1$ with $3$ rules  for the language $A_1 = \{0^i 1^j \mid i > j \geq 0\}$.
+
+Show a derivation in your grammar of the string $00011$.
+\smallskip
+
+(b)  Give a context-free grammar $G_2$ with $3$ rules for the language $A_2 = \{0^i 1^j \mid 0 \leq  i < j\}$.
+
+Show a derivation in your grammar of the string $00111$.
+
+\smallskip
+
+(c)   Give a context-free grammar $G_3$ for the language $A_3 = \{0^i 1^j \mid i \not=  j\}$. (Note: $A_3$ is the union of $A_1$ and $A_2$.)
+
+Show a derivation in your grammar of the strings $00011$ and $00111$.
+\bigskip
+
+\textbf{Problem 3.}   Give a PDA for the language $L = \{w \in \{0,1\}^* \mid w = w^R\}$ (the language of all binary strings that are palindromes). (Hint: Do something similar to Example 2.18 in the textbook, the difference being that you also need to handle strings having odd length.)
+
+You must give an informal description (in English) of your PDA, and the diagram (your explanations should be in the style of the Example 2.18 from the textbook).
+
+\bigskip
+\textbf{Problem 4}  A prefix of a string $x$ is a string $y$ such that there is $z$ with $x=yz$. For instance, the string $1011$ has prefixes $\epsilon, 1, 10, 101, 1011$.  Show that if $L$ is a regular language, then
+\[
+  \mathsf{pref}(L) = \{y \in \Sigma^* \mid y \textrm{ is a prefix of a string in $L$ } \}
+\]
+is also regular. In your proof, consider the state diagram (the graph) of a DFA that recognizes $L$ and indicate how to modify it to obtain a DFA or an NFA that recognizes  $\mathsf{pref}(L).$
+
+
+\end{document}
