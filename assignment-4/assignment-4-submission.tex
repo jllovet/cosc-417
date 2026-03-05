@@ -334,6 +334,17 @@ You must give an informal description (in English) of your PDA, and the diagram 
   \end{tikzpicture}
 \end{center}
 
+\begin{enumerate}
+  \item The PDA starts by placing $\$$ on the stack while transitioning from state $s$ to state $\epsilon$, which is accepting, since the empty string is the same as its reverse.
+  \item From state $\epsilon$ it does an epsilon transitions to state $1$, with no modification to the stack. Now it will start handling non-empty strings.
+  \item In state $1$, the PDA consumes the first half of even-length strings, the first $\frac{n-1}{2}$ characters of odd-length strings. As it consumes each character, it pushes the same character on the stack.
+  \item In the case that the string is of even length $n$, the transition from state $1$ to state $2$ is along the epsilon transition after the first $n/2$ characters have been consumed.
+  \item In the case that the string is of odd length $n$, the transition from state $1$ to state $2$ is along the corresponding labeled transition on the middle character of the string, the ${\frac{n-1}{2}+1}^{st}$ character, but with no modification of the stack. This allows the middle character to be consumed and then proceed using the same strategy as we use for even-length strings.
+  \item Once in state $2$, the PDA consumes the remaining characters in the input, popping the same character off the stack as it is read from the input.
+  \item If the input and the stack are exhausted at the same time, then the PDA will proceed along an epsilon transition to accepting state $f$, reading the special symbol $\$$ indicating the stack is empty. Otherwise, if the stack and the input are not consumed at the same time, the string will be rejected.
+\end{enumerate}
+
+
 \bigskip
 \textbf{Problem 4}  A prefix of a string $x$ is a string $y$ such that there is $z$ with $x=yz$. For instance, the string $1011$ has prefixes $\epsilon, 1, 10, 101, 1011$.  Show that if $L$ is a regular language, then
 \[
