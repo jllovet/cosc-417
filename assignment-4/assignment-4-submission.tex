@@ -45,21 +45,29 @@
 \textbf{Problem 1.}  Exercise 2.1, textbook Chapter 2. Note: you must present derivations (see bottom of page 102 in the textbook) and also parse trees (see  Fig. 2.1, in the textbook).
 \bigskip
 
-(a) Derivation $E \Rightarrow^* a$
-
+The given grammar $G_1$:
 \begin{align*}
   E & \to E + T\ \vert\ T      \\
   T & \to T \times F\ \vert\ F \\
   F & \to (E)\ \vert\ a
 \end{align*}
 
-\begin{align*}
-  E & \Rightarrow T \\
-    & \Rightarrow F \\
-    & \Rightarrow a \\
-\end{align*}
+\noindent(a) Derivation $E \Rightarrow^* a$
 
-\begin{center}
+\medskip
+\noindent
+\begin{minipage}[t]{0.35\textwidth}
+  \vspace{0pt}
+  \begin{align*}
+    E & \Rightarrow T \\
+      & \Rightarrow F \\
+      & \Rightarrow a \\
+  \end{align*}
+\end{minipage}%
+\hfill
+\begin{minipage}[t]{0.6\textwidth}
+  \vspace{0pt}
+  \centering
   \begin{tikzpicture}
     \Tree
     [.E
@@ -70,27 +78,28 @@
         ]
     ]
   \end{tikzpicture}
-\end{center}
+\end{minipage}
 
-(b) Derivation $E \Rightarrow^* a + a$
+\pagebreak
+\noindent(b) Derivation $E \Rightarrow^* a + a$
 
-\begin{align*}
-  E & \to E + T\ \vert\ T      \\
-  T & \to T \times F\ \vert\ F \\
-  F & \to (E)\ \vert\ a
-\end{align*}
-
-\begin{align*}
-  E & \Rightarrow E + T \\
-    & \Rightarrow T + T \\
-    & \Rightarrow F + T \\
-    & \Rightarrow F + F \\
-    & \Rightarrow a + F \\
-    & \Rightarrow a + a \\
-\end{align*}
-
-
-\begin{center}
+\medskip
+\noindent
+\begin{minipage}[t]{0.35\textwidth}
+  \vspace{0pt}
+  \begin{align*}
+    E & \Rightarrow E + T \\
+      & \Rightarrow T + T \\
+      & \Rightarrow F + T \\
+      & \Rightarrow F + F \\
+      & \Rightarrow a + F \\
+      & \Rightarrow a + a \\
+  \end{align*}
+\end{minipage}%
+\hfill
+\begin{minipage}[t]{0.6\textwidth}
+  \vspace{0pt}
+  \centering
   \begin{tikzpicture}
     \Tree
     [.E
@@ -109,31 +118,31 @@
         ]
     ]
   \end{tikzpicture}
-\end{center}
+\end{minipage}
 
-\pagebreak
-(c) Derivation $E \Rightarrow^* a + a + a$
+\bigskip
+\noindent(c) Derivation $E \Rightarrow^* a + a + a$
 
-\begin{align*}
-  E & \to E + T\ \vert\ T      \\
-  T & \to T \times F\ \vert\ F \\
-  F & \to (E)\ \vert\ a
-\end{align*}
-
-\begin{align*}
-  E & \Rightarrow E + T     \\
-    & \Rightarrow E + T + T \\
-    & \Rightarrow T + T + T \\
-    & \Rightarrow F + T + T \\
-    & \Rightarrow F + F + T \\
-    & \Rightarrow F + F + F \\
-    & \Rightarrow a + F + F \\
-    & \Rightarrow a + a + F \\
-    & \Rightarrow a + a + a \\
-\end{align*}
-
-
-\begin{center}
+\medskip
+\noindent
+\begin{minipage}[t]{0.35\textwidth}
+  \vspace{0pt}
+  \begin{align*}
+    E & \Rightarrow E + T     \\
+      & \Rightarrow E + T + T \\
+      & \Rightarrow T + T + T \\
+      & \Rightarrow F + T + T \\
+      & \Rightarrow F + F + T \\
+      & \Rightarrow F + F + F \\
+      & \Rightarrow a + F + F \\
+      & \Rightarrow a + a + F \\
+      & \Rightarrow a + a + a \\
+  \end{align*}
+\end{minipage}%
+\hfill
+\begin{minipage}[t]{0.6\textwidth}
+  \vspace{0pt}
+  \centering
   \begin{tikzpicture}
     \Tree
     [.E
@@ -160,32 +169,31 @@
         ]
     ]
   \end{tikzpicture}
-\end{center}
-
+\end{minipage}
 
 \pagebreak
-(d) Derivation $E \Rightarrow^* ((a))$
+\noindent(d) Derivation $E \Rightarrow^* ((a))$
 
-\begin{align*}
-  E & \to E + T\ \vert\ T      \\
-  T & \to T \times F\ \vert\ F \\
-  F & \to (E)\ \vert\ a
-\end{align*}
-
-\begin{align*}
-  E & \Rightarrow T     \\
-    & \Rightarrow F     \\
-    & \Rightarrow (E)   \\
-    & \Rightarrow (T)   \\
-    & \Rightarrow (F)   \\
-    & \Rightarrow ((E)) \\
-    & \Rightarrow ((T)) \\
-    & \Rightarrow ((F)) \\
-    & \Rightarrow ((a)) \\
-\end{align*}
-
-
-\begin{center}
+\medskip
+\noindent
+\begin{minipage}[t]{0.35\textwidth}
+  \vspace{0pt}
+  \begin{align*}
+    E & \Rightarrow T     \\
+      & \Rightarrow F     \\
+      & \Rightarrow (E)   \\
+      & \Rightarrow (T)   \\
+      & \Rightarrow (F)   \\
+      & \Rightarrow ((E)) \\
+      & \Rightarrow ((T)) \\
+      & \Rightarrow ((F)) \\
+      & \Rightarrow ((a)) \\
+  \end{align*}
+\end{minipage}%
+\hfill
+\begin{minipage}[t]{0.6\textwidth}
+  \vspace{0pt}
+  \centering
   \begin{tikzpicture}
     \Tree
     [.E
@@ -212,9 +220,9 @@
         ]
     ]
   \end{tikzpicture}
-\end{center}
+\end{minipage}
 
-
+\pagebreak
 \textbf{Problem 2.}  (a)  Give a context-free grammar $G_1$ with $3$ rules  for the language $A_1 = \{0^i 1^j \mid i > j \geq 0\}$.
 
 Show a derivation in your grammar of the string $00011$.
