@@ -460,6 +460,8 @@ src/
 
 ## 10. Testing (JUnit 5)
 
+### Basic Test Structure
+
 ```java
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;
@@ -485,6 +487,197 @@ class MathTest {
     }
 }
 ```
+
+### Lifecycle Annotations
+
+```java
+class LifecycleDemo {
+    @BeforeAll   // runs once before all tests (must be static)
+    static void setupClass() { /* open DB connection, etc. */ }
+
+    @AfterAll    // runs once after all tests (must be static)
+    static void teardownClass() { /* close DB connection */ }
+
+    @BeforeEach  // runs before each test method
+    void setup() { /* reset test state */ }
+
+    @AfterEach   // runs after each test method
+    void cleanup() { /* clean up resources */ }
+
+    @Test
+    void myTest() { /* ... */ }
+}
+```
+
+| JUnit 5 | Go | Python (pytest) | Haskell (HUnit) |
+|---|---|---|---|
+| `@BeforeAll` | `TestMain()` | `@pytest.fixture(scope="module")` | N/A |
+| `@BeforeEach` | `t.Cleanup()`/setup in test | `@pytest.fixture` | N/A |
+| `@Test` | `func TestXxx(t *testing.T)` | `def test_xxx():` | `TestCase` |
+
+### Common Assertions
+
+```java
+import static org.junit.jupiter.api.Assertions.*;
+
+// Equality
+assertEquals(expected, actual);
+assertEquals(3.14, val, 0.01);    // floating-point with delta
+assertNotEquals("bad", result);
+
+// Boolean
+assertTrue(condition);
+assertFalse(condition);
+
+// Null checks
+assertNull(obj);
+assertNotNull(obj);
+
+// Same reference (== comparison)
+assertSame(expected, actual);
+
+// Exception testing
+var ex = assertThrows(IllegalArgumentException.class, () -> parse("bad"));
+assertEquals("Invalid input", ex.getMessage());
+
+// Timeout
+assertTimeout(Duration.ofSeconds(2), () -> slowOperation());
+
+// Grouped assertions — reports ALL failures, not just first
+assertAll("person validation",
+    () -> assertEquals("Alice", person.name()),
+    () -> assertEquals(30, person.age()),
+    () -> assertNotNull(person.email())
+);
+```
+
+### Parameterized Tests
+
+```java
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.*;
+
+class ParameterizedDemo {
+
+    // Single argument from a list of values
+    @ParameterizedTest
+    @ValueSource(strings = {"racecar", "madam", "level"})
+    void isPalindrome(String word) {
+        assertEquals(word, new StringBuilder(word).reverse().toString());
+    }
+
+    // Multiple arguments via CSV
+    @ParameterizedTest
+    @CsvSource({
+        "1, 1, 2",
+        "2, 3, 5",
+        "10, -5, 5"
+    })
+    void addition(int a, int b, int expected) {
+        assertEquals(expected, a + b);
+    }
+
+    // Null and empty values
+    @ParameterizedTest
+    @NullAndEmptySource
+    @ValueSource(strings = {"  ", "\t", "\n"})
+    void isBlankOrEmpty(String input) {
+        assertTrue(input == null || input.isBlank());
+    }
+
+    // Arguments from a method
+    @ParameterizedTest
+    @MethodSource("provideEdgeCases")
+    void edgeCaseTest(String input, boolean expected) {
+        assertEquals(expected, validate(input));
+    }
+
+    static Stream<Arguments> provideEdgeCases() {
+        return Stream.of(
+            Arguments.of("valid", true),
+            Arguments.of("", false),
+            Arguments.of(null, false)
+        );
+    }
+}
+```
+
+### Nested & Display Names
+
+```java
+@DisplayName("Stack operations")
+class StackTest {
+
+    Stack<Integer> stack;
+
+    @BeforeEach
+    void createStack() { stack = new Stack<>(); }
+
+    @Test
+    @DisplayName("is empty when new")
+    void isEmpty() { assertTrue(stack.isEmpty()); }
+
+    @Nested
+    @DisplayName("after pushing an element")
+    class AfterPushing {
+        @BeforeEach
+        void push() { stack.push(42); }
+
+        @Test
+        @DisplayName("is no longer empty")
+        void isNotEmpty() { assertFalse(stack.isEmpty()); }
+
+        @Test
+        @DisplayName("returns element on pop")
+        void returnOnPop() { assertEquals(42, stack.pop()); }
+    }
+}
+```
+
+### Disabling & Conditional Tests
+
+```java
+@Disabled("Bug #123 — waiting on fix")
+@Test
+void brokenTest() { /* ... */ }
+
+@EnabledOnOs(OS.LINUX)            // OS-specific
+@EnabledOnJre(JRE.JAVA_21)       // JRE-specific
+@EnabledIfEnvironmentVariable(named = "CI", matches = "true")
+@Test
+void ciOnlyTest() { /* ... */ }
+```
+
+### Running Tests
+
+```bash
+# Maven
+mvn test                          # run all tests
+mvn test -Dtest=MathTest          # run a specific test class
+mvn test -Dtest="MathTest#additionWorks"  # run a specific method
+
+# Gradle
+gradle test                       # run all tests
+gradle test --tests MathTest      # run a specific test class
+gradle test --tests "MathTest.additionWorks"  # run a specific method
+
+# Direct (for simple single-file projects without build tools)
+# 1. Compile with JUnit on classpath
+javac -cp junit-platform-console-standalone.jar:. MathTest.java
+# 2. Run
+java -jar junit-platform-console-standalone.jar --class-path . --scan-classpath
+```
+
+### Testing Comparison Across Languages
+
+| Feature | JUnit 5 | Go `testing` | Python `pytest` |
+|---|---|---|---|
+| Assertions | `assertEquals`, `assertTrue`, ... | `t.Errorf`, `t.Fatal` (manual) | `assert x == y` (bare asserts) |
+| Setup/Teardown | `@BeforeEach` / `@AfterEach` | Manual in each test / `t.Cleanup` | `@pytest.fixture` |
+| Parameterized | `@ParameterizedTest` | Table-driven tests (by convention) | `@pytest.mark.parametrize` |
+| Skip/disable | `@Disabled` | `t.Skip()` | `@pytest.mark.skip` |
+| Nested groups | `@Nested` | Subtests `t.Run()` | Classes |
+| Test runner | Maven/Gradle plugin | `go test` | `pytest` |
 
 ---
 
@@ -546,7 +739,197 @@ Stream.toList();                      // Java 16+ — immutable list from stream
 
 ---
 
-## 13. Common Pitfalls
+## 13. Docker with Java
+
+### Basic Dockerfile
+
+```dockerfile
+# Simple single-stage — good for development
+FROM eclipse-temurin:21-jdk
+WORKDIR /app
+COPY . .
+RUN javac -d out src/main/java/com/example/*.java
+CMD ["java", "-cp", "out", "com.example.Main"]
+```
+
+### Multi-Stage Build (Production)
+
+Multi-stage builds keep the final image small by separating the build environment from the runtime:
+
+```dockerfile
+# Stage 1: Build
+FROM eclipse-temurin:21-jdk AS builder
+WORKDIR /app
+COPY . .
+RUN javac -d out src/main/java/com/example/*.java
+
+# Stage 2: Runtime (JRE only — smaller image)
+FROM eclipse-temurin:21-jre
+WORKDIR /app
+COPY --from=builder /app/out ./out
+CMD ["java", "-cp", "out", "com.example.Main"]
+```
+
+**Image size comparison:**
+
+| Base Image | Size |
+|---|---|
+| `eclipse-temurin:21-jdk` | ~450 MB |
+| `eclipse-temurin:21-jre` | ~270 MB |
+| `eclipse-temurin:21-jre-alpine` | ~100 MB |
+
+### Multi-Stage with Maven
+
+```dockerfile
+# Stage 1: Build with Maven
+FROM maven:3.9-eclipse-temurin-21 AS builder
+WORKDIR /app
+COPY pom.xml .
+RUN mvn dependency:resolve          # cache dependencies layer
+COPY src ./src
+RUN mvn package -DskipTests        # build JAR
+
+# Stage 2: Runtime
+FROM eclipse-temurin:21-jre
+WORKDIR /app
+COPY --from=builder /app/target/myapp-1.0.jar app.jar
+CMD ["java", "-jar", "app.jar"]
+```
+
+### Multi-Stage with Gradle
+
+```dockerfile
+FROM gradle:8-jdk21 AS builder
+WORKDIR /app
+COPY build.gradle.kts settings.gradle.kts ./
+COPY gradle ./gradle
+RUN gradle dependencies             # cache dependencies
+COPY src ./src
+RUN gradle build -x test            # build JAR
+
+FROM eclipse-temurin:21-jre
+WORKDIR /app
+COPY --from=builder /app/build/libs/myapp.jar app.jar
+CMD ["java", "-jar", "app.jar"]
+```
+
+### Running Tests in Docker
+
+```dockerfile
+FROM maven:3.9-eclipse-temurin-21
+WORKDIR /app
+COPY . .
+RUN mvn test
+```
+
+Or with docker-compose for a test service:
+
+```yaml
+# docker-compose.test.yml
+services:
+  test:
+    build: .
+    command: mvn test
+    volumes:
+      - ./src:/app/src        # mount source for live changes
+      - ./target:/app/target  # persist test reports
+```
+
+```bash
+docker compose -f docker-compose.test.yml up --build
+```
+
+### Docker Compose for Development
+
+```yaml
+# docker-compose.yml
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./src:/app/src        # live source mounting
+    environment:
+      - JAVA_OPTS=-Xmx512m
+
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_DB: myapp
+      POSTGRES_PASSWORD: secret
+    ports:
+      - "5432:5432"
+```
+
+### JVM Container-Aware Settings
+
+Modern JVMs (10+) respect container memory/CPU limits automatically. Key flags:
+
+```bash
+# The JVM reads cgroup limits by default since Java 10
+java -XX:+UseContainerSupport \        # on by default
+     -XX:MaxRAMPercentage=75.0 \       # use 75% of container memory limit
+     -XX:InitialRAMPercentage=50.0 \   # start with 50%
+     -jar app.jar
+
+# For debugging: see what the JVM detects
+java -XX:+PrintFlagsFinal -version 2>&1 | grep -i container
+```
+
+**Common mistake:** Setting `-Xmx` higher than the container's memory limit causes the OOM killer to terminate the process. Use `MaxRAMPercentage` instead, or ensure `-Xmx` is well below the limit.
+
+### .dockerignore for Java Projects
+
+```
+# .dockerignore
+target/
+build/
+.gradle/
+.idea/
+*.iml
+.git/
+*.class
+```
+
+### Compiling & Running Without a Build Tool
+
+For simple assignments with no external dependencies:
+
+```dockerfile
+FROM eclipse-temurin:21-jdk
+WORKDIR /app
+COPY *.java .
+RUN javac *.java
+CMD ["java", "Main"]
+```
+
+```bash
+# Build and run
+docker build -t myapp .
+docker run --rm myapp
+
+# One-liner for quick testing (no Dockerfile needed)
+docker run --rm -v "$PWD":/app -w /app eclipse-temurin:21-jdk \
+    sh -c "javac Main.java && java Main"
+```
+
+### Comparison: Docker Workflows Across Languages
+
+| Aspect | Java | Go | Python |
+|---|---|---|---|
+| Base image | `eclipse-temurin:21-jdk` | `golang:1.22` | `python:3.12` |
+| Runtime image | `eclipse-temurin:21-jre` | `scratch` or `alpine` | `python:3.12-slim` |
+| Multi-stage benefit | High (drop JDK, keep JRE) | Very high (static binary → scratch) | Moderate (drop build deps) |
+| Dependency caching | `mvn dependency:resolve` / `gradle dependencies` | `go mod download` | `pip install -r requirements.txt` |
+| Final image size | ~100–270 MB | ~5–20 MB | ~50–150 MB |
+| Container memory | JVM needs tuning (`MaxRAMPercentage`) | No special config | No special config |
+
+---
+
+## 14. Common Pitfalls
 
 - **`==` vs `.equals()`**: `==` compares references for objects; `.equals()` compares values. Always use `.equals()` for String comparison.
 - **Null pointer exceptions**: Java has no built-in null safety. Use `Optional`, `@NonNull` annotations, or defensive checks.
