@@ -35,6 +35,10 @@ indent.log
 *.pdf
 !resources/**/*.pdf
 
+# bin output
+bin/
+*.class
+
 # OS files
 .DS_Store
 Thumbs.db
