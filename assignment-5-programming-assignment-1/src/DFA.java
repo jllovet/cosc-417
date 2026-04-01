@@ -1,3 +1,7 @@
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.*;
 
 public class DFA {
@@ -9,9 +13,16 @@ public class DFA {
     private int[][] transition;
     private Set<Integer> acceptingStates;
 
-    public DFA() {
+    public DFA(String path) {
         transition = new int[MAX_STATES][ALPHABET_SIZE];
         acceptingStates = new HashSet<>(); //prevent dupes using Hashset
+        if (path != "" & path != null) {
+            try {
+                buildDFAFromFile(path);
+            } catch (Exception e) {
+                System.err.println("error building DFA from file, falling back to empty DFA");
+            }
+        }
     }
 
     //testing static accepted states - NEED FILE I/O IMPLEMENTATION
@@ -28,6 +39,44 @@ public class DFA {
         transition[from][symbol] = to;
     }
 
+    private List<String> readDFASpecFromFile(String path) {
+        Path p = Paths.get(path);
+        try {
+            List<String> lines = Files.readAllLines(p);
+            System.out.println("GOT LINES");
+            return lines;
+        } catch (IOException | SecurityException e) {
+            System.err.println(e.getMessage());
+            return null;
+        }
+    }
+
+    private void buildDFAFromFile(String path) throws IOException, NumberFormatException{
+        List<String> lines = readDFASpecFromFile(path);
+        if (lines == null){
+            throw new IOException("Unable to read DFA definition from file at " + path);
+        }
+        String[] acceptingStates = lines.get(1).split(" ");
+        for (String state: acceptingStates) {
+            try {
+                int acceptingState = Integer.parseInt(state);
+                addAcceptingState(acceptingState);
+            } catch (NumberFormatException e) {
+                throw new NumberFormatException("Unable to parse accepting state " + state);
+            }
+        }
+        for (String transition: lines.subList(2,lines.size())) {
+            try {
+                String[] transitionComponents = transition.split("\\s+");
+                int startState = Integer.parseInt(transitionComponents[0]);
+                int inputSymbol = Integer.parseInt(transitionComponents[1]);
+                int targetState = Integer.parseInt(transitionComponents[2]);
+                addTransition(startState, inputSymbol, targetState);
+            } catch (NumberFormatException e) {
+                throw new NumberFormatException("Unable to transition " + transition);
+            }
+        }
+    }
 
     //Simulate over DFA using input string w. (Returns "ACCEPT" or "REJECT")
     public String simulate(String w) {
@@ -60,34 +109,12 @@ public class DFA {
     }
 
     public static void main(String[] args) {
-        System.out.println("DFA Simulator");
-        System.out.println("Σ: {0, 1}");
-        System.out.println("Starting state: 1)");
-        System.out.println("Accepting: {3, 11, 17}");
-        System.out.println("Transitions:");
-        System.out.println("δ(1, 0) = 11");
-        System.out.println("δ(1, 1) = 7");
-        System.out.println("δ(2, 0) = 4");
-        System.out.println("δ(2, 1) = 6");
-
-
-        DFA dfa = new DFA();
-
-        //Test Accept states - NEED FILE I/O IMPLEMENTATION
-        dfa.addAcceptingState(3);
-        dfa.addAcceptingState(11);
-        dfa.addAcceptingState(17);
-
-        //Test Transitions - NEED FILE I/O IMPLEMENTATION
-        dfa.addTransition(1, 0, 11);
-        dfa.addTransition(1, 1, 7);
-        dfa.addTransition(2, 0, 4);
-        dfa.addTransition(2, 1, 6);
+        DFA dfa = new DFA(args[0]);
 
         //Prompt user for input string w
         Scanner scan = new Scanner(System.in);
         while (true) {
-            System.out.print("\nEnter input string w. (Enter 'quit' to exit)");
+            System.out.print("\nEnter input string w. (Enter 'quit' to exit)\n");
             String w = scan.nextLine().trim();
 
             if (w.equalsIgnoreCase("quit")) {
@@ -97,7 +124,7 @@ public class DFA {
 
             try {
                 String result = dfa.simulate(w);
-                System.out.println("\nResult: " + result);
+                System.out.println(result);
             } catch (IllegalArgumentException e) {
                 System.out.println("ERROR" + e.getMessage());
             }

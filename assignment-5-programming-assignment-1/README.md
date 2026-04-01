@@ -55,6 +55,7 @@ The folder structure is simpler here than in many Java projects. There are a few
 - `src`: source code and tests, `.java` files
 - `lib`: gitignored, external `.jar` files are here for JUnit.
 - `bin`: gitignored, compiled output in class files
+- `testdata`: input files to seed DFAs
 
 ## Running Tests and Simulation
 
@@ -68,7 +69,7 @@ Compile the Java source code, then run it with `java`, providing the classpath (
 
 ```shell
 javac -d bin src/DFA.java
-java -cp bin DFA
+java -cp bin DFA testdata/1_11_dfa.txt
 ```
 
 ### Tests
@@ -130,5 +131,5 @@ docker build -t dfa-test .
 Finally, run the program itself using the `docker run -it`, which runs the command in an interactive terminal in the container.
 
 ```shell
-docker run -it dfa-test java -cp bin DFA
+docker run -it dfa-test java -cp bin DFA testdata/1_11_dfa.txt
 ```
