@@ -2,6 +2,52 @@
 
 Here are the resources for our team's response to programming assignment 1 for COSC-417, in which we are tasked with simulating a DFA.
 
+## Assumptions
+
+The alphabet $Σ = \{0, 1\}$.
+The DFA has $n$ states. $1 < n <= 20$.
+The starting state is $1$.
+
+## Requirements
+
+During execution, a DFA should be loaded from a file and simulated in the program.
+
+The program should then prompt a user to enter an input string $w$.
+
+The input $w$ should be parsed and then passed to the DFA to process.
+
+If the DFA accepts the input, the program should output (print) `ACCEPT`.
+If the DFA rejects the input, the program should output (print) `REJECT`.
+
+### Input Format
+
+The DFA is defined by a plain-text file with the following structure:
+
+- Line 1: A single number, $n$, indicating the number of states. $|Q|$ in formal terms.
+- Line 2: A list of numbers indicating accepting states. Formally, this is $F$.
+  - Example: `3 11 17` means the set of accepting states $F = \{3, 11, 17\}$
+- Remaining Lines: One transition per line, as a 3-tuple: (old state, symbol, new state)
+  - Example: `1 0 11` — from state 1 on input symbol 0, move to state 11
+
+Full input example:
+```
+11
+3 11 17
+1 0 11
+1 1 7
+2 0 4
+2 1 6
+```
+
+## Test DFAs
+
+For each DFA, the program should be tested against 3 strings that are in the language of the DFA and 3 strings that are not in the language of the DFA.
+
+The program should be tested against the following DFAs from the textbook:
+
+- Example 1.11 (page 38)
+- Example 1.68 (page 76) with the alphabet changed from $\{a, b\}$ to $\{0, 1\}$
+
 ## Folder Structure
 
 The folder structure is simpler here than in many Java projects. There are a few folders to note.
