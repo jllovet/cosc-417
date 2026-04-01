@@ -17,4 +17,49 @@ public class DFATest {
         dfa.addTransition(1, 1, 7);
         assertEquals("REJECT", dfa.simulate("1"));
     }
+    @Test
+    void processInputsForExampleDFA1_11(){
+        DFA dfa = new DFA();
+        // Manually build DFA
+        dfa.addAcceptingState(2);
+        dfa.addAcceptingState(4);
+        // Root
+        dfa.addTransition(1,0,2);
+        dfa.addTransition(1,1,4);
+        // Left hand side
+        dfa.addTransition(2,0,2);
+        dfa.addTransition(2,1,3);
+        dfa.addTransition(3,0,2);
+        dfa.addTransition(3,1,3);
+        // Right hand side
+        dfa.addTransition(4,0,5);
+        dfa.addTransition(4,1,4);
+        dfa.addTransition(5,0,5);
+        dfa.addTransition(5,1,4);
+        assertEquals("ACCEPT", dfa.simulate("0"));
+        assertEquals("ACCEPT", dfa.simulate("111"));
+        assertEquals("ACCEPT", dfa.simulate("0010"));
+        assertEquals("REJECT", dfa.simulate(""));
+        assertEquals("REJECT", dfa.simulate("10"));
+        assertEquals("REJECT", dfa.simulate("011"));
+    }
+    
+    void processInputsForExampleDFA1_68a(){
+        DFA dfa = new DFA();
+        // Manually build DFA
+        dfa.addAcceptingState(2);
+        dfa.addAcceptingState(3);
+        dfa.addTransition(1,0,2);
+        dfa.addTransition(1,1,3);
+        dfa.addTransition(2,0,1);
+        dfa.addTransition(2,1,2);
+        dfa.addTransition(3,0,2);
+        dfa.addTransition(3,1,1);
+        assertEquals("ACCEPT", dfa.simulate("1"));
+        assertEquals("ACCEPT", dfa.simulate("01"));
+        assertEquals("ACCEPT", dfa.simulate("101"));
+        assertEquals("REJECT", dfa.simulate(""));
+        assertEquals("REJECT", dfa.simulate("00"));
+        assertEquals("REJECT", dfa.simulate("0110"));
+    }
 }
