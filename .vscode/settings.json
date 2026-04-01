@@ -1,4 +1,7 @@
 {
+  "java.project.referencedLibraries": [
+    "assignment-5-programming-assignment-1/lib/**/*.jar"
+  ],
   // LaTeX Workshop configuration for Docker builds
   "latex-workshop.docker.enabled": true,
   "latex-workshop.docker.image.latex": "cosc-417-latex",
@@ -10,15 +13,15 @@
   "latex-workshop.linting.chktex.exec.path": "chktex",
   "latex-workshop.linting.chktex.exec.args": [
     "-wall",
-    "-n1",   // Command terminated with space
-    "-n2",   // Non-breaking space (~) should have been used
-    "-n8",   // Wrong length of dash
-    "-n11",  // Use \ldots for ellipsis
-    "-n22",  // Comment displayed
-    "-n26",  // Space before punctuation
-    "-n30",  // Multiple spaces detected
-    "-n44",  // User regex (booktabs)
-    "-n46",  // Use \( ... \) instead of $ ... $
+    "-n1", // Command terminated with space
+    "-n2", // Non-breaking space (~) should have been used
+    "-n8", // Wrong length of dash
+    "-n11", // Use \ldots for ellipsis
+    "-n22", // Comment displayed
+    "-n26", // Space before punctuation
+    "-n30", // Multiple spaces detected
+    "-n44", // User regex (booktabs)
+    "-n46", // Use \( ... \) instead of $ ... $
     "-q"
   ],
 
@@ -28,7 +31,8 @@
   "latex-workshop.formatting.latex": "latexindent",
   "latex-workshop.formatting.latexindent.path": "latexindent",
   "latex-workshop.formatting.latexindent.args": [
-    "-c", "%DIR%/",
+    "-c",
+    "%DIR%/",
     "%TMPFILE%",
     "-y=defaultIndent: '  '"
   ],
