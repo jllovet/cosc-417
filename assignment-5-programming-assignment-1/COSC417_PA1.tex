@@ -1,0 +1,163 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{graphicx} % Required for inserting images
+
+\title{COSC 417 Programming Task 1 \\ DFA Simulator}
+\author{Jonathan Llovet, Matt Saxton, Amarachi Ufelle King, Abdullah Radid}
+\date{2nd April 2026}
+
+\definecolor{codegray}{gray}{0.9}
+
+\lstset{
+    backgroundcolor=\color{codegray},
+    basicstyle=\ttfamily\small,
+    breaklines=true,
+    frame=single
+}
+
+\begin{document}
+
+\maketitle
+
+\section*{Program Description}
+
+This project aims to simulate a Deterministic Finite Automaton (DFA) using the Java programming language. The program reads a file containing the machine's description and builds the machine as a function on a given input string; it then decides whether the string is to be accepted or rejected.
+
+\subsection*{Overview}
+
+The machine is defined as a DFA, $M$, of the form, $M = (Q, \Sigma, \delta, q_0, F)$, where:
+\begin{itemize}
+    \item $Q$ represents a finite set of states, each representing the effect of an input symbol on the configuration of the machine:
+    $1 \leq |Q| \leq 20$, where $20$ is implemented as a constant integer \texttt{MAX\_STATES}. States are numbered $1$ through $n$ as specified by the machine description.
+    \item $\Sigma$ represents a finite set of symbols or alphabet that defines what inputs are valid and can be read by the machine: $\Sigma = \{0, 1\}$, enforced by an If-statement and \texttt{IllegalArgumentException}. While this DFA is hard-coded to only recognize binary input ($|\Sigma| = 2$, implemented as a constant integer \texttt{ALPHABET\_SIZE}), it can convert any 2-symbol alphabet to $\Sigma$.
+    \item $\delta$ represents the transition function, the means by which the machine changes from one state to another upon reading a valid input symbol; for each state and input symbol, there is one and only one next state: $Q \times \Sigma \rightarrow Q$, implemented as a 2-dimensional integer array \texttt{transition}, having parameters [\texttt{MAX\_STATES}] and [\texttt{ALPHABET\_SIZE}].
+    \item $q_0$ represents the starting state, the initial configuration of the machine: $q_0 = \{1\}$.
+    \item $F$ represents the accepting states; if the machine is found to be configured in one of these states once it has finished reading a string of input symbols, the string is considered accepted by the DFA: $F \subset Q$ as specified by the machine description, implemented as a \texttt{Hashset$<$Integer$>$} to prevent duplicate accepting state declarations and for fast (O(1)) accepting/non-accepting final state determination.
+\end{itemize}
+
+\newpage
+\subsection*{File Input Format}
+
+The DFA is read from a text file consisting of only integer values with the following structure:
+\begin{enumerate}
+    \item First line: number of states $n$
+    \item Second line: accepting states
+    \item Remaining lines: transitions of the form
+    \[
+    (\texttt{current state, input symbol, next state})
+    \]
+\end{enumerate}
+Note that numbers on the same line are separated by spaces.
+Example:
+\begin{verbatim}
+5
+2 4
+1 0 2
+1 1 4
+...
+\end{verbatim}
+
+\subsection*{Data Structures Used}
+
+\begin{itemize}
+    \item \textbf{Integer (int)}: Stores the number of states in range $1 < n <= 20$. Alphabet validation is performed with raw integers 0 and 1.
+    \item \textbf{Hashset$<$Integer$>$}: Stores accepting states for fast lookup using \texttt{contain()}.
+    \item \textbf{2D Array (int[][])}: Implements the transition function.
+    Specifically:
+    \[
+    \texttt{transition[state][symbol]}
+    \]
+    where:
+    \begin{itemize}
+        \item \texttt{state} is the current state (1 to 20)
+        \item \texttt{symbol} is either 0 or 1
+    \end{itemize}
+    \item \textbf{String}: Represents the input string, whose elements are read as integers to compare with binary alphabet.
+\end{itemize}
+
+\subsection*{Simulation Runtime Logic}
+
+\begin{itemize}
+    \item The simulation starts at state 1.
+    \item Each symbol in the input string is processed sequentially.
+    \item The next state is determined using the transition table.
+    \item If an undefined transition is encountered (state 0), the string is rejected.
+    \item After processing the input:
+    \begin{itemize}
+        \item If the final state is in $F$, output \texttt{ACCEPT}
+        \item Otherwise, output \texttt{REJECT}
+    \end{itemize}
+\end{itemize}
+
+\newpage
+
+\section*{Java Code}
+
+\begin{lstlisting}[language=Java]
+% copy java code here
+\end{lstlisting}
+
+\newpage
+
+\section*{DFA}
+
+\subsection*{File Contents}
+DFA 1 (Example 1.11, page 38):
+\begin{verbatim}
+5
+2 4
+1 0 2
+1 1 4
+2 0 2
+2 1 3
+3 0 2
+3 1 3
+4 0 5
+4 1 4
+5 0 5
+5 1 4
+\end{verbatim}
+
+\noindent DFA 2 (Example 1.68(a), page 76):
+\begin{verbatim}
+3
+2 3
+1 0 2
+1 1 3
+2 0 1
+2 1 2
+3 0 2
+3 1 1
+\end{verbatim}
+
+\subsection*{Test Cases}
+\begin{itemize}
+    \item Accepted:
+        010 (DFA 1), % rule is "start and end with same symbol"
+        001 (DFA 2) % rule is "must have an odd number of 0s, or end in an odd number of 1s" - note 0=a, 1=b
+    \item Rejected:
+        011 (DFA 1), % rule is "start and end with same symbol"
+        100 (DFA 2) % rule is "must have an odd number of 0s, or end in an odd number of 1s"
+\end{itemize}
+
+
+\newpage
+
+\section*{Program Output Screenshots}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.8\textwidth]{screenshot1.png} % put image file name here
+    \caption{Sample Run - DFA 1}
+\end{figure}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.8\textwidth]{screenshot2.png} % put image file name here
+    \caption{Sample Run - DFA 2}
+\end{figure}
+
+
+\end{document}
