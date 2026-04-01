@@ -111,22 +111,23 @@ public class DFA {
     public static void main(String[] args) {
         DFA dfa = new DFA(args[0]);
 
-        //Prompt user for input string w
-        Scanner scan = new Scanner(System.in);
-        while (true) {
-            System.out.print("\nEnter input string w. (Enter 'quit' to exit)\n");
-            String w = scan.nextLine().trim();
+        try (//Prompt user for input string w
+        Scanner scan = new Scanner(System.in)) {
+            while (true) {
+                System.out.print("\nEnter input string w. (Enter 'quit' to exit)\n");
+                String w = scan.nextLine().trim();
 
-            if (w.equalsIgnoreCase("quit")) {
-                System.out.println("Exiting simulation");
-                break;
-            }
+                if (w.equalsIgnoreCase("quit")) {
+                    System.out.println("Exiting simulation");
+                    break;
+                }
 
-            try {
-                String result = dfa.simulate(w);
-                System.out.println(result);
-            } catch (IllegalArgumentException e) {
-                System.out.println("ERROR" + e.getMessage());
+                try {
+                    String result = dfa.simulate(w);
+                    System.out.println(result);
+                } catch (IllegalArgumentException e) {
+                    System.out.println("ERROR" + e.getMessage());
+                }
             }
         }
     }
