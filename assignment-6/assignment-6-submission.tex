@@ -1,0 +1,152 @@
+\documentclass[11pt]{article}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{amsfonts} 
+\setlength{\oddsidemargin}{-0.1in}
+\setlength{\evensidemargin}{\oddsidemargin}
+\setlength{\textwidth}{7.0in}
+\setlength{\textheight}{9.3in}
+\setlength{\topmargin}{-0.7in}
+%\input{macros.tex}
+\begin{document}
+
+
+
+\fbox{
+\vbox{
+\begin{flushleft}
+Ann,  Bob, Charlie    (\emph{replace with your names and change the date})\\  % authors' names
+COSC 417 \\  %class
+11/6/2021\\  % date
+\end{flushleft}
+\center{\Large{\textbf{Assignment 6}}}
+} % end vbox
+} % end fbox
+\vline
+
+%\fbox{\vbox{
+\textbf{Instructions.}
+\begin{enumerate}
+
+\item  Due date and time: As announced on Blackboard.
+
+\item %Work in teams as in the previous assignments (hand in one assignment with all the names on it).
+Submit on Blackboard.  This homework will not be graded, I will post solutions (see the syllabus for the policy regarding assignments).
+
+
+
+
+\item For editing your homework, I recommend that you use Latex on Overleaf, see the template files posted on Blackboard. 
+ 
+         The template has an  example showing how to do the state diagram  of a finite automaton. If you have trouble with making figures in Latex, you can hand-draw the state diagrams (or other figures) and insert a digital photo in the .tex file (see the template how to do this).
+  
+\item If a problem has more questions, write down your answers in the same order as the order of questions. In principle, this should help you.
+
+ \item   To append in the  latex file a .jpg file (for a photo; for example, in case you draw a picture by hand and take a photo of it with your phone camera), use 
+
+
+\begin{verbatim}
+\includegraphics[angle=270,origin=c,width=\linewidth]{file.jpg}
+\end{verbatim}
+The parameter angle=270 is for rotating the photo, and you may have to change 270 to whatever angle works for your photo.
+		   \vspace{0.5cm}
+
+
+\end{enumerate}
+
+\newpage
+
+
+
+
+\begin{enumerate}[label=\textbf{Exercise \arabic{*}}]
+
+\item \label{e3}
+Show that the language
+ \[
+B = \{\langle M \rangle \mid \mbox{the Turing machine $M$ accepts at least $3$ strings}\}
+\]  is 
+ Turing recognizable (Notes: Turing-recognizable sets are also called CE (computably enumerable), and also RE (recursively enumerable);  $\langle M \rangle$ isa standard encoding of the Turing machine $M$). 
+
+
+\medskip
+
+In your solution you will informally describe an algorithm $S$ that on input $\langle M \rangle$  has the following properties:
+
+(a)	if $M$ accepts at least three strings, then $S$ accepts,
+
+(b)	if $M$ acccepts fewer than three strings, then $S$ rejects or loops.
+
+Of course $S$ will have to run  simulations of $M$ on various inputs,  and the issue is to organize these simulations in the right way to obtain (a) and (b). The main challenge is that $M$ may loop on some inputs, and, therefore, the algorithm $S$ must have a way to avoid being stuck on a simulation of $M$ on an input $x$ on which it loops. Make sure you explain how this challenge is overcome.
+\medskip
+
+
+
+\textbf{Answer:}. 
+
+\item $A$ and $B$ denote languages, and $\overline{A}$ is the complement of $A$, and $\overline{B}$ is the complement of $B$.  $A \cap B$ is the intersection of $A$ and $B$. Consider the following statements:
+
+(a) $A$ is context-free.
+
+(b) $B$ is Turing-recognizable.
+
+(c) $\overline{A}$ is context-free.
+
+(d)	$\overline{A}$ is decidable.
+
+(e) $A \cap B$ is decidable.
+
+(f) $A \cap B$ is  Turing recognizable.
+
+(g) $\overline{B}$ is Turing recognizable.
+\smallskip
+
+Answer the following questions (YES or NO) and provide short justifications:
+\smallskip
+
+(1) Does (a) imply (c)?
+
+(2) Does (a) imply (d)?
+
+(3) Does (a) and (b) imply (e)?
+
+(4) Does (a) and (b) imply (f)?
+
+(5) Does (b) imply (g)?
+\medskip
+
+\textbf{Answer:}
+%\end{enumerate}
+
+
+\bigskip
+
+\item
+
+Recall that we have shown that the fact ``language $L$  is CE" is equivalent to the existence of a decider  $D $ such that for every $x$, 
+\[x \in L \Leftrightarrow \big(\exists~s) ~ D \mbox{ accepts $(x,s)$}\big],
+\]
+ where  $s$ is a string.
+ %\footnote{In Notes 10, we have shown this only for $k=1$, but  that proof can be adapted to work for any constant number $k$, because we can encode a $k$-tuple $(s_1, s_2, \ldots, s_k)$ of numbers into a single number $t$ so that from $t$ one can retrieve each $s_i$ (for example the tuple $(5, 11)$ can be encoded as $t=2^5 3^{11}$).}
+
+
+Use this to give an alternative proof that the set from~Exercise 1, namely
+ \[
+B = \{\langle M \rangle \mid \mbox{the Turing machine $M$ accepts at least $3$ strings}\}
+\]  is 
+ Turing recognizable (or RE). 
+For this you need to informally describe the appropriate decider.
+
+
+\medskip
+
+\textbf{Answer:}
+
+
+\end{enumerate}
+
+
+
+
+ \end{document}
+ 
