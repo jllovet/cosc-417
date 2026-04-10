@@ -11,99 +11,99 @@
 \begin{document}
 
 \fbox{
-\vbox{
-\begin{flushleft}
-Jonathan Llovet \\  % authors' names
-COSC 417 \\  %class
-2026-04-10\\  % date
-\end{flushleft}
-\center{\Large{\textbf{Assignment 6}}}
-} % end vbox
+  \vbox{
+    \begin{flushleft}
+      Jonathan Llovet \\  % authors' names
+      COSC 417 \\  %class
+      2026-04-10\\  % date
+    \end{flushleft}
+    \center{\Large{\textbf{Assignment 6}}}
+  } % end vbox
 } % end fbox
 \vline
 
 \begin{enumerate}[label=\textbf{Exercise \arabic{*}}]
 
-\item \label{e3}
-Show that the language
- \[
-B = \{\langle M \rangle \mid \mbox{the Turing machine $M$ accepts at least $3$ strings}\}
-\]  is 
- Turing recognizable (Notes: Turing-recognizable sets are also called CE (computably enumerable), and also RE (recursively enumerable);  $\langle M \rangle$ isa standard encoding of the Turing machine $M$). 
+  \item \label{e3}
+        Show that the language
+        \[
+          B = \{\langle M \rangle \mid \mbox{the Turing machine $M$ accepts at least $3$ strings}\}
+        \]  is
+        Turing recognizable (Notes: Turing-recognizable sets are also called CE (computably enumerable), and also RE (recursively enumerable);  $\langle M \rangle$ isa standard encoding of the Turing machine $M$).
 
 
-\medskip
+        \medskip
 
-In your solution you will informally describe an algorithm $S$ that on input $\langle M \rangle$  has the following properties:
+        In your solution you will informally describe an algorithm $S$ that on input $\langle M \rangle$  has the following properties:
 
-(a)	if $M$ accepts at least three strings, then $S$ accepts,
+        (a)	if $M$ accepts at least three strings, then $S$ accepts,
 
-(b)	if $M$ acccepts fewer than three strings, then $S$ rejects or loops.
+        (b)	if $M$ acccepts fewer than three strings, then $S$ rejects or loops.
 
-Of course $S$ will have to run  simulations of $M$ on various inputs,  and the issue is to organize these simulations in the right way to obtain (a) and (b). The main challenge is that $M$ may loop on some inputs, and, therefore, the algorithm $S$ must have a way to avoid being stuck on a simulation of $M$ on an input $x$ on which it loops. Make sure you explain how this challenge is overcome.
-\medskip
-
-
-
-\textbf{Answer:}. 
-
-\item $A$ and $B$ denote languages, and $\overline{A}$ is the complement of $A$, and $\overline{B}$ is the complement of $B$.  $A \cap B$ is the intersection of $A$ and $B$. Consider the following statements:
-
-(a) $A$ is context-free.
-
-(b) $B$ is Turing-recognizable.
-
-(c) $\overline{A}$ is context-free.
-
-(d)	$\overline{A}$ is decidable.
-
-(e) $A \cap B$ is decidable.
-
-(f) $A \cap B$ is  Turing recognizable.
-
-(g) $\overline{B}$ is Turing recognizable.
-\smallskip
-
-Answer the following questions (YES or NO) and provide short justifications:
-\smallskip
-
-(1) Does (a) imply (c)?
-
-(2) Does (a) imply (d)?
-
-(3) Does (a) and (b) imply (e)?
-
-(4) Does (a) and (b) imply (f)?
-
-(5) Does (b) imply (g)?
-\medskip
-
-\textbf{Answer:}
-%\end{enumerate}
+        Of course $S$ will have to run  simulations of $M$ on various inputs,  and the issue is to organize these simulations in the right way to obtain (a) and (b). The main challenge is that $M$ may loop on some inputs, and, therefore, the algorithm $S$ must have a way to avoid being stuck on a simulation of $M$ on an input $x$ on which it loops. Make sure you explain how this challenge is overcome.
+        \medskip
 
 
-\bigskip
 
-\item
+        \textbf{Answer:}.
 
-Recall that we have shown that the fact ``language $L$  is CE" is equivalent to the existence of a decider  $D $ such that for every $x$, 
-\[x \in L \Leftrightarrow \big(\exists~s) ~ D \mbox{ accepts $(x,s)$}\big],
-\]
- where  $s$ is a string.
- %\footnote{In Notes 10, we have shown this only for $k=1$, but  that proof can be adapted to work for any constant number $k$, because we can encode a $k$-tuple $(s_1, s_2, \ldots, s_k)$ of numbers into a single number $t$ so that from $t$ one can retrieve each $s_i$ (for example the tuple $(5, 11)$ can be encoded as $t=2^5 3^{11}$).}
+  \item $A$ and $B$ denote languages, and $\overline{A}$ is the complement of $A$, and $\overline{B}$ is the complement of $B$.  $A \cap B$ is the intersection of $A$ and $B$. Consider the following statements:
+
+        (a) $A$ is context-free.
+
+        (b) $B$ is Turing-recognizable.
+
+        (c) $\overline{A}$ is context-free.
+
+        (d)	$\overline{A}$ is decidable.
+
+        (e) $A \cap B$ is decidable.
+
+        (f) $A \cap B$ is  Turing recognizable.
+
+        (g) $\overline{B}$ is Turing recognizable.
+        \smallskip
+
+        Answer the following questions (YES or NO) and provide short justifications:
+        \smallskip
+
+        (1) Does (a) imply (c)?
+
+        (2) Does (a) imply (d)?
+
+        (3) Does (a) and (b) imply (e)?
+
+        (4) Does (a) and (b) imply (f)?
+
+        (5) Does (b) imply (g)?
+        \medskip
+
+        \textbf{Answer:}
+        %\end{enumerate}
 
 
-Use this to give an alternative proof that the set from~Exercise 1, namely
- \[
-B = \{\langle M \rangle \mid \mbox{the Turing machine $M$ accepts at least $3$ strings}\}
-\]  is 
- Turing recognizable (or RE). 
-For this you need to informally describe the appropriate decider.
+        \bigskip
+
+  \item
+
+        Recall that we have shown that the fact ``language $L$  is CE" is equivalent to the existence of a decider  $D $ such that for every $x$,
+        \[x \in L \Leftrightarrow \big(\exists~s) ~ D \mbox{ accepts $(x,s)$}\big],
+        \]
+        where  $s$ is a string.
+        %\footnote{In Notes 10, we have shown this only for $k=1$, but  that proof can be adapted to work for any constant number $k$, because we can encode a $k$-tuple $(s_1, s_2, \ldots, s_k)$ of numbers into a single number $t$ so that from $t$ one can retrieve each $s_i$ (for example the tuple $(5, 11)$ can be encoded as $t=2^5 3^{11}$).}
 
 
-\medskip
+        Use this to give an alternative proof that the set from~Exercise 1, namely
+        \[
+          B = \{\langle M \rangle \mid \mbox{the Turing machine $M$ accepts at least $3$ strings}\}
+        \]  is
+        Turing recognizable (or RE).
+        For this you need to informally describe the appropriate decider.
 
-\textbf{Answer:}
+
+        \medskip
+
+        \textbf{Answer:}
 
 
 \end{enumerate}
@@ -111,5 +111,4 @@ For this you need to informally describe the appropriate decider.
 
 
 
- \end{document}
- 
+\end{document}
