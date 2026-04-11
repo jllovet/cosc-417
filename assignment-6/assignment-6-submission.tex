@@ -1,7 +1,13 @@
 \documentclass[11pt]{article}
 \usepackage{hyperref}
 \usepackage{enumitem}
-\usepackage{amsfonts} 
+\usepackage{amsfonts}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\renewcommand\qedsymbol{$\blacksquare$}
 \setlength{\oddsidemargin}{-0.1in}
 \setlength{\evensidemargin}{\oddsidemargin}
 \setlength{\textwidth}{7.0in}
@@ -70,7 +76,14 @@
 
         (1) Does (a) imply (c)?
 
-        \textbf{Answer:} Does the statement $A$ is context-free imply $\overline{A}$ is context-free? No. Take the example languages $B = \{a^{m}b^{n}c^{m}\ \vert\ m,n \ge 1\}$ and $C = \{a^{m}b^{m}c^{n}\ \vert\ m,n \ge 1\}$. These two languages are context free. Consider their intersection $B \cap C = \{a^{m}b^{m}c^{m}\ \vert\ m \ge 1\}$. This language is not context free, by the pumping lemma for context-free languages, as is shown in Ex 2.36 in Sipser. Consider as well De Morgan's law. $\overline{B \cap C} = \overline{B} \cup \overline{C}$. If we take the complement of both sides as follows, $\overline{\overline{B \cap C}} = B \cap C = \overline{\overline{B} \cup \overline{C}}$. This shows that the intersection is equivalent to the complement of another set. If the set on the right hand side were context free, then the intersection would need to also be context free, but it is not. Therefore, the complement is also not context free. Therefore $A$ is a CFL $\not\rightarrow \overline{A}$ is a CFL.
+        \textbf{Answer:} Does the statement $A$ is context-free imply $\overline{A}$ is context-free? No. Take the example languages $B = \{a^{m}b^{n}c^{m}\ \vert\ m,n \ge 1\}$ and $C = \{a^{m}b^{m}c^{n}\ \vert\ m,n \ge 1\}$. These two languages are context free. Consider their intersection $B \cap C = \{a^{m}b^{m}c^{m}\ \vert\ m \ge 1\}$. This language is not context free, by the pumping lemma for context-free languages, as is shown in Ex 2.36 in Sipser. We will show by contradiction that $A$ is a CFL does not imply $\overline{A}$ is a CFL. Suppose to the contrary that it did. Languages $B$ and $C$ above are CFLs. Therefore $\overline{B}$ and $\overline{C}$ are CFLs. Context-free languages are closed under union (consider context-free grammars with an initial rule such as $S \to S_1 | S_2$). Therefore, $\overline{B} \cup \overline{C}$ is a CFL. However, using De Morgan's law, note that $\overline{B} \cup \overline{C} = \overline{B \cap C}$. Negating both sides of this,
+        \begin{align*}
+           \\
+          \overline{\overline{B} \cup \overline{C}} & = \overline{\overline{B \cap C}}\\
+          \overline{\overline{B} \cup \overline{C}} &= B \cap C \\
+        \end{align*}
+
+        But above we saw that $B \cap C$ is not a context-free language. This is a contradiction. Therefore, our assumption above was incorrect, and $A$ is a CFL $\not\rightarrow \overline{A}$ is a CFL.
 
         (2) Does (a) imply (d)?
 
@@ -107,7 +120,7 @@
         For this you need to informally describe the appropriate decider.
 
         \medskip
-        
+
         \textbf{Answer:}
         In this case, the elements of the language we are concerned about are themselves Turing Machines, which are each encoded as a string $\langle M \rangle$. By definition of $B$, $\langle M \rangle$ is in the language if $\langle M \rangle$ accepts at least $3$ strings. This means that there is a decider $D$ that accepts $(\langle M \rangle, s)$ for some $s$. Let $A$ represent the sequence of strings from $\Sigma^*$ sorted in lexicographic order, that is, $A = (\epsilon, 0, 1, 00, 01, 10, 11, \ldots)$. Our decider $D$ will decide whether $M$ has accepted at least $3$ strings in the first $s$ strings of $A$. To do this, for $s = 1, 2, 3, \ldots$, $D$ should simulate $M$ on the first $s$ strings in $A$ for $s$ steps. If $M$ has not entered an accept state for at least 3 strings in those $s$ steps, then $D$ rejects for that tuple $(\langle M \rangle, s)$. If $M$ has entered an accept state for at least 3 strings in those $s$ steps, then $D$ accepts for that tuple $(\langle M \rangle, s)$, and $\langle M \rangle \in B$. For any particular value of $s$, the simulation that $D$ performs of $M$ is bounded, and hence $D$ can decide whether to reject or accept the pair $(\langle M \rangle, s)$, as required of a decider. However, as is allowed by a recognizer, the overall process of evaluating $D((\langle M \rangle, s))$ with $\langle M_1 \rangle, \langle M_2 \rangle, \ldots$ can continue indefinitely through the enumeration of all Turing machines.
 
