@@ -70,18 +70,23 @@
 
         (1) Does (a) imply (c)?
 
+        Does the statement $A$ is context-free imply $\overline{A}$ is context-free? No. Take the example languages $B = \{a^{m}b^{n}c^{m}\ \vert\ m,n \ge 1\}$ and $C = \{a^{m}b^{m}c^{n}\ \vert\ m,n \ge 1\}$. These two languages are context free. Consider their intersection $B \cap C = \{a^{m}b^{m}c^{m}\ \vert\ m,n \ge 1\}$. This language is not context free, by the pumping lemma for context-free languages, as is shown in Ex 2.36 in Sipser. Consider as well De Morgan's law. $\overline{B \cap C} = \overline{B} \cup \overline{C}$. If we take the complement of both sides as follows, $\overline{\overline{B \cap C}} = B \cap C = \overline{\overline{B} \cup \overline{C}}$. This shows that the intersection is equivalent to the complement of another set. If the set on the right hand side were context free, then the intersection would need to also be context free, but it is not. Therefore, the complement is also not context free. Therefore $A$ is a CFL $\not\rightarrow \overline{A}$ is a CFL.
+
         (2) Does (a) imply (d)?
+
+        Does the statement $A$ is context-free imply $\overline{A}$ is decidable? Yes. In this case, the implication holds. Consider the following: CFGs are equivalent to PDAs by Siper's Theorem 2.20. Let there be a Turing Machine $M$ that simulates a PDA corresponding to to the given CFG $A$. This can be done by having $M$ write the contents of the stack to a dedicated region of the tape, marked off by special symbols such as $\#$. Then, if the simulated PDA, which is equivalent to the given CFG, accepts the input, $M$ rejects. If on the other hand the PDA rejects the input, then $M$ accepts. Because a PDA is guaranteed to reach either an accept or reject state, $M$ will as well, which means that the TM $M$ is a decider. Hence there is a TM that decides $\overline{A}$, which means that $\overline{A}$ is decidable, and consequently that $A$ is context-free implies $\overline{A}$ is context-free.
 
         (3) Does (a) and (b) imply (e)?
 
+        Do the statements $A$ is context-free and $B$ is Turing-recognizable together imply that $A \cap B$ is decidable? Yes. All context free languages are Turing recognizable (and in fact decidable, by the same argument as above). However, there are Turing recognizable languages, such as  $\{a^{m}b^{m}c^{m}\ \vert\ m \ge 1\}$ that are not context free. Hence, the set of class free languages are a subset of the Turing recognizable languages. But because of this, the intersection of a context-free language and Turing recognizable language is context-free (i.e. it is constrained to the characteristics of the subset). Therefore, in particular, $A \cap B$ is context-free. Because it is context-free, it is equivalent to a PDA. Since a PDA always either accepts or rejects its input and never loops, the Turing Machine that models that corresponding PDA is a decider, making the corresponding language decidable.
+
         (4) Does (a) and (b) imply (f)?
 
+        Do the statements $A$ is context-free and $B$ is Turing-recognizable imply that $A \cap B$ is Turing recognizable? Yes, by a similar argument to above. Turing recognizable languages are a superset of Turing decidable languages, since they have the same conditions for accepting and rejecting input, with the relaxation of allowing looping in Turing recognizable languages. Put another way, in order for a language to be Turing recognizable, it must either $a)$ accept or $b)$ reject or $c)$ loop on its input. But for a language to be decidable, it must $a)$ accept or $b)$ reject on its input. Hence, any language that satisfies the conditions for being decidable also satisfies the conditions for being Turing recognizable. Hence, the statements $A$ is context-free and $B$ is Turing-recognizable imply that $A \cap B$ is Turing recognizable, because $A \cap B$ is decidable.
+
         (5) Does (b) imply (g)?
-        \medskip
 
-        \textbf{Answer:}
-        %\end{enumerate}
-
+        Does the statement $B$ is Turing-recognizable imply $\overline{B}$ is Turing recognizable? No. Consider $\overline{A_{TM}}$, which is shown to be not Turing recognizable in Sipser's Corollary 4.23 of Theorem 4.22. $A_{TM}$ is Turing recognizable. But, through the Halting Problem it was shown that $A_{TM}$ is not decidable. If $\overline{A_{TM}}$ were Turing recognizable, then by Theorem 4.22, $A_{TM}$ would be decidable, which it is not. Therefore, $B$ is Turing-recognizable does not imply $\overline{B}$ is Turing recognizable
 
         \bigskip
 
