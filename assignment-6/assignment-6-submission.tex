@@ -44,7 +44,7 @@
 
         \textbf{Answer:}
 
-        Let $S$ be a an algorithm, i.e., a Turing Machine, defining the set $B$, and let $S$ behave as follows:
+        Let $S$ be an algorithm, i.e., a Turing Machine, defining the set $B$, and let $S$ behave as follows:
 
         $S$ on input $\langle M \rangle$, where $\langle M \rangle$ is a TM, initializes a counter to 0. Then, $S$ simulates $M$ on each of the characters of $\Sigma^*$ sorted in lexicographical order. That is, $S$ performs a simulation of $M$ on each of the elements of $A = (\epsilon, 0, 1, 00, 01, 10, 11, \ldots)$. Because it is possible that $M$ may loop on some particular input, rather than explicitly accepting or rejecting it, we will further specify that the simulation $S$ performs of $M$ on the strings from $A$ are done using dovetailing. Concretely this means that for each element of the sequence $A$ ($s_1, s_2, \ldots, s_i$) the algorithm $S$ will simulate $M$ for $i$ steps before proceeding. To illustrate, $M$ will be simulated for $1$ step on the $\epsilon = s_1$, then $M$ will be simulated for $2$ steps on $\epsilon = s_1$ and $0 = s_2$, and so forth. This ensures that the sequence of simulations of $M$ will be able to proceed through all of the inputs. Whenever $M$ accepts on a particular input, increment the counter $c$ of $S$. If the counter $c \ge 3$, then $S$ accepts. Otherwise, $S$ will loop. This satisfies the requirement that $S$ be Turing Recognizable, i.e. recursively enumerable.
 
