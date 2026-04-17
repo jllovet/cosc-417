@@ -31,6 +31,24 @@
 
         \textbf{Answer:}
 
+        By Sipser's Definition 5.20:
+        Language $A$ is \emph{mapping reducible} to language $B$, written $A \le_m B$, if there is a computable function $f: \Sigma^* \to \Sigma^*$, where $\forall w$, $w \in A \iff f(w) \in B$. The function $f$ is called the \emph{reduction} from $A$ to $B$.
+
+        Sipser states in Theorem 5.28 what we are seeking to show here, namely that if $B$ is Turing-recognizable, then $A$ is also Turing-recognizable. His proof calls back to Theorem 5.22, where he uses deciders. What is the reasoning adapted to recognizers?
+
+        We let $M$ be a recognizer for $B$. Let $f$ be the reduction from $A$ to $B$ that does the job of Sipser's definition 5.20 above. Furthermore, let there be a recognizer $N$ for $A$ as follows:
+
+        $N$ = ``On input $w$:
+        \begin{enumerate}
+          \item Compute $f(w)$
+          \item Run $M$ on input $f(w)$ and output whatever $M$ outputs.''
+        \end{enumerate}
+
+        If $w \in A$, then $f(w) \in B$ because $f$ is a reduction from $A$ to $B$ (by hypothesis). Then $M$ accepts $f(w)$ whenever $w \in A$. Additionally, as is characteristic of a recognizer, $M$ rejects or loops on $f(w)$ whenever $w \not\in A$.
+
+        Why does this show that if $B$ is Turing-recognizable, then $A$ is Turing-recognizable as well? Because the question we are posing about $A$ can be transformed by a computable function (in this case $f$), which is a finite sequence of steps, i.e.\ an algorithm, into a question about $B$. We are using this function to transform the question ``is $w \in A$?'' into the question ``is $f(w) in B$?'' We have $M$, a recognizer for $B$, and we wrap that Turing Machine in another that performs the very steps we just described as needed: transform the input of the question about $A$ into the corresponding question about $B$, and then use the answer to question about $B$ to answer the question about $A$.
+
+
   \item Let $B =\{\langle<M\rangle \mid \textrm{$M$ is a Turing machine that accepts 0 , and that does  not accept 1}\}$. Show that $HALT \le_m B$.
         \medskip
 
