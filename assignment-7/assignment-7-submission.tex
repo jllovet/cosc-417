@@ -49,7 +49,7 @@
         Why does this show that if $B$ is Turing-recognizable, then $A$ is Turing-recognizable as well? Because the question we are posing about $A$ can be transformed by a computable function (in this case $f$), which is a finite sequence of steps, i.e.\ an algorithm, into a question about $B$. We are using this function to transform the question ``is $w \in A$?'' into the question ``is $f(w) in B$?'' We have $M$, a recognizer for $B$, and we wrap that Turing Machine in another that performs the very steps we just described as needed: transform the input of the question about $A$ into the corresponding question about $B$, and then use the answer to question about $B$ to answer the question about $A$.
 
 
-  \item Let $B =\{\langle<M\rangle \mid \textrm{$M$ is a Turing machine that accepts 0 , and that does  not accept 1}\}$. Show that $HALT \le_m B$.
+  \item Let $B =\{\langle M\rangle \mid \textrm{$M$ is a Turing machine that accepts 0 , and that does  not accept 1}\}$. Show that $HALT \le_m B$.
         \medskip
 
         \textbf{Answer:}
