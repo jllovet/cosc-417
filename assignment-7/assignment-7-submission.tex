@@ -1,0 +1,45 @@
+\documentclass[11pt]{article}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{amsfonts} 
+\setlength{\oddsidemargin}{-0.1in}
+\setlength{\evensidemargin}{\oddsidemargin}
+\setlength{\textwidth}{7.0in}
+\setlength{\textheight}{9.3in}
+\setlength{\topmargin}{-0.7in}
+%\input{macros.tex}
+\begin{document}
+
+
+\fbox{
+  \vbox{
+    \begin{flushleft}
+      Jonathan Llovet \\  % authors' names
+      COSC 417 \\  %class
+      2026-04-17\\  % date
+    \end{flushleft}
+    \center{\Large{\textbf{Assignment 7}}}
+  } % end vbox
+} % end fbox
+\vline
+
+\begin{enumerate}[label=\textbf{Exercise \arabic{*}}]
+
+  \item $A$ and $B$ are two languages, and $A \le_m B$ ( $\le_m$ is the mapping reduction defined in Sipser, Def 5.2, page 235, and also in my Notes 11). Show that if $B$ is Turing-recognizable, then $A$ is also Turing recognizable.
+
+        \medskip
+
+        \textbf{Answer:}.
+
+  \item Let $B =\{\langle<M\rangle \mid \textrm{$M$ is a Turing machine that accepts 0 , and that does  not accept 1}\}$. Show that $HALT \le_m B$.
+        \medskip
+
+        \textbf{Answer:}
+
+  \item Give an example of an undecidable language $B$ with $B \le_m \overline{B}$.
+        \medskip
+
+        \textbf{Answer:}
+\end{enumerate}
+
+\end{document}
