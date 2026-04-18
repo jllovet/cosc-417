@@ -73,7 +73,7 @@
         ($\Leftarrow$) On the other hand, if $f(\langle H, w \rangle) \in M$, then $\langle H, w \rangle \in HALT$, because of how $M$ was defined to satisfy the conditions of inclusion in set $B$. That is, because $N$ accepts on $f(\langle H, w \rangle)$ with $w = 0$, but $N$ may loop on $f(\langle H, w \rangle)$ with $w = 1$ or on any other input.
 
         \medskip
-        
+
         \textbf{Feedback From Claude.}
 
         Here is feedback I received from Claude about my writeup:
@@ -130,6 +130,35 @@
         \medskip
 
         \textbf{Answer:}
+
+        My first attempt at answering this question is below. I am not satisfied with it because I think that my argument does not satisfy the biconditional, because the portion of the predicate ``$M$ is not a TM'' may break the needed reduction.
+
+        \[
+          A_{TM} \le_m \overline{A_{TM}}
+        \]
+
+        On page 207, Sipser defines the language $A_{TM}$ as:
+
+        \[
+          A_{TM} = \{\langle M, w \rangle \mid \textbf{$M$ is a TM and $M$ accepts $w$}\}
+        \]
+
+        To negate the predicate used in the set builder notation, we negate the conjunction with De Morgan's law, yielding:
+
+        \[
+          \overline{A_{TM}} = \{\langle M, w \rangle \mid \textbf{$M$ is not a TM or $M$ does not accept $w$}\}
+        \]
+
+        The reduction $f$ transforms $\langle M, w \rangle \in A_{TM}$ into $f(\langle M, w \rangle) \in \overline{A_{TM}}$. The output of $f(\langle M, w \rangle)$ is $M'$, which simulates $M$ on input $w$ but flips its accepting and rejecting states, rejecting when $M$ accepts and accepting when $M$ rejects.
+
+        In my second attempt at this exercise, I thought about considering a language like $REGULAR_{TM}$, which Sipser defines on page 218 as:
+
+        \[
+        REGULAR_{TM} = \{\langle M \rangle \mid \textbf{$M$ is a TM and $L(M)$ is a regular language}\}
+        \]
+
+        According to Rice's Theorem, any nontrivial property of the languages recognized by a Turing Machine is undecidable. This made me suspect that I could use this reduction, $REGULAR_{TM} \le_m NONREGULAR_{TM} = \overline{REGULAR_{TM}}$, or some similar one, but I do not see at present a similar way to get around the problem of the reduction's including non-Turing Machines because of the negation of the original predicate.
+
 \end{enumerate}
 
 \end{document}
