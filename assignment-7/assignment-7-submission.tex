@@ -44,7 +44,11 @@
           \item Run $M$ on input $f(w)$ and output whatever $M$ outputs.''
         \end{enumerate}
 
-        If $w \in A$, then $f(w) \in B$ because $f$ is a reduction from $A$ to $B$ (by hypothesis). Then $M$ accepts $f(w)$ whenever $w \in A$. Additionally, as is characteristic of a recognizer, $M$ rejects or loops on $f(w)$ whenever $w \not\in A$.
+        ($\Rightarrow$) If $w \in A$, then $f(w) \in B$ because $f$ is a reduction from $A$ to $B$ (by hypothesis).
+        
+        ($\Leftarrow$) If $M$ accepts $f(w)$, then $w \in A$.
+        
+        Additionally, as is characteristic of a recognizer, $M$ rejects or loops on $f(w)$ whenever $w \not\in A$.
 
         Why does this show that if $B$ is Turing-recognizable, then $A$ is Turing-recognizable as well? Because the question we are posing about $A$ can be transformed by a computable function (in this case $f$), which is a finite sequence of steps, i.e.\ an algorithm, into a question about $B$. We are using this function to transform the question ``is $w \in A$?'' into the question ``is $f(w) \in B$?'' We have $M$, a recognizer for $B$, and we wrap that Turing Machine in another that performs the very steps we just described as needed: transform the input of the question about $A$ into the corresponding question about $B$, and then use the answer to question about $B$ to answer the question about $A$.
 
