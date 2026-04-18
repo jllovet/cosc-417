@@ -49,10 +49,27 @@
         Why does this show that if $B$ is Turing-recognizable, then $A$ is Turing-recognizable as well? Because the question we are posing about $A$ can be transformed by a computable function (in this case $f$), which is a finite sequence of steps, i.e.\ an algorithm, into a question about $B$. We are using this function to transform the question ``is $w \in A$?'' into the question ``is $f(w) \in B$?'' We have $M$, a recognizer for $B$, and we wrap that Turing Machine in another that performs the very steps we just described as needed: transform the input of the question about $A$ into the corresponding question about $B$, and then use the answer to question about $B$ to answer the question about $A$.
 
 
-  \item Let $B =\{\langle M\rangle \mid \textrm{$M$ is a Turing machine that accepts 0 , and that does  not accept 1}\}$. Show that $HALT \le_m B$.
+  \item Let $B =\{\langle M \rangle \mid \textrm{$M$ is a Turing machine that accepts 0 , and that does  not accept 1}\}$. Show that $HALT \le_m B$.
         \medskip
 
         \textbf{Answer:}
+
+        What is it we wish to show? We want to show that asking the question whether a Turing Machine halts on any given input (i.e. whether that TM $M \in HALT$) can be reduced to whether a Turing Machine $N$ satisfies the conditions for $B$. That is, since Turing Machines can be encoded as strings so $\langle M \rangle$, we want to answer a similar question to the one in Exercise 1. Here, we ask whether the question of whether a string is in $HALT$ can be reduced to whether a string is in $B$.
+
+        Let there be a language $HALT = \{\langle M, w \rangle \mid \textrm{$M$ is a TM and M halts on input w}\}$. Let $f$ be the reduction from $HALT$ to $B$. As above, we will simulate the running of a Turing Machine to achieve our goal. Let $M$ be a Turing Machine that accepts 0 , and that does not accept 1, as is required for $B$. Now, let there be a TM $N$ that runs as follows:
+
+        $N$ = ``On input $\langle H, w \rangle$:
+        \begin{enumerate}
+          \item Compute $f(\langle H, w \rangle)$
+          \item Run $M$ on input $f(\langle H, w \rangle)$. If $M$ halts, output whatever $M$ outputs. Otherwise loop.''
+        \end{enumerate}
+
+        How does this show that $HALT \le_m B$? $M$ will accept if the output of $f(\langle H, w \rangle)$ is a Turing Machine whose input is 0. $M$ will either reject or loop if the output of $f(\langle H, w \rangle)$ is a Turing Machine with input of 1 or anything else.
+        
+        ($\Rightarrow$) That is, if $\langle H, w \rangle \in HALT$, then $f(\langle H, w \rangle) \in B$, because $f(\langle H, w \rangle)$ is a reduction from $HALT$ to $B$ by hypothesis.
+        
+        ($\Leftarrow$) On the other hand, if $f(\langle H, w \rangle) \in M$, then $\langle H, w \rangle \in HALT$, because of how $M$ was defined to satisfy the conditions of inclusion in set $B$. That is, because $N$ accepts on $f(\langle H, w \rangle)$ with $w = 0$, but $N$ may loop on $f(\langle H, w \rangle)$ with $w = 1$ or on any other input.
+
 
   \item Give an example of an undecidable language $B$ with $B \le_m \overline{B}$.
         \medskip
