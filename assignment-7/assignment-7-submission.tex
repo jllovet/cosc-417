@@ -67,11 +67,64 @@
         \end{enumerate}
 
         How does this show that $HALT \le_m B$? $M$ will accept if the output of $f(\langle H, w \rangle)$ is a Turing Machine whose input is 0. $M$ will either reject or loop if the output of $f(\langle H, w \rangle)$ is a Turing Machine with input of 1 or anything else.
-        
+
         ($\Rightarrow$) That is, if $\langle H, w \rangle \in HALT$, then $f(\langle H, w \rangle) \in B$, because $f(\langle H, w \rangle)$ is a reduction from $HALT$ to $B$ by hypothesis.
-        
+
         ($\Leftarrow$) On the other hand, if $f(\langle H, w \rangle) \in M$, then $\langle H, w \rangle \in HALT$, because of how $M$ was defined to satisfy the conditions of inclusion in set $B$. That is, because $N$ accepts on $f(\langle H, w \rangle)$ with $w = 0$, but $N$ may loop on $f(\langle H, w \rangle)$ with $w = 1$ or on any other input.
 
+        \medskip
+        
+        \textbf{Feedback From Claude.}
+
+        Here is feedback I received from Claude about my writeup:
+
+        \medskip
+
+        \textbf{Summary.} The response to Exercise 2 has a structural confusion: it imports the shape of Exercise 1 into a problem where it doesn't belong. A mapping reduction $HALT \le_m B$ is just a computable function $f$. There is no recognizer or decider to build; your job is to define $f$, not to use it.
+
+        \medskip
+
+        \textbf{Concrete symptoms of the confusion.}
+
+        \begin{itemize}
+          \item The submission says ``Let $M$ be a Turing Machine that accepts $0$ and does not accept $1$, as is required for $B$.'' But $B$ isn't given as a recognizable or decidable language you have access to --- $B$ is just a set of TM encodings, and the problem is asking you to build a function that lands in $B$ exactly when the input is in $HALT$. Picking ``some $M \in B$'' and running it on things doesn't help.
+          \item $f(\langle H, w \rangle)$ is supposed to be a \emph{TM encoding} --- an element of the domain $B$ lives in. So ``run $M$ on input $f(\langle H, w \rangle)$'' is running $M$ on a TM description, which has nothing to do with whether that description is in $B$.
+          \item The constructed TM $N$ does no work for the proof. You don't need to \emph{use} the reduction; you need to \emph{define} it.
+        \end{itemize}
+
+        \medskip
+
+        \textbf{What the problem actually wants.} Define $f$ so that
+        \[
+          \langle H, w \rangle \in HALT \iff f(\langle H, w \rangle) \in B,
+        \]
+        and that's it. Here's the standard construction.
+
+        \medskip
+
+        \textbf{Construction of $f$.} On input $\langle H, w \rangle$, output $\langle M' \rangle$, where $M'$ is the following TM. Note that $f$ is just \emph{writing down the description} of $M'$; it does \emph{not} run $M'$.
+
+        $M'$ = ``On input $x$:
+        \begin{enumerate}
+          \item Simulate $H$ on $w$.
+          \item If the simulation halts: \emph{accept} if $x = 0$, \emph{reject} if $x = 1$ (otherwise reject).''
+        \end{enumerate}
+
+        \medskip
+
+        \textbf{Correctness.}
+
+        \emph{Case $\langle H, w \rangle \in HALT$.} Then $H$ halts on $w$, so step 1 of $M'$ terminates on every input $x$. On $x = 0$, $M'$ accepts; on $x = 1$, $M'$ rejects. So $M'$ accepts $0$ and does not accept $1$, hence $\langle M' \rangle \in B$. \checkmark
+
+        \emph{Case $\langle H, w \rangle \notin HALT$.} Then $H$ loops on $w$, so $M'$ loops in step 1 on every input $x$. In particular $M'$ does not accept $0$, so $\langle M' \rangle \notin B$. \checkmark
+
+        \medskip
+
+        \textbf{$f$ is computable.} Given $\langle H, w \rangle$, we syntactically produce the description of $M'$ by plugging $H$ and $w$ into a fixed template --- no simulation required at reduction time. This is the part that's easy to elide but worth naming: $f$ itself always halts; the looping behavior lives inside $M'$, which $f$ only \emph{describes}.
+
+        \medskip
+
+        \textbf{The pattern to internalize.} The distinction between Exercise 1 and Exercise 2 is the distinction between \emph{using} a reduction and \emph{defining} one. In Exercise 1 you're given $A \le_m B$ (a reduction $f$ exists) plus a machine for $B$, and you're chaining them into a machine for $A$. In Exercise 2 you're given nothing except the definitions of $HALT$ and $B$, and you have to \emph{produce} $f$. The ``simulate the target machine inside a template machine that we emit as a string'' trick is the bread and butter of these reductions --- once you see it, exercises like ``show $HALT \le_m E_{TM}$'' or ``show $A_{TM} \le_m REGULAR_{TM}$'' all have the same flavor: embed the behavior of $H$ on $w$ into a freshly-described machine $M'$ whose relevant language-theoretic property toggles based on whether $H$ halts (or accepts).
 
   \item Give an example of an undecidable language $B$ with $B \le_m \overline{B}$.
         \medskip
