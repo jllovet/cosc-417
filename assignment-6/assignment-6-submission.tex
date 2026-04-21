@@ -1,0 +1,130 @@
+\documentclass[11pt]{article}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{amsfonts}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\renewcommand\qedsymbol{$\blacksquare$}
+\setlength{\oddsidemargin}{-0.1in}
+\setlength{\evensidemargin}{\oddsidemargin}
+\setlength{\textwidth}{7.0in}
+\setlength{\textheight}{9.3in}
+\setlength{\topmargin}{-0.7in}
+%\input{macros.tex}
+\begin{document}
+
+\fbox{
+  \vbox{
+    \begin{flushleft}
+      Jonathan Llovet \\  % authors' names
+      COSC 417 \\  %class
+      2026-04-10\\  % date
+    \end{flushleft}
+    \center{\Large{\textbf{Assignment 6}}}
+  } % end vbox
+} % end fbox
+\vline
+
+\begin{enumerate}[label=\textbf{Exercise \arabic{*}}]
+
+  \item \label{e3}
+        Show that the language
+        \[
+          B = \{\langle M \rangle \mid \mbox{the Turing machine $M$ accepts at least $3$ strings}\}
+        \]  is
+        Turing recognizable (Notes: Turing-recognizable sets are also called CE (computably enumerable), and also RE (recursively enumerable);  $\langle M \rangle$ isa standard encoding of the Turing machine $M$).
+
+        \medskip
+
+        In your solution you will informally describe an algorithm $S$ that on input $\langle M \rangle$  has the following properties:
+
+        (a)	if $M$ accepts at least three strings, then $S$ accepts,
+
+        (b)	if $M$ acccepts fewer than three strings, then $S$ rejects or loops.
+
+        Of course $S$ will have to run  simulations of $M$ on various inputs,  and the issue is to organize these simulations in the right way to obtain (a) and (b). The main challenge is that $M$ may loop on some inputs, and, therefore, the algorithm $S$ must have a way to avoid being stuck on a simulation of $M$ on an input $x$ on which it loops. Make sure you explain how this challenge is overcome.
+        \medskip
+
+        \textbf{Answer:}
+
+        Let $S$ be an algorithm, i.e., a Turing Machine, defining the set $B$, and let $S$ behave as follows:
+
+        $S$ on input $\langle M \rangle$, where $\langle M \rangle$ is a TM, initializes a counter to 0. Then, $S$ simulates $M$ on each of the characters of $\Sigma^*$ sorted in lexicographical order. That is, $S$ performs a simulation of $M$ on each of the elements of $A = (\epsilon, 0, 1, 00, 01, 10, 11, \ldots)$. Because it is possible that $M$ may loop on some particular input, rather than explicitly accepting or rejecting it, we will further specify that the simulation $S$ performs of $M$ on the strings from $A$ are done using dovetailing. Concretely this means that for each element of the sequence $A$ ($s_1, s_2, \ldots, s_i$) the algorithm $S$ will simulate $M$ for $i$ steps before proceeding. To illustrate, $M$ will be simulated for $1$ step on the $\epsilon = s_1$, then $M$ will be simulated for $2$ steps on $\epsilon = s_1$ and $0 = s_2$, and so forth. This ensures that the sequence of simulations of $M$ will be able to proceed through all of the inputs. Whenever $M$ accepts on a particular input, increment the counter $c$ of $S$. If the counter $c \ge 3$, then $S$ accepts. Otherwise, $S$ will loop. This satisfies the requirement that $S$ be Turing Recognizable, i.e. recursively enumerable.
+
+  \item $A$ and $B$ denote languages, and $\overline{A}$ is the complement of $A$, and $\overline{B}$ is the complement of $B$.  $A \cap B$ is the intersection of $A$ and $B$. Consider the following statements:
+
+        (a) $A$ is context-free.
+
+        (b) $B$ is Turing-recognizable.
+
+        (c) $\overline{A}$ is context-free.
+
+        (d)	$\overline{A}$ is decidable.
+
+        (e) $A \cap B$ is decidable.
+
+        (f) $A \cap B$ is  Turing recognizable.
+
+        (g) $\overline{B}$ is Turing recognizable.
+        \smallskip
+
+        Answer the following questions (YES or NO) and provide short justifications:
+        \smallskip
+
+        (1) Does (a) imply (c)?
+
+        \textbf{Answer:} Does the statement $A$ is context-free imply $\overline{A}$ is context-free? No. Take the example languages $B = \{a^{m}b^{n}c^{m}\ \vert\ m,n \ge 1\}$ and $C = \{a^{m}b^{m}c^{n}\ \vert\ m,n \ge 1\}$. These two languages are context free. Consider their intersection $B \cap C = \{a^{m}b^{m}c^{m}\ \vert\ m \ge 1\}$. This language is not context free, by the pumping lemma for context-free languages, as is shown in Ex 2.36 in Sipser. We will show by contradiction that $A$ is a CFL does not imply $\overline{A}$ is a CFL. Suppose to the contrary that it did. Languages $B$ and $C$ above are CFLs. Therefore $\overline{B}$ and $\overline{C}$ are CFLs. Context-free languages are closed under union (consider context-free grammars with an initial rule such as $S \to S_1 | S_2$). Therefore, $\overline{B} \cup \overline{C}$ is a CFL. However, using De Morgan's law, note that $\overline{B} \cup \overline{C} = \overline{B \cap C}$. Negating both sides of this,
+        \begin{align*}
+           \\
+          \overline{\overline{B} \cup \overline{C}} & = \overline{\overline{B \cap C}}\\
+          \overline{\overline{B} \cup \overline{C}} &= B \cap C \\
+        \end{align*}
+
+        But above we saw that $B \cap C$ is not a context-free language. This is a contradiction. Therefore, our assumption above was incorrect, and $A$ is a CFL $\not\rightarrow \overline{A}$ is a CFL.
+
+        (2) Does (a) imply (d)?
+
+        \textbf{Answer:} Does the statement $A$ is context-free imply $\overline{A}$ is decidable? Yes. In this case, the implication holds. Consider the following: CFGs are equivalent to PDAs by Sipser's Theorem 2.20. Let there be a Turing Machine $M$ that simulates a PDA corresponding to to the given CFG $A$. This can be done by having $M$ write the contents of the stack to a dedicated region of the tape, marked off by special symbols such as $\#$. Then, if the simulated PDA, which is equivalent to the given CFG, accepts the input, $M$ rejects. If on the other hand the PDA rejects the input, then $M$ accepts. Because a PDA is guaranteed to reach either an accept or reject state, $M$ will as well, which means that the TM $M$ is a decider. Hence there is a TM that decides $\overline{A}$, which means that $\overline{A}$ is decidable, and consequently that $A$ is context-free implies $\overline{A}$ is decidable.
+
+        (3) Does (a) and (b) imply (e)?
+
+        \textbf{Answer:} Do the statements $A$ is context-free and $B$ is Turing-recognizable together imply that $A \cap B$ is decidable? Yes. All context free languages are Turing recognizable (and in fact decidable, by the same argument as above). However, there are Turing recognizable languages, such as  $\{a^{m}b^{m}c^{m}\ \vert\ m \ge 1\}$ that are not context free. Hence, the set of context-free languages are a subset of the Turing recognizable languages. But because of this, the intersection of a context-free language and Turing recognizable language is context-free (i.e. it is constrained to the characteristics of the subset). Therefore, in particular, $A \cap B$ is context-free. Because it is context-free, it is equivalent to a PDA. Since a PDA always either accepts or rejects its input and never loops, the Turing Machine that models that corresponding PDA is a decider, making the corresponding language decidable.
+
+        (4) Does (a) and (b) imply (f)?
+
+        \textbf{Answer:} Do the statements $A$ is context-free and $B$ is Turing-recognizable imply that $A \cap B$ is Turing recognizable? Yes, by a similar argument to above. Turing recognizable languages are a superset of Turing decidable languages, since they have the same conditions for accepting and rejecting input, with the relaxation of allowing looping in Turing recognizable languages. Put another way, in order for a language to be Turing recognizable, it must either $a)$ accept or $b)$ reject or $c)$ loop on its input. But for a language to be decidable, it must $a)$ accept or $b)$ reject on its input. Hence, any language that satisfies the conditions for being decidable also satisfies the conditions for being Turing recognizable. Hence, the statements $A$ is context-free and $B$ is Turing-recognizable imply that $A \cap B$ is Turing recognizable, because $A \cap B$ is decidable.
+
+        (5) Does (b) imply (g)?
+
+        \textbf{Answer:} Does the statement $B$ is Turing-recognizable imply $\overline{B}$ is Turing recognizable? No. Consider $\overline{A_{TM}}$, which is shown to be not Turing recognizable in Sipser's Corollary 4.23 of Theorem 4.22. $A_{TM}$ is Turing recognizable. But, through the Halting Problem it was shown that $A_{TM}$ is not decidable. If $\overline{A_{TM}}$ were Turing recognizable, then by Theorem 4.22, $A_{TM}$ would be decidable, which it is not. Therefore, $B$ is Turing-recognizable does not imply $\overline{B}$ is Turing recognizable
+
+        \bigskip
+
+  \item
+
+        Recall that we have shown that the fact ``language $L$  is CE" is equivalent to the existence of a decider  $D $ such that for every $x$,
+        \[x \in L \Leftrightarrow \big(\exists~s) ~ \big[D \mbox{ accepts $(x,s)$}\big],
+        \]
+        where  $s$ is a string.
+        %\footnote{In Notes 10, we have shown this only for $k=1$, but  that proof can be adapted to work for any constant number $k$, because we can encode a $k$-tuple $(s_1, s_2, \ldots, s_k)$ of numbers into a single number $t$ so that from $t$ one can retrieve each $s_i$ (for example the tuple $(5, 11)$ can be encoded as $t=2^5 3^{11}$).}
+
+
+        Use this to give an alternative proof that the set from~Exercise 1, namely
+        \[
+          B = \{\langle M \rangle \mid \mbox{the Turing machine $M$ accepts at least $3$ strings}\}
+        \]  is
+        Turing recognizable (or RE).
+        For this you need to informally describe the appropriate decider.
+
+        \medskip
+
+        \textbf{Answer:}
+        In this case, the elements of the language we are concerned about are themselves Turing Machines, which are each encoded as a string $\langle M \rangle$. By definition of $B$, $\langle M \rangle$ is in the language if $\langle M \rangle$ accepts at least $3$ strings. This means that there is a decider $D$ that accepts $(\langle M \rangle, s)$ for some $s$. Let $A$ represent the sequence of strings from $\Sigma^*$ sorted in lexicographic order, that is, $A = (\epsilon, 0, 1, 00, 01, 10, 11, \ldots)$. Our decider $D$ will decide whether $M$ has accepted at least $3$ strings in the first $s$ strings of $A$. To do this, for $s = 1, 2, 3, \ldots$, $D$ should simulate $M$ on the first $s$ strings in $A$ for $s$ steps. If $M$ has not entered an accept state for at least 3 strings in those $s$ steps, then $D$ rejects for that tuple $(\langle M \rangle, s)$. If $M$ has entered an accept state for at least 3 strings in those $s$ steps, then $D$ accepts for that tuple $(\langle M \rangle, s)$, and $\langle M \rangle \in B$. For any particular value of $s$, the simulation that $D$ performs of $M$ is bounded, and hence $D$ can decide whether to reject or accept the pair $(\langle M \rangle, s)$, as required of a decider.
+
+
+\end{enumerate}
+
+\end{document}

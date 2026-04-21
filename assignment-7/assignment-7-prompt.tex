@@ -1,0 +1,87 @@
+\documentclass[11pt]{article}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{amsfonts} 
+\setlength{\oddsidemargin}{-0.1in}
+\setlength{\evensidemargin}{\oddsidemargin}
+\setlength{\textwidth}{7.0in}
+\setlength{\textheight}{9.3in}
+\setlength{\topmargin}{-0.7in}
+%\input{macros.tex}
+\begin{document}
+
+
+
+\fbox{
+\vbox{
+\begin{flushleft}
+Ann,  Bob, Charlie    (\emph{replace with your names and change the date})\\  % authors' names
+COSC 417 \\  %class
+11/6/2021\\  % date
+\end{flushleft}
+\center{\Large{\textbf{Assignment 7}}}
+} % end vbox
+} % end fbox
+\vline
+
+%\fbox{\vbox{
+\textbf{Instructions.}
+\begin{enumerate}
+
+\item  Due date and time: As announced on Blackboard.
+
+\item %Work in teams as in the previous assignments (hand in one assignment with all the names on it).
+Submit on Blackboard.  This homework will not be graded, I will post solutions (see the syllabus for the policy regarding assignments).
+
+
+
+
+\item For editing your homework, I recommend that you use Latex on Overleaf, see the template files posted on Blackboard. 
+ 
+         The template has an  example showing how to do the state diagram  of a finite automaton. If you have trouble with making figures in Latex, you can hand-draw the state diagrams (or other figures) and insert a digital photo in the .tex file (see the template how to do this).
+  
+\item If a problem has more questions, write down your answers in the same order as the order of questions. In principle, this should help you.
+
+ \item   To append in the  latex file a .jpg file (for a photo; for example, in case you draw a picture by hand and take a photo of it with your phone camera), use 
+
+
+\begin{verbatim}
+\includegraphics[angle=270,origin=c,width=\linewidth]{file.jpg}
+\end{verbatim}
+The parameter angle=270 is for rotating the photo, and you may have to change 270 to whatever angle works for your photo.
+		   \vspace{0.5cm}
+
+
+\end{enumerate}
+
+\newpage
+
+
+
+
+\begin{enumerate}[label=\textbf{Exercise \arabic{*}}]
+
+\item $A$ and $B$ are two languages, and $A \le_m B$ ( $\le_m$ is the mapping reduction defined in Sipser, Def 5.2, page 235, and also in my Notes 11). Show that if $B$ is Turing-recognizable, then $A$ is also Turing recognizable.
+
+\medskip
+
+
+
+\textbf{Answer:}. 
+
+\item Let $B =\{\langle<M\rangle \mid \textrm{$M$ is a Turing machine that accepts 0 , and that does  not accept 1}\}$. Show that $HALT \le_m B$.
+\medskip 
+
+\textbf{Answer:}
+
+\item Give an example of an undecidable language $B$ with $B \le_m \overline{B}$.
+\medskip
+
+\textbf{Answer}
+\end{enumerate}
+
+
+
+
+ \end{document}
+ 

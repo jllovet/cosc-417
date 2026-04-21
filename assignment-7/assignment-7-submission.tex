@@ -1,0 +1,164 @@
+\documentclass[11pt]{article}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{amsfonts} 
+\setlength{\oddsidemargin}{-0.1in}
+\setlength{\evensidemargin}{\oddsidemargin}
+\setlength{\textwidth}{7.0in}
+\setlength{\textheight}{9.3in}
+\setlength{\topmargin}{-0.7in}
+%\input{macros.tex}
+\begin{document}
+
+
+\fbox{
+  \vbox{
+    \begin{flushleft}
+      Jonathan Llovet \\  % authors' names
+      COSC 417 \\  %class
+      2026-04-17\\  % date
+    \end{flushleft}
+    \center{\Large{\textbf{Assignment 7}}}
+  } % end vbox
+} % end fbox
+\vline
+
+\begin{enumerate}[label=\textbf{Exercise \arabic{*}}]
+
+  \item $A$ and $B$ are two languages, and $A \le_m B$ ( $\le_m$ is the mapping reduction defined in Sipser, Def 5.2, page 235, and also in my Notes 11). Show that if $B$ is Turing-recognizable, then $A$ is also Turing recognizable.
+
+        \medskip
+
+        \textbf{Answer:}
+
+        By Sipser's Definition 5.20:
+        Language $A$ is \emph{mapping reducible} to language $B$, written $A \le_m B$, if there is a computable function $f: \Sigma^* \to \Sigma^*$, where $\forall w$, $w \in A \iff f(w) \in B$. The function $f$ is called the \emph{reduction} from $A$ to $B$.
+
+        Sipser states in Theorem 5.28 what we are seeking to show here, namely that if $B$ is Turing-recognizable, then $A$ is also Turing-recognizable. His proof calls back to Theorem 5.22, where he uses deciders. What is the reasoning adapted to recognizers?
+
+        We let $M$ be a recognizer for $B$. Let $f$ be the reduction from $A$ to $B$ that does the job of Sipser's definition 5.20 above. Furthermore, let there be a recognizer $N$ for $A$ as follows:
+
+        $N$ = ``On input $w$:
+        \begin{enumerate}
+          \item Compute $f(w)$
+          \item Run $M$ on input $f(w)$ and output whatever $M$ outputs.''
+        \end{enumerate}
+
+        If $w \in A$, then $f(w) \in B$ because $f$ is a reduction from $A$ to $B$ (by hypothesis). Then $M$ accepts $f(w)$ whenever $w \in A$. Additionally, as is characteristic of a recognizer, $M$ rejects or loops on $f(w)$ whenever $w \not\in A$.
+
+        Since $N$ runs $M$ on $f(w)$ and outputs whatever it outputs, $N$ accepts iff $M$ accepts, and it rejects or loops when $M$ does, namely iff $w \not\in A$.
+
+        Why does this show that if $B$ is Turing-recognizable, then $A$ is Turing-recognizable as well? Because the question we are posing about $A$ can be transformed by a computable function (in this case $f$), which is a finite sequence of steps, i.e.\ an algorithm, into a question about $B$. We are using this function to transform the question ``is $w \in A$?'' into the question ``is $f(w) \in B$?'' We have $M$, a recognizer for $B$, and we wrap that Turing Machine in another that performs the very steps we just described as needed: transform the input of the question about $A$ into the corresponding question about $B$, and then use the answer to question about $B$ to answer the question about $A$.
+
+
+  \item Let $B =\{\langle M \rangle \mid \textrm{$M$ is a Turing machine that accepts 0 , and that does  not accept 1}\}$. Show that $HALT \le_m B$.
+        \medskip
+
+        \textbf{Answer:}
+
+        What is it we wish to show? We want to show that asking the question whether a Turing Machine halts on any given input (i.e. whether that TM $M \in HALT$) can be reduced to whether a Turing Machine $N$ satisfies the conditions for $B$. That is, since Turing Machines can be encoded as strings so $\langle M \rangle$, we want to answer a similar question to the one in Exercise 1. Here, we ask whether the question of whether a string is in $HALT$ can be reduced to whether a string is in $B$.
+
+        Let there be a language $HALT = \{\langle M, w \rangle \mid \textrm{$M$ is a TM and M halts on input w}\}$. Let $f$ be the reduction from $HALT$ to $B$. As above, we will simulate the running of a Turing Machine to achieve our goal. Let $M$ be a Turing Machine that accepts 0 , and that does not accept 1, as is required for $B$. Now, let there be a TM $N$ that runs as follows:
+
+        $N$ = ``On input $\langle H, w \rangle$:
+        \begin{enumerate}
+          \item Compute $f(\langle H, w \rangle)$
+          \item Run $M$ on input $f(\langle H, w \rangle)$. If $M$ halts, output whatever $M$ outputs. Otherwise loop.''
+        \end{enumerate}
+
+        How does this show that $HALT \le_m B$? $M$ will accept if the output of $f(\langle H, w \rangle)$ is a Turing Machine whose input is 0. $M$ will either reject or loop if the output of $f(\langle H, w \rangle)$ is a Turing Machine with input of 1 or anything else.
+
+        ($\Rightarrow$) That is, if $\langle H, w \rangle \in HALT$, then $f(\langle H, w \rangle) \in B$, because $f(\langle H, w \rangle)$ is a reduction from $HALT$ to $B$ by hypothesis.
+
+        ($\Leftarrow$) On the other hand, if $f(\langle H, w \rangle) \in M$, then $\langle H, w \rangle \in HALT$, because of how $M$ was defined to satisfy the conditions of inclusion in set $B$. That is, because $N$ accepts on $f(\langle H, w \rangle)$ with $w = 0$, but $N$ may loop on $f(\langle H, w \rangle)$ with $w = 1$ or on any other input.
+
+        \medskip
+
+        \textbf{Feedback From Claude.}
+
+        Here is feedback I received from Claude about my writeup:
+
+        \medskip
+
+        \textbf{Summary.} The response to Exercise 2 has a structural confusion: it imports the shape of Exercise 1 into a problem where it doesn't belong. A mapping reduction $HALT \le_m B$ is just a computable function $f$. There is no recognizer or decider to build; your job is to define $f$, not to use it.
+
+        \medskip
+
+        \textbf{Concrete symptoms of the confusion.}
+
+        \begin{itemize}
+          \item The submission says ``Let $M$ be a Turing Machine that accepts $0$ and does not accept $1$, as is required for $B$.'' But $B$ isn't given as a recognizable or decidable language you have access to --- $B$ is just a set of TM encodings, and the problem is asking you to build a function that lands in $B$ exactly when the input is in $HALT$. Picking ``some $M \in B$'' and running it on things doesn't help.
+          \item $f(\langle H, w \rangle)$ is supposed to be a \emph{TM encoding} --- an element of the domain $B$ lives in. So ``run $M$ on input $f(\langle H, w \rangle)$'' is running $M$ on a TM description, which has nothing to do with whether that description is in $B$.
+          \item The constructed TM $N$ does no work for the proof. You don't need to \emph{use} the reduction; you need to \emph{define} it.
+        \end{itemize}
+
+        \medskip
+
+        \textbf{What the problem actually wants.} Define $f$ so that
+        \[
+          \langle H, w \rangle \in HALT \iff f(\langle H, w \rangle) \in B,
+        \]
+        and that's it. Here's the standard construction.
+
+        \medskip
+
+        \textbf{Construction of $f$.} On input $\langle H, w \rangle$, output $\langle M' \rangle$, where $M'$ is the following TM. Note that $f$ is just \emph{writing down the description} of $M'$; it does \emph{not} run $M'$.
+
+        $M'$ = ``On input $x$:
+        \begin{enumerate}
+          \item Simulate $H$ on $w$.
+          \item If the simulation halts: \emph{accept} if $x = 0$, \emph{reject} if $x = 1$ (otherwise reject).''
+        \end{enumerate}
+
+        \medskip
+
+        \textbf{Correctness.}
+
+        \emph{Case $\langle H, w \rangle \in HALT$.} Then $H$ halts on $w$, so step 1 of $M'$ terminates on every input $x$. On $x = 0$, $M'$ accepts; on $x = 1$, $M'$ rejects. So $M'$ accepts $0$ and does not accept $1$, hence $\langle M' \rangle \in B$. \checkmark
+
+        \emph{Case $\langle H, w \rangle \notin HALT$.} Then $H$ loops on $w$, so $M'$ loops in step 1 on every input $x$. In particular $M'$ does not accept $0$, so $\langle M' \rangle \notin B$. \checkmark
+
+        \medskip
+
+        \textbf{$f$ is computable.} Given $\langle H, w \rangle$, we syntactically produce the description of $M'$ by plugging $H$ and $w$ into a fixed template --- no simulation required at reduction time. This is the part that's easy to elide but worth naming: $f$ itself always halts; the looping behavior lives inside $M'$, which $f$ only \emph{describes}.
+
+        \medskip
+
+        \textbf{The pattern to internalize.} The distinction between Exercise 1 and Exercise 2 is the distinction between \emph{using} a reduction and \emph{defining} one. In Exercise 1 you're given $A \le_m B$ (a reduction $f$ exists) plus a machine for $B$, and you're chaining them into a machine for $A$. In Exercise 2 you're given nothing except the definitions of $HALT$ and $B$, and you have to \emph{produce} $f$. The ``simulate the target machine inside a template machine that we emit as a string'' trick is the bread and butter of these reductions --- once you see it, exercises like ``show $HALT \le_m E_{TM}$'' or ``show $A_{TM} \le_m REGULAR_{TM}$'' all have the same flavor: embed the behavior of $H$ on $w$ into a freshly-described machine $M'$ whose relevant language-theoretic property toggles based on whether $H$ halts (or accepts).
+
+  \item Give an example of an undecidable language $B$ with $B \le_m \overline{B}$.
+        \medskip
+
+        \textbf{Answer:}
+
+        My first attempt at answering this question is below. I am not satisfied with it because I think that my argument does not satisfy the biconditional, because the portion of the predicate ``$M$ is not a TM'' may break the needed reduction.
+
+        \[
+          A_{TM} \le_m \overline{A_{TM}}
+        \]
+
+        On page 207, Sipser defines the language $A_{TM}$ as:
+
+        \[
+          A_{TM} = \{\langle M, w \rangle \mid \textbf{$M$ is a TM and $M$ accepts $w$}\}
+        \]
+
+        To negate the predicate used in the set builder notation, we negate the conjunction with De Morgan's law, yielding:
+
+        \[
+          \overline{A_{TM}} = \{\langle M, w \rangle \mid \textbf{$M$ is not a TM or $M$ does not accept $w$}\}
+        \]
+
+        The reduction $f$ transforms $\langle M, w \rangle \in A_{TM}$ into $f(\langle M, w \rangle) \in \overline{A_{TM}}$. The output of $f(\langle M, w \rangle)$ is $M'$, which simulates $M$ on input $w$ but flips its accepting and rejecting states, rejecting when $M$ accepts and accepting when $M$ rejects.
+
+        In my second attempt at this exercise, I thought about considering a language like $REGULAR_{TM}$, which Sipser defines on page 218 as:
+
+        \[
+        REGULAR_{TM} = \{\langle M \rangle \mid \textbf{$M$ is a TM and $L(M)$ is a regular language}\}
+        \]
+
+        According to Rice's Theorem, any nontrivial property of the languages recognized by a Turing Machine is undecidable. This made me suspect that I could use this reduction, $REGULAR_{TM} \le_m NONREGULAR_{TM} = \overline{REGULAR_{TM}}$, or some similar one, but I do not see at present a similar way to get around the problem of the reduction's including non-Turing Machines because of the negation of the original predicate.
+
+\end{enumerate}
+
+\end{document}
