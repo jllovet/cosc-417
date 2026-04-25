@@ -151,7 +151,33 @@ This is unsatisfiable. In the implication graph above, there is a path from $x_1
   \end{tikzpicture}
 \end{center}
 
-TODO: Follow through with algorithm described in paper for satisfiability.
+By the algorithm described in the corollary of Claim 2 in the linked paper by Chaurasia, Lodhi, and Arora, we can show that $\phi_2$ is satisfiable.
+
+Starting from $x_1$, we cannot reach $\overline{x_1}$. Assign $x_1 = T, \overline{x_1} = F$.
+
+From $x_1$, we can reach $x_2$. Assign $x_2 = T$ and assign its negation $\overline{x_2} = F$.
+
+From $x_2$ we can reach $\overline{x_3}$. Assign $\overline{x_3} = T$ and assign its negation $x_3 = F$.
+
+Now we have provided assignments for all the nodes.
+
+The following values satisfy $\phi_2$:
+
+\begin{align*}
+  x_1 &= T & \overline{x_1} = F \\
+  x_2 &= T & \overline{x_2} = F \\
+  x_3 &= F & \overline{x_3} = T \\
+\end{align*}
+
+Substituting into $\phi_2$:
+
+\begin{align*}
+  && \\
+  \phi_2 & = (\overline{x_1} \vee x_2) &&\wedge&& ( x_2  \vee x_3) &&\wedge&&  (\overline{x_3} \vee \overline{x_2}) &&\wedge&& (x_1 \vee \overline{x_3}) &&\wedge&& (x_1 \vee x_3) \\
+  & = (\overline{x_1} \vee T) &&\wedge&& ( T  \vee x_3) &&\wedge&&  (T \vee \overline{x_2}) &&\wedge&& (T \vee \overline{x_3}) &&\wedge&& (T \vee x_3)\\
+  & = (T) &&\wedge&& (T) &&\wedge&&  (T) &&\wedge&& (T) &&\wedge&& (T) \\
+  & = T
+\end{align*}
 
 \bigskip
 
