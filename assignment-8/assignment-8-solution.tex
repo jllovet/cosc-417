@@ -1,5 +1,6 @@
 \documentclass[11pt]{article}
 \usepackage{hyperref}
+\usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{tikz}
 \usetikzlibrary{automata,arrows}
@@ -27,15 +28,49 @@
 
 \textbf{Exercise 1.} (a) Find a satisfying assignment for the following instance of the 3SAT problem:
 \[
-  (x \vee y \vee \overline{z}) \wedge (x \vee \overline{y} \vee z) \wedge (\overline{w}  \vee x \vee \overline{y}) \wedge (\overline{w} \vee \overline{x} \vee z)
+  \phi = (x \vee y \vee \overline{z}) \wedge (x \vee \overline{y} \vee z) \wedge (\overline{w}  \vee x \vee \overline{y}) \wedge (\overline{w} \vee \overline{x} \vee z)
 \]
 
 \textbf{Answer:}
-\medskip
+
+See table below. One solution is to set all four positive literals to true:
+
+\begin{align*}
+  w & = T \\
+  x & = T \\
+  y & = T \\
+  z & = T \\
+\end{align*}
 
 (b) Count the number of satisfying assignments for the boolean formula above.
 
-\textbf{Answer:}
+\begin{center}
+  \begin{tabular}{|c|c|c|c|c|c|c|c|c|}
+    \hline
+    $w$ & $x$ & $y$ & $z$ & $x \vee y \vee \overline{z}$ & $x \vee \overline{y} \vee z$ & $\overline{w}  \vee x \vee \overline{y}$ & $\overline{w} \vee \overline{x} \vee z$ & $\phi$ \\
+    \hline
+    T   & T   & T   & T   & T                            & T                            & T                                        & T                                       & T      \\
+    T   & T   & T   & F   & T                            & T                            & T                                        & F                                       & .      \\
+    T   & T   & F   & T   & T                            & T                            & T                                        & T                                       & T      \\
+    T   & T   & F   & F   & T                            & T                            & T                                        & F                                       & .      \\
+    T   & F   & T   & T   & T                            & T                            & F                                        & T                                       & .      \\
+    T   & F   & T   & F   & T                            & F                            & F                                        & T                                       & .      \\
+    T   & F   & F   & T   & F                            & T                            & T                                        & T                                       & .      \\
+    T   & F   & F   & F   & T                            & T                            & T                                        & T                                       & T      \\
+    --- & --- & --- & --- & ---                          & ---                          & ---                                      & ---                                     & ---    \\
+    F   & T   & T   & T   & T                            & T                            & T                                        & T                                       & T      \\
+    F   & T   & T   & F   & T                            & T                            & T                                        & T                                       & T      \\
+    F   & T   & F   & T   & T                            & T                            & T                                        & T                                       & T      \\
+    F   & T   & F   & F   & T                            & T                            & T                                        & T                                       & T      \\
+    F   & F   & T   & T   & T                            & T                            & T                                        & T                                       & T      \\
+    F   & F   & T   & F   & T                            & F                            & T                                        & T                                       & .      \\
+    F   & F   & F   & T   & F                            & T                            & T                                        & T                                       & .      \\
+    F   & F   & F   & F   & T                            & T                            & T                                        & T                                       & T      \\
+    \hline
+  \end{tabular}
+\end{center}
+
+\textbf{Answer:} 9
 \bigskip
 
 \textbf{Exercise 2.}  Use the algorithm for 2SAT described in Notes 12 (you can also read it  at \url{https://www.iitg.ac.in/deepkesh/CS301/assignment-2/2sat.pdf})    to determine if the following  two instances are satisfiable or not:
