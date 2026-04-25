@@ -1,0 +1,121 @@
+\documentclass[11pt]{article}
+\usepackage{hyperref}
+\usepackage{amssymb}
+\usepackage{tikz}
+\usetikzlibrary{automata,arrows}
+\setlength{\oddsidemargin}{-0.5in}
+\setlength{\evensidemargin}{\oddsidemargin}
+\setlength{\textwidth}{7.0in}
+\setlength{\textheight}{8.3in}
+\setlength{\topmargin}{-0.7in}
+%\input{macros.tex}
+\begin{document}
+
+\fbox{
+  \vbox{
+    \begin{flushleft}
+      Jonathan Llovet \\  % authors' names
+      COSC 417 \\  %class
+      2026-04-27\\  % date
+    \end{flushleft}
+    \center{\Large{\textbf{Assignment 8}}}
+  } % end vbox
+} % end fbox
+\vline
+
+\medskip
+
+\textbf{Exercise 1.} (a) Find a satisfying assignment for the following instance of the 3SAT problem:
+\[
+  (x \vee y \vee \overline{z}) \wedge (x \vee \overline{y} \vee z) \wedge (\overline{w}  \vee x \vee \overline{y}) \wedge (\overline{w} \vee \overline{x} \vee z)
+\]
+
+\textbf{Answer:}
+\medskip
+
+(b) Count the number of satisfying assignments for the boolean formula above.
+
+\textbf{Answer:}
+\bigskip
+
+\textbf{Exercise 2.}  Use the algorithm for 2SAT described in Notes 12 (you can also read it  at \url{https://www.iitg.ac.in/deepkesh/CS301/assignment-2/2sat.pdf})    to determine if the following  two instances are satisfiable or not:
+
+\[
+  \phi_1 = (\overline{x_1} \vee x_2) \wedge   (\overline{x_2}  \vee x_3) \wedge  (\overline{x_3} \vee \overline{x_2}) \wedge  (x_1 \vee \overline{x_3}) \wedge  (x_1 \vee x_3)
+\]
+
+\[
+  \phi_2 = (\overline{x_1} \vee x_2) \wedge   ( x_2  \vee x_3) \wedge  (\overline{x_3} \vee \overline{x_2}) \wedge  (x_1 \vee \overline{x_3}) \wedge  (x_1 \vee x_3)
+\]
+
+
+You need to draw the graphs corresponding to the two formulas and explain how you draw your conclusion.
+
+\textbf{Answer:}
+\bigskip
+
+\textbf{Exercise 3.} The  SET COVER problem is
+
+\emph{Input:} Subsets $C_1,  C_2, \ldots, C_n$ of the set $U= \{1,2, \ldots, m\}$ and $k \in \mathbb{N}$.
+
+\emph{Question:} Is it possible to choose $k$ subsets from  $C_1,  C_2, \ldots, C_n$  so that their union is $U$?
+\smallskip
+
+In this exercise you'll prove that SET COVER is NP complete by doing the following two steps (note that VERTEX COVER was shown in class to be NP complete.)
+\medskip
+
+(a) Show that SET COVER is in NP. You need to present a Verifier algorithm and what is a certificate.
+
+(b) Show that VERTEX COVER $\leq_p$ SET COVER.
+\medskip
+
+Note: VERTEX COVER is defined in Notes 13 and in the textbook at page 312. Illustrate your reduction by presenting the instance of SET COVER produced when you transform the following graph with your reduction.
+\medskip
+
+\quad \quad \quad\quad\begin{tikzpicture}[>=stealth',shorten >=1pt,auto,node distance=2.0cm,scale=0.2][h]
+  %\begin{tikzpicture}[shorten >=1pt,auto,node distance=2.8cm]][h]
+  \node[state] (0) {$0$};
+  \node[state] (1) [right of =0] {$1$};
+  \node[state] (2) [right of=1] {$2$};
+  \node[state] (3) [below of =0] {$3$};
+  \node[state] (4) [right of =3] {$4$};
+  \node[state] (5) [right of =4] {$5$};
+  \
+
+
+  \path[-]
+  (0) edge  (1)
+  (1) edge  (2)
+  (0)   edge (3)
+  (3) edge (4)
+  (4) edge (5)
+  (1) edge (4)
+  (2) edge (5)
+  (1) edge (3)
+  (1) edge (5)
+  ;
+
+\end{tikzpicture}
+
+\textbf{Answer:}
+\bigskip
+
+\emph{Exercise 4.} (This is Ex. 7.22, page 324 in the textbook.) Let
+\smallskip
+
+\quad \quad DOUBLE-SAT = $\{\phi \mid \phi \textrm{ is a boolean formula with at least two assignments } \}$.
+\smallskip
+
+Prove that DOUBLE-SAT is NP complete.   To prove this you need to do the following two steps.
+\smallskip
+
+(a) Show that DOUBLE-SAT is in NP by describing the Verifier algorithm and what is a certificate.
+\smallskip
+
+(b) Show a reduction SAT $\leq_p$ DOUBLE-SAT. The reduction is very simple, you can do the transformation $\phi \mapsto \phi'$ by letting $\phi'$ be $\phi$ to which you add a single clause (that you have to imagine). So $\phi' = \phi \wedge C$. You need to come up with a clause $C$ so that $\phi$ has a satisfying assignment if and only if $\phi'$ has at least two satisfying assignments.
+
+\textbf{Answer:}
+
+
+
+\end{document}
