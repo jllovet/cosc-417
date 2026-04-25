@@ -75,18 +75,84 @@ See table below. One solution is to set all four positive literals to true:
 
 \textbf{Exercise 2.}  Use the algorithm for 2SAT described in Notes 12 (you can also read it  at \url{https://www.iitg.ac.in/deepkesh/CS301/assignment-2/2sat.pdf})    to determine if the following  two instances are satisfiable or not:
 
+You need to draw the graphs corresponding to the two formulas and explain how you draw your conclusion.
+
 \[
   \phi_1 = (\overline{x_1} \vee x_2) \wedge   (\overline{x_2}  \vee x_3) \wedge  (\overline{x_3} \vee \overline{x_2}) \wedge  (x_1 \vee \overline{x_3}) \wedge  (x_1 \vee x_3)
 \]
+
+\textbf{Answer:}
+
+\begin{center}
+  \begin{tikzpicture}[>=stealth',shorten >=1pt,auto,node distance=2.8cm]
+    \node[state] (x_1)              {$x_1$};
+    \node[state] (x_2) [right of=x_1] {$x_2$};
+    \node[state] (x_3) [right of=x_2] {$x_3$};
+    \node[state] (nx_1) [below of=x_1] {$\overline{x_1}$};
+    \node[state] (nx_2) [below of=x_2] {$\overline{x_2}$};
+    \node[state] (nx_3) [below of=x_3] {$\overline{x_3}$};
+
+    \path[->]
+
+    % (\overline{x_1} \vee x_2)
+    (x_1) edge (x_2)
+    (nx_2) edge (nx_1)
+    % (\overline{x_2}  \vee x_3)
+    (x_2) edge (x_3)
+    (nx_3) edge (nx_2)
+    % (\overline{x_3} \vee \overline{x_2})
+    (x_3) edge (nx_2)
+    (x_2) edge (nx_3)
+    % (x_1 \vee \overline{x_3})
+    (nx_1) edge [bend right] (nx_3)
+    (x_3) edge [bend right] (x_1)
+    % (x_1 \vee x_3)
+    (nx_1) edge (x_3)
+    (nx_3) edge (x_1)
+    ;
+  \end{tikzpicture}
+\end{center}
+
+This is unsatisfiable. In the implication graph above, there is a path from $x_1$ to $\overline{x_1}$ and from $\overline{x_1}$ to $x_1$, which implies that the formula is not satisfiable by Claim 2 in the linked paper.
 
 \[
   \phi_2 = (\overline{x_1} \vee x_2) \wedge   ( x_2  \vee x_3) \wedge  (\overline{x_3} \vee \overline{x_2}) \wedge  (x_1 \vee \overline{x_3}) \wedge  (x_1 \vee x_3)
 \]
 
-
-You need to draw the graphs corresponding to the two formulas and explain how you draw your conclusion.
-
 \textbf{Answer:}
+\begin{center}
+  \begin{tikzpicture}[>=stealth',shorten >=1pt,auto,node distance=2.8cm]
+    \node[state] (x_1)              {$x_1$};
+    \node[state] (x_2) [right of=x_1] {$x_2$};
+    \node[state] (x_3) [right of=x_2] {$x_3$};
+    \node[state] (nx_1) [below of=x_1] {$\overline{x_1}$};
+    \node[state] (nx_2) [below of=x_2] {$\overline{x_2}$};
+    \node[state] (nx_3) [below of=x_3] {$\overline{x_3}$};
+
+    \path[->]
+
+    % (\overline{x_1} \vee x_2)
+    (x_1) edge (x_2)
+    (nx_2) edge (nx_1)
+    % ( x_2  \vee x_3)
+    (nx_2) edge (x_3)
+    (nx_3) edge (x_2)
+    % (\overline{x_3} \vee \overline{x_2})
+    (x_3) edge (nx_2)
+    (x_2) edge (nx_3)
+    % (x_1 \vee \overline{x_3})
+    (nx_1) edge [bend right] (nx_3)
+    (x_3) edge [bend right] (x_1)
+    % (x_1 \vee x_3)
+    (nx_1) edge (x_3)
+    (nx_3) edge (x_1)
+
+    ;
+  \end{tikzpicture}
+\end{center}
+
+TODO: Follow through with algorithm described in paper for satisfiability.
+
 \bigskip
 
 \textbf{Exercise 3.} The  SET COVER problem is
