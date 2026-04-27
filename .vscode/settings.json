@@ -1,6 +1,7 @@
 {
   "java.project.referencedLibraries": [
-    "assignment-5-programming-assignment-1/lib/**/*.jar"
+    "assignment-5-programming-assignment-1/lib/**/*.jar",
+    "programming-task-2/lib/**/*.jar"
   ],
   // LaTeX Workshop configuration for Docker builds
   "latex-workshop.docker.enabled": true,
