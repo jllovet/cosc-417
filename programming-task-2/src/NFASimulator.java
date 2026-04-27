@@ -15,7 +15,7 @@ public class NFASimulator {
     public NFASimulator(String path) {
         acceptingStates = new HashSet<>();
         transitions = new HashMap<>();
-        if (path != "" && path != null) {
+        if (path != null && !path.isEmpty()) {
             try {
                 buildNFAFromFile(path);
             } catch (Exception e) {
