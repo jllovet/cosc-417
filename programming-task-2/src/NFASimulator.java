@@ -68,8 +68,8 @@ public class NFASimulator {
         }
 
         // line 1: accepting states
-        String[] acceptingStates = lines.get(1).split(" ");
-        for (String state : acceptingStates) {
+        String[] accepting = lines.get(1).split(" ");
+        for (String state : accepting) {
             try {
                 int s = Integer.parseInt(state.trim());
                 addAcceptingState(s);
