@@ -225,6 +225,88 @@ Note: VERTEX COVER is defined in Notes 13 and in the textbook at page 312. Illus
 \end{tikzpicture}
 
 \textbf{Answer:}
+
+We wish to show that SET COVER is NP Complete.
+
+\emph{Step 1:} First, we will show that SET COVER is in NP.
+
+To show this, we need a certificate $c$ and a verifier algorithm $V$ that runs in polynomial time. Let there be a certificate $c$, which is a candidate solution to the SET COVER problem: i.e. a set of $k$ subsets from $C = \{C_1, C_2, \ldots, C_n\}$, where \[\bigcup\limits_{i=1}^{n}C_i = U\].
+
+How can we validate that certificate $c$ is actually in SET COVER in polynomial time? Consider the following: Each subset $C_i$ has at most $m$ elements, where $m = |U|$. Naively checking whether an object is an element of a set takes $O(m)$ where $m$ is the size of the set. If we have a set D that is used as an intermediate aggregator for our union, then it will take us $O(mn)$ steps to find their union, because we will have to iterate over all of the $k$ subsets of $C$ and check whether each of their $m$ elements is an element of $D$ already or not. Why $O(mn)$? Because $k \le n$, and because $D$ may have up to $m$ elements. So, in each union operation, we have to compare up to $n$ elements against up to $m$ elements. This reduces to $O(m)$.
+
+Now sort the sets $U$ and $D$. This will take $O(m \log m)$ steps, where $m$ is the size of $U$. Compare the elements of $U$ and $D$ pairwise. This requires $O(m)$ steps, because we must check each pair of elements against each other. If there are any mismatches, reject. If all of the pairs match, accept.
+
+The steps of this algorithm taken together require $O(m) + O(m \log m) + O(m)$ steps. But for large enough input $O(m \log m)$ dominates. Therefore, the time required for this algorithm is $O(m \log m)$, which is in polynomial time.
+
+Therefore, SET COVER $\in$ NP, because given a certificate $c$, there is an algorithm $V$ that validates $c$ in polynomial time.
+
+\medskip
+
+\emph{Step 2:} Second, we will show that VERTEX COVER $\le_p$ SET COVER.
+
+Why will we do this? VERTEX COVER is shown elsewhere to be NP Complete. If VERTEX COVER $\le_p$ SET COVER, then SET COVER is also NP Complete.
+
+VERTEX COVER is defined as follows:
+Given a graph $G = (V, E)$, a vertex cover in $G$ is a subset $V' \subseteq V$ such that for all $(u,w) \in E$, $u \in V'$ or $w \in V'$. In other words, every edge is incident on a vertex in V' or V' touches every edge. Put in terms of a decision problem:
+
+\[
+VC = \{\langle G, k\rangle : G \text{ has a VC of size } \le k \} 
+\]
+
+To reduce VERTEX COVER to SET COVER, consider the following. $V'$ touches every edge in $E$. So, we will exploit that characteristic of VERTEX COVER to represent the behavior of SET COVER. We will create a correspondence between the vertices under consideration in SET COVER and specially constructed edges contrived to satisfy VERTEX COVER. Ultimately, one of our specially constructed edges for VERTEX COVER will be drawn iff the corresponding element of the set is an element in $U$ for SET COVER.
+
+Let the graph given in the prompt be called $G$.
+
+\medskip
+
+\begin{tikzpicture}[>=stealth',shorten >=1pt,auto,node distance=2.0cm,scale=0.2][h]
+  % V_b row (top) — corresponding to V_a nodes 0, 1, 2
+  \node[state] (b0) {$0_b$};
+  \node[state] (b1) [right of=b0] {$1_b$};
+  \node[state] (b2) [right of=b1] {$2_b$};
+
+  % V_a row 1 — original nodes 0, 1, 2
+  \node[state] (0) [below of=b0] {$0_a$};
+  \node[state] (1) [right of=0] {$1_a$};
+  \node[state] (2) [right of=1] {$2_a$};
+
+  % V_a row 2 — original nodes 3, 4, 5
+  \node[state] (3) [below of=0] {$3_a$};
+  \node[state] (4) [right of=3] {$4_a$};
+  \node[state] (5) [right of=4] {$5_a$};
+
+  % V_b row (bottom) — corresponding to V_a nodes 3, 4, 5
+  \node[state] (b3) [below of=3] {$3_b$};
+  \node[state] (b4) [right of=b3] {$4_b$};
+  \node[state] (b5) [right of=b4] {$5_b$};
+
+  % Original edges in G
+  \path[-]
+  (0) edge (1)
+  (1) edge (2)
+  (0) edge (3)
+  (3) edge (4)
+  (4) edge (5)
+  (1) edge (4)
+  (2) edge (5)
+  (1) edge (3)
+  (1) edge (5)
+  ;
+
+  % Special edges: V_a^i — V_b^i (drawn iff V_i in D)
+  \path[-,dashed]
+  (0) edge node[left] {$e_0$} (b0)
+  (1) edge node[left] {$e_1$} (b1)
+  (2) edge node[left] {$e_2$} (b2)
+  (3) edge node[left] {$e_3$} (b3)
+  (4) edge node[left] {$e_4$} (b4)
+  (5) edge node[left] {$e_5$} (b5)
+  ;
+
+\end{tikzpicture}
+
+For each vertex $V_a \in G$, let there be a corresponding vertex $V_b$ be created. This will double the number of vertices in the graph. Now, to map VERTEX COVER to SET COVER, we add the constraint that the edge $V_{a^i}, V_{b^i}$ should be drawn iff $V_i \in D$ for the construction described for SET COVER above. Completing this for each of the nodes in the graph $G$, there will be a VC of size $k$, where $k$ is the number of elements of $U$ iff there is also a SET COVER.
+
 \bigskip
 
 \emph{Exercise 4.} (This is Ex. 7.22, page 324 in the textbook.) Let
